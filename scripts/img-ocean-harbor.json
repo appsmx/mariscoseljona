@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "query": "fishing boats harbor sunset pacific",
+  "count": 2,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/198b130d5c30.jpg",
+      "caption": "A vibrant sunset over a marina with boats and palm trees reflected on the water. suitable for background image",
+      "source": "Tripadvisor",
+      "original_width": "1200px",
+      "original_height": "1200px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/dbc81f24f53e.jpg",
+      "caption": "A scenic waterfront marina at sunset with docked boats, a bustling restaurant patio, and a colorful sky. suitable for background image",
+      "source": "Galati Yacht Sales",
+      "original_width": "2560px",
+      "original_height": "1920px"
+    }
+  ]
+}

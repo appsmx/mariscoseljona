@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "query": "raw whole octopus fresh seafood market no text",
+  "count": 3,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d59b02deb53e.jpg",
+      "caption": "Hands preparing a fresh octopus on a wooden cutting board. suitable for background image",
+      "source": "Italian recipes by GialloZafferano",
+      "original_width": "1200px",
+      "original_height": "800px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8cd202a94cd7.jpg",
+      "caption": "A hand holds a container of baby octopus in a supermarket freezer. Text: VP, COOKING TIPS, FROZEN SEAFOOD.",
+      "source": "Reddit",
+      "original_width": "3024px",
+      "original_height": "4032px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3c4315c890f8.jpeg",
+      "caption": "A close-up of fresh, raw squids with speckled skin and large eyes, suitable for background image.",
+      "source": "H&H Fresh Fish",
+      "original_width": "1537px",
+      "original_height": "2049px"
+    }
+  ]
+}

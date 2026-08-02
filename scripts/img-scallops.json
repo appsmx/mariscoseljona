@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "query": "fresh scallops on ice seafood market close up",
+  "count": 3,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7200e33ccee3.jpg",
+      "caption": "The image contains watermarks. It shows fresh scallops, some open to reveal the meat and roe.",
+      "source": "123RF",
+      "original_width": "1300px",
+      "original_height": "850px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/ec9fd3234ed0.png",
+      "caption": "A pile of fresh, raw scallops on a white background. suitable for background image",
+      "source": "Oceanside Seafood",
+      "original_width": "1254px",
+      "original_height": "1254px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8ad617fdb5f6.jpg",
+      "caption": "A metal container filled with fresh scallops sits on ice next to two sea urchins. suitable for background image",
+      "source": "SoPo Seafood",
+      "original_width": "1214px",
+      "original_height": "1214px"
+    }
+  ]
+}

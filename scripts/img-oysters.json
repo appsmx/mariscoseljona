@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "query": "fresh raw oysters on ice half shell",
+  "count": 2,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/670e74545aac.jpg",
+      "caption": "Fresh oysters on a metal baking tray, suitable for background image.",
+      "source": "Garlic & Zest",
+      "original_width": "1200px",
+      "original_height": "960px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1ffc968d6401.jpg",
+      "caption": "Fresh oysters on ice with lemon slices, featuring \"alamy\" watermarks and text.",
+      "source": "Alamy",
+      "original_width": "1300px",
+      "original_height": "956px"
+    }
+  ]
+}

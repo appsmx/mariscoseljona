@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "query": "fresh shrimp on ice seafood market",
+  "count": 3,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/625e4150e5c5.jpeg",
+      "caption": "A close-up of fresh, raw shrimp on ice, showing detailed textures and colors. suitable for background image",
+      "source": "Pexels",
+      "original_width": "10000px",
+      "original_height": "7500px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7e5a94b57e1b.jpg",
+      "caption": "A metal tray filled with fresh, raw shrimp. suitable for background image",
+      "source": "TheCurrentGA.org.",
+      "original_width": "2000px",
+      "original_height": "1500px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/18a291260b8e.jpg",
+      "caption": "Fresh shrimp on ice in a market with watermarks and text: \"alamy Image ID: 3EM37M9 www.alamy.com\".",
+      "source": "Alamy",
+      "original_width": "1300px",
+      "original_height": "956px"
+    }
+  ]
+}

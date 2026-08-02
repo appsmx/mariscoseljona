@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="24" fill="url(#bg1)"/>
+  <circle cx="60" cy="60" r="38" fill="none" stroke="#fef3c7" stroke-width="2.5" opacity="0.4"/>
+  <path d="M28 64c0-12 9-22 21-22 6 0 12 3 16 7 2-7 8-12 15-12 2 0 3 0 5 2-5 2-8 6-8 12 0 0 7-3 12-2-3 7-10 10-16 10-3 0-5 0-7-2-2 7-8 12-15 12-12 0-23-2-23-7z" fill="#fef3c7"/>
+  <circle cx="40" cy="56" r="2.5" fill="#0d9488"/>
+  <text x="60" y="108" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#fef3c7">EL JONA 1</text>
+</svg>

@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "query": "fresh raw octopus tentacles on ice seafood",
+  "count": 2,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e1b7c069273b.jpeg",
+      "caption": "A clear glass filled with ice, octopus tentacles, a lime slice, and a straw. suitable for background image",
+      "source": "Pexels",
+      "original_width": "6144px",
+      "original_height": "8192px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a2e81f975542.jpg",
+      "caption": "A high-clarity overhead shot of a gourmet octopus dish with green vegetables and sauce on a dark plate. suitable for background image",
+      "source": "Costco Wholesale",
+      "original_width": "1200px",
+      "original_height": "1200px"
+    }
+  ]
+}

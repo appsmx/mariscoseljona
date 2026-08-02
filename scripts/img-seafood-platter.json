@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "query": "mexican seafood platter assorted fresh",
+  "count": 2,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3a02cf2cdb77.jpg",
+      "caption": "A platter of fried sushi rolls and ceviche with avocado, sesame seeds, and dipping sauce. suitable for background image",
+      "source": "Yelp",
+      "original_width": "1000px",
+      "original_height": "1000px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/250e30c16398.jpg",
+      "caption": "A vibrant Mexican-inspired relish tray with jicama, shrimp, and vegetables. Text: Mexican-Inspired Relish Tray @holajalapeno. Suitable for background image.",
+      "source": "Hola Jalapeno",
+      "original_width": "1280px",
+      "original_height": "720px"
+    }
+  ]
+}

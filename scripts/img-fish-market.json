@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "query": "fresh fish variety on ice market stall display",
+  "count": 2,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e0715c71d133.jpg",
+      "caption": "A display of fresh seafood on ice, including salmon, mackerel, and mussels, with price tags and watermarks.",
+      "source": "Dreamstime.com",
+      "original_width": "1600px",
+      "original_height": "1290px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a740729d19eb.jpg",
+      "caption": "Workers handle large fish at a seafood market. Text: \"T | Published 2024\", \"FRESH SEAFOOD\", \"PERISH RUSH\".",
+      "source": "The New York Times",
+      "original_width": "3000px",
+      "original_height": "1687px"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "query": "fresh squid calamar on ice market",
+  "count": 2,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/18fd59fd6cf5.jpg",
+      "caption": "Fresh squids with red spots are displayed on ice, featuring watermarks and text at the bottom.",
+      "source": "Dreamstime.com",
+      "original_width": "1200px",
+      "original_height": "1690px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3c4315c890f8.jpeg",
+      "caption": "A close-up of fresh, raw squids with speckled skin and large eyes, suitable for background image.",
+      "source": "H&H Fresh Fish",
+      "original_width": "1537px",
+      "original_height": "2049px"
+    }
+  ]
+}

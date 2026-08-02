@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "query": "refrigerated delivery truck seafood fresh cold chain",
+  "count": 3,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/ebdda36ad3a0.png",
+      "caption": "A white refrigerated van with \"C车藏冷\" text is parked in front of a warehouse. suitable for background image",
+      "source": "Alibaba.com",
+      "original_width": "1024px",
+      "original_height": "1024px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/41c1d1eab485.png",
+      "caption": "A white refrigerated van is parked in front of a seafood cold storage facility with crates of frozen goods. Text: Seafood Cold Storage, C字制冷, TOANO. suitable for background image",
+      "source": "Alibaba.com",
+      "original_width": "1024px",
+      "original_height": "1024px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/93a1f94f4724.png",
+      "caption": "A white TOANO van is parked in a cold storage warehouse with workers in blue uniforms moving goods. suitable for background image",
+      "source": "Alibaba.com",
+      "original_width": "1024px",
+      "original_height": "1024px"
+    }
+  ]
+}
