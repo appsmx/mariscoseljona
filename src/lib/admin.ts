@@ -13,9 +13,20 @@ export async function getAdminSession() {
 /**
  * Verifica que el usuario esté autenticado y sea ADMIN o EDITOR.
  * Devuelve { session, error } donde error es un NextResponse 401/403 si no pasa.
+ * Maneja gracefully errores de desencriptación de cookies corruptas.
  */
 export async function requireAdmin() {
-  const session = await getServerSession(authOptions);
+  let session = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (e) {
+    // Si la cookie está corrupta (JWEDecryptionFailed), tratar como no autenticado
+    console.error("Error obteniendo sesión en requireAdmin:", e);
+    return {
+      session: null,
+      error: NextResponse.json({ error: "No autenticado" }, { status: 401 }),
+    };
+  }
   if (!session?.user) {
     return {
       session: null,

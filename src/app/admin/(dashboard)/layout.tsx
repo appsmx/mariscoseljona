@@ -9,9 +9,17 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  let session = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (e) {
+    // Si getServerSession falla (ej. cookies corruptas en dominio de preview),
+    // redirigir al login en lugar de tirar error 500
+    console.error("Error obteniendo sesión:", e);
+    redirect("/admin/login");
+  }
 
-  // Si no hay sesión y no estamos en /admin/login, redirigir al login
+  // Si no hay sesión, redirigir al login
   if (!session?.user) {
     redirect("/admin/login");
   }

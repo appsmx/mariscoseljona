@@ -5,7 +5,15 @@ import { AdminProviders } from "@/components/admin/AdminProviders";
 import LoginForm from "./LoginForm";
 
 export default async function LoginPage() {
-  const session = await getServerSession(authOptions);
+  let session = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (e) {
+    // Si la cookie de sesión está corrupta (JWEDecryptionFailed),
+    // ignorar y mostrar el login normalmente
+    console.error("Error obteniendo sesión en login:", e);
+  }
+
   if (session?.user) redirect("/admin");
 
   return (

@@ -1,11 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { ShoppingCart, Phone, MessageCircle, Calendar, Filter, X } from "lucide-react";
+import { ShoppingCart, Phone, MessageCircle, Calendar, Filter, X, Search, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -68,7 +69,10 @@ export default function AdminOrders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [selected, setSelected] = useState<Order | null>(null);
+  const pageSize = 10;
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -93,6 +97,56 @@ export default function AdminOrders() {
     return () => { cancelled = true; };
   }, [statusFilter]);
 
+  // Filtrado por búsqueda (código, nombre, teléfono)
+  const filtered = orders.filter((o) => {
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      o.code.toLowerCase().includes(q) ||
+      o.customerName.toLowerCase().includes(q) ||
+      o.customerPhone.toLowerCase().includes(q)
+    );
+  });
+
+  // Paginación
+  const totalPages = Math.ceil(filtered.length / pageSize);
+  const paginatedOrders = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+  // Reset página cuando cambia el filtro o búsqueda
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      await Promise.resolve();
+      if (!cancelled) setCurrentPage(1);
+    })();
+    return () => { cancelled = true; };
+  }, [statusFilter, search]);
+
+  // Exportar a CSV
+  const exportCSV = () => {
+    const headers = ["Código", "Cliente", "Teléfono", "Canal", "Estado", "Total", "Fecha"];
+    const rows = filtered.map((o) => [
+      o.code,
+      o.customerName,
+      o.customerPhone,
+      o.channel === "MAYOREO" ? "Mayoreo" : "Menudeo",
+      statusConfig[o.status]?.label || o.status,
+      o.total,
+      new Date(o.createdAt).toLocaleString("es-MX"),
+    ]);
+    const csv = [headers, ...rows]
+      .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `pedidos-mariscos-el-jona-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    toast.success(`Se exportaron ${filtered.length} pedidos`);
+  };
+
   const updateStatus = async (order: Order, newStatus: string) => {
     const res = await fetch(`/api/admin/orders/${order.id}`, {
       method: "PUT",
@@ -116,14 +170,24 @@ export default function AdminOrders() {
         <div>
           <h1 className="font-display text-3xl font-bold text-foreground">Pedidos</h1>
           <p className="text-muted-foreground mt-1">
-            {orders.length} {orders.length === 1 ? "pedido" : "pedidos"}
+            {filtered.length} {filtered.length === 1 ? "pedido" : "pedidos"}
             {statusFilter !== "all" && ` · filtrado por ${statusConfig[statusFilter]?.label}`}
+            {search && ` · búsqueda: "${search}"`}
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Filter className="h-4 w-4 text-muted-foreground" />
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Buscar por código, nombre o teléfono..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9 w-64"
+            />
+          </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-48">
+              <Filter className="h-3.5 w-3.5 mr-1" />
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -135,6 +199,10 @@ export default function AdminOrders() {
               ))}
             </SelectContent>
           </Select>
+          <Button variant="outline" size="sm" onClick={exportCSV} disabled={filtered.length === 0}>
+            <Download className="h-3.5 w-3.5" />
+            CSV
+          </Button>
         </div>
       </div>
 
@@ -144,12 +212,13 @@ export default function AdminOrders() {
             <Skeleton key={i} className="h-32" />
           ))}
         </div>
-      ) : orders.length === 0 ? (
+      ) : filtered.length === 0 ? (
         <Card>
           <CardContent className="py-16 text-center">
             <ShoppingCart className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
             <p className="text-muted-foreground">
-              No hay pedidos {statusFilter !== "all" && "con este estado"}.
+              No hay pedidos {statusFilter !== "all" && "con este estado"}
+              {search && " que coincidan con tu búsqueda"}.
             </p>
             <p className="text-xs text-muted-foreground mt-2">
               Cuando un cliente cotice desde la web, aparecerá aquí automáticamente.
@@ -157,8 +226,9 @@ export default function AdminOrders() {
           </CardContent>
         </Card>
       ) : (
+        <>
         <div className="space-y-3">
-          {orders.map((o) => {
+          {paginatedOrders.map((o) => {
             const cfg = statusConfig[o.status] || statusConfig.NUEVO;
             return (
               <Card
@@ -227,6 +297,39 @@ export default function AdminOrders() {
             );
           })}
         </div>
+
+        {/* Paginación */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between pt-4">
+            <p className="text-xs text-muted-foreground">
+              Página {currentPage} de {totalPages} · {filtered.length} pedidos total
+            </p>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+              >
+                <ChevronLeft className="h-3.5 w-3.5" />
+                Anterior
+              </Button>
+              <span className="text-sm font-medium px-2">
+                {currentPage} / {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+              >
+                Siguiente
+                <ChevronRight className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          </div>
+        )}
+        </>
       )}
 
       {/* Modal de detalle */}

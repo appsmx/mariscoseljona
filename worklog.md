@@ -284,3 +284,72 @@ Beneficios de negocio:
 - Prompt engineering especializado en mariscos y tono sinaloense
 - Manejo de errores robusto con fallback a WhatsApp
 - Pendiente: WhatsApp Business API oficial (requiere cuenta Meta verificada del cliente — se gestiona aparte)
+
+---
+
+## Task ID: 4 (Fase 4 — Pulido final + SEO + PWA)
+
+**Agente**: Super Z (main)
+**Task**: Pulido final: SEO técnico, PWA, paginación/buscador en pedidos, export CSV, páginas de error, y arreglar el bug de login en dominios de preview.
+
+### Work Log:
+- **Bug crítico arreglado**: Login del panel admin fallaba en dominios de preview con error JWEDecryptionFailed
+  - Causa: NEXTAUTH_SECRET con formato base64 causaba problemas de encriptación
+  - Solución: Regenerado secret en formato hex limpio (openssl rand -hex 32)
+  - Adicional: Agregado try-catch en todos los getServerSession (layout admin, login page, requireAdmin) para manejar gracefully cookies corruptas
+  - Simplificada configuración de cookies (quitadas las custom, usando defaults de NextAuth con trustHost: true)
+
+- **SEO técnico implementado**:
+  - robots.ts: permite / , bloquea /admin y /api/admin, referencia sitemap
+  - sitemap.ts: 7 URLs con prioridades y frecuencias de cambio
+  - OrganizationSchema (JSON-LD): LocalBusiness con nombre, dirección, geo, horarios, área servida, redes, rating
+  - FaqSchema (JSON-LD): FAQPage con las 5 preguntas frecuentes
+  - Open Graph completo: title, description, image 1200x630, locale es_MX
+  - Twitter Card: summary_large_image
+  - Metadata category: food
+  - Viewport con themeColor #0d9488
+  - Eliminado robots.txt estático conflictivo de public/
+
+- **PWA básico**:
+  - manifest.json con name, short_name, description, icons, shortcuts, theme_color, background_color
+  - Instalable como app en móvil
+  - Shortcuts: "Ver catálogo" y "Cotizar por WhatsApp"
+
+- **Página 404 personalizada** (not-found.tsx):
+  - Diseño on-brand con gradiente océano
+  - Mensaje "Esta página se fue al mar"
+  - CTAs: Volver al inicio + WhatsApp
+
+- **Error boundary** (error.tsx):
+  - Página de error genérica con botones "Intentar de nuevo" y "Volver al inicio"
+  - Muestra código de error (digest) para debugging
+
+- **Panel admin - Pedidos mejorado**:
+  - Buscador en tiempo real (por código MEJ-2026-0001, nombre de cliente o teléfono)
+  - Paginación (10 pedidos por página) con botones Anterior/Siguiente
+  - Exportar a CSV con BOM UTF-8 (compatible Excel) — incluye código, cliente, teléfono, canal, estado, total, fecha
+  - Contador dinámico: muestra cantidad filtrada + filtro activo + término de búsqueda
+  - Estado vacío contextual: diferente mensaje si no hay pedidos vs si la búsqueda no coincide
+
+- **data-scroll-behavior="smooth"** agregado al html para evitar warning de Next.js sobre scroll behavior en route transitions
+
+- Verificado end-to-end con Agent Browser:
+  - Sitio público carga con 2 schemas JSON-LD inyectados (LocalBusiness + FAQPage)
+  - Manifest linkeado correctamente
+  - Theme color presente
+  - Sitemap.xml sirve 7 URLs
+  - Robots.txt sirve correctamente (después de eliminar el conflictivo)
+  - 404 page renderiza con diseño on-brand
+  - Login admin funciona con cookies limpias
+  - Panel /admin/pedidos muestra buscador + botón CSV
+  - Lint limpio, sin errores en consola
+
+### Stage Summary:
+- Fase 4 completada y verificada
+- Bug crítico de login arreglado (era el NEXTAUTH_SECRET)
+- SEO técnico completo: schema.org + sitemap + robots + Open Graph
+- PWA instalable
+- Páginas de error (404 y genérica) personalizadas
+- Panel de pedidos con buscador, paginación y export CSV
+- Proyecto listo para las 4 fases completas
+- Pendiente: deployment a producción con dominio real del cliente

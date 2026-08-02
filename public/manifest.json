@@ -1,0 +1,32 @@
+{
+  "name": "Mariscos El Jona",
+  "short_name": "El Jona",
+  "description": "Pescados y mariscos frescos en Rosarito, Baja California. Mayoreo y menudeo con entrega a domicilio.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d9488",
+  "orientation": "portrait-primary",
+  "lang": "es-MX",
+  "categories": ["food", "shopping", "business"],
+  "icons": [
+    {
+      "src": "/jona-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ver catálogo",
+      "url": "/#productos",
+      "description": "Explora nuestros productos del mar"
+    },
+    {
+      "name": "Cotizar por WhatsApp",
+      "url": "/#ubicacion",
+      "description": "Contáctanos directamente"
+    }
+  ]
+}
