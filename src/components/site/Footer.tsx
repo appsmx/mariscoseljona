@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/lib/site-data";
+import { LoganSeal } from "@/components/site/LoganSeal";
 
 const navColumns = [
   {
@@ -191,6 +192,10 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} Mariscos El Jona. Todos los derechos reservados.
           </p>
+
+          {/* Sello Logan */}
+          <LoganSeal variant="dark" />
+
           <div className="flex items-center gap-4">
             <span>Mazatlán, Sinaloa · México</span>
             <span className="hidden sm:inline">·</span>
