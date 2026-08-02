@@ -14,6 +14,8 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Sparkles, RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type Dashboard = {
@@ -63,6 +65,9 @@ const mxn = (n: number) =>
 export default function AdminDashboard() {
   const [data, setData] = useState<Dashboard | null>(null);
   const [loading, setLoading] = useState(true);
+  const [aiSummary, setAiSummary] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/dashboard")
@@ -70,6 +75,21 @@ export default function AdminDashboard() {
       .then((d) => setData(d))
       .finally(() => setLoading(false));
   }, []);
+
+  const loadAiSummary = async () => {
+    setAiLoading(true);
+    setAiError(null);
+    try {
+      const res = await fetch("/api/admin/ai-summary");
+      if (!res.ok) throw new Error("Error al generar resumen");
+      const d = await res.json();
+      setAiSummary(d.summary);
+    } catch (e: any) {
+      setAiError(e.message || "Error desconocido");
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   if (loading || !data) {
     return (
@@ -132,6 +152,68 @@ export default function AdminDashboard() {
           })}
         </p>
       </div>
+
+      {/* Resumen IA */}
+      <Card className="border-ocean-200 bg-gradient-to-br from-ocean-50/60 to-amber-brand-50/30 overflow-hidden">
+        <CardContent className="p-5 sm:p-6">
+          <div className="flex items-start gap-4">
+            <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-ocean-500 to-ocean-700 text-white shadow-lg shadow-ocean-900/20">
+              <Sparkles className="h-5 w-5" />
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <div>
+                  <h3 className="font-display text-lg font-bold text-foreground">Resumen inteligente</h3>
+                  <p className="text-xs text-muted-foreground">Tu asistente de gestión analizando el estado del negocio</p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={loadAiSummary}
+                  disabled={aiLoading}
+                  className="border-ocean-200 text-ocean-700 hover:bg-ocean-50"
+                >
+                  {aiLoading ? (
+                    <>
+                      <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                      Analizando...
+                    </>
+                  ) : aiSummary ? (
+                    <>
+                      <RefreshCw className="h-3.5 w-3.5" />
+                      Actualizar
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-3.5 w-3.5" />
+                      Generar resumen
+                    </>
+                  )}
+                </Button>
+              </div>
+              <div className="mt-3">
+                {aiLoading ? (
+                  <div className="space-y-2">
+                    <div className="h-3 bg-muted rounded animate-pulse" />
+                    <div className="h-3 bg-muted rounded w-5/6 animate-pulse" />
+                    <div className="h-3 bg-muted rounded w-4/6 animate-pulse" />
+                  </div>
+                ) : aiError ? (
+                  <p className="text-sm text-rose-600">{aiError}</p>
+                ) : aiSummary ? (
+                  <p className="text-sm text-foreground/90 leading-relaxed whitespace-pre-line">
+                    {aiSummary}
+                  </p>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Hacé click en "Generar resumen" para que la IA analice tus pedidos, ingresos y productos más vendidos, y te dé sugerencias accionables.
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

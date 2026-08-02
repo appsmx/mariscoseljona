@@ -217,3 +217,70 @@ Beneficios de negocio:
 - 1 pedido de prueba creado: MEJ-2026-0001 de María González (Camarón + Pulpo, $1,010 MXN)
 - Panel admin muestra el pedido en bandeja con estado NUEVO
 - Lista para Fase 3 (agente IA + WhatsApp Business)
+
+---
+
+## Task ID: 3 (Fase 3 — Agente de IA + WhatsApp Business)
+
+**Agente**: Super Z (main)
+**Task**: Implementar la Fase 3: agente de IA conversacional en el sitio público (GLM vía Z.ai SDK) + asistente de gestión para el panel admin.
+
+### Work Log:
+- Creado servicio central /src/lib/ai-agent.ts con:
+  - getZAI(): singleton del SDK de Z.ai (GLM)
+  - buildBusinessContext(): genera contexto dinámico desde la BD (config del sitio, catálogo con precios, horarios, cobertura)
+  - AGENT_SYSTEM_PROMPT: prompt especializado en mariscos, tono sinaloense cercano, reglas de escalamiento, prohibición de inventar precios
+  - processCustomerMessage(): procesa mensaje del cliente con historial, detecta escalamiento a humano, detecta acciones sugeridas (abrir carrito, WhatsApp)
+  - generateAdminSummary(): genera resumen ejecutivo accionable para el dueño
+- Creada API /api/chat (POST pública) con:
+  - Validación de input (mensaje requerido, máx 1000 chars)
+  - Limpieza de historial (máx 20 mensajes, contenido limitado a 1000 chars)
+  - Manejo de errores con fallback a WhatsApp
+- Creada API /api/admin/ai-summary (GET autenticada) que:
+  - Recopila métricas (pedidos hoy/semana/mes, ingresos, pendientes, top productos)
+  - Llama a generateAdminSummary con esos datos
+  - Devuelve resumen + stats
+- Creado ChatWidget (/src/components/site/ChatWidget.tsx):
+  - Botón flotante esquina inferior izquierda (separado de WhatsApp y carrito)
+  - Ventana de chat con header (avatar con indicador online), área de mensajes, input, footer
+  - Saludo inicial al abrir por primera vez
+  - Indicador de "escribiendo..." con animación de puntos
+  - Sugerencias de preguntas frecuentes cuando hay pocos mensajes
+  - Acciones inline en respuestas (botones "Ver carrito", "WhatsApp")
+  - Timestamps en cada mensaje
+  - Badge de no leídos cuando el chat está cerrado
+  - Indicador "online" verde en el botón
+- Creado resumen IA en el dashboard admin (/admin):
+  - Tarjeta destacada con gradiente ocean-amber
+  - Botón "Generar resumen" que dispara la llamada a /api/admin/ai-summary
+  - Estado de carga con skeleton
+  - Estado de error con mensaje
+  - Muestra el resumen en texto plano
+  - Botón "Actualizar" para regenerar
+- Integrado ChatWidget en page.tsx
+- Verificado end-to-end con Agent Browser:
+  - Chat widget abre correctamente
+  - Saludo inicial aparece
+  - Sugerencias de preguntas frecuentes visibles
+  - Mensaje del cliente se envía
+  - Agente responde con datos reales del catálogo (precios exactos del camarón: $220/kg mayoreo, $280/kg menudeo, etc.)
+  - Tono sinaloense correcto (usa "vos", emojis moderados)
+  - Tiempo de respuesta: 3-4 segundos
+  - Resumen IA del admin funciona:
+    * Identificó el pedido pendiente de María González
+    * Reconoció Pulpo y Camarón como top productos
+    * Notó que ingresos son $0 (porque el pedido está NUEVO, no confirmado)
+    * Sugirió acción concreta: priorizar el pedido pendiente
+    * Tono cercano, tratando al dueño de "vos"
+  - Lint limpio, sin errores en consola
+
+### Stage Summary:
+- Fase 3 completada y verificada end-to-end
+- Agente IA conversacional funcional en el sitio público (GLM vía Z.ai SDK)
+- Contexto dinámico: el agente lee catálogo, precios, horarios y cobertura desde la BD en cada consulta
+- Asistente de gestión IA en el panel admin (botón "Generar resumen" en dashboard)
+- Detección de escalamiento a humano (derivación a WhatsApp)
+- Acciones inline en respuestas del chat (abrir carrito, WhatsApp)
+- Prompt engineering especializado en mariscos y tono sinaloense
+- Manejo de errores robusto con fallback a WhatsApp
+- Pendiente: WhatsApp Business API oficial (requiere cuenta Meta verificada del cliente — se gestiona aparte)

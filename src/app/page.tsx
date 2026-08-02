@@ -15,6 +15,7 @@ import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { CartButton } from "@/components/site/CartButton";
 import { CartDrawer } from "@/components/site/CartDrawer";
+import { ChatWidget } from "@/components/site/ChatWidget";
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
       <WhatsAppFloat />
       <CartButton />
       <CartDrawer />
+      <ChatWidget />
     </div>
   );
 }
