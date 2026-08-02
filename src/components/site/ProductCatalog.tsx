@@ -5,11 +5,30 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MessageCircle, Snowflake, Sparkles, Clock, ChevronRight, Loader2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  MessageCircle,
+  Snowflake,
+  Sparkles,
+  Clock,
+  ChevronRight,
+  Loader2,
+  Plus,
+  ShoppingCart,
+  Check,
+} from "lucide-react";
 import { products as fallbackProducts, siteConfig as fallbackConfig } from "@/lib/site-data";
 import { useApi } from "@/hooks/use-api";
 import { useSiteConfig } from "@/hooks/use-site-config";
+import { useCart } from "@/hooks/use-cart";
 import type { Product } from "@/lib/site-data";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 const categoryLabels: Record<string, string> = {
@@ -33,15 +52,53 @@ const availabilityConfig: Record<string, { icon: typeof Clock; label: string; co
   "Bajo pedido": { icon: Snowflake, label: "Bajo pedido", color: "text-sky-600" },
 };
 
+const mxn = (n: number) =>
+  new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(n);
+
 function ProductCard({ product, config }: { product: Product; config: any }) {
   const waLink = `https://wa.me/${config.contact.whatsapp}?text=${encodeURIComponent(
     `Hola ${config.brand.name}, me interesa cotizar ${product.name}. ¿Me pueden dar precio y disponibilidad?`
   )}`;
   const avail = availabilityConfig[product.availability];
   const AvailIcon = avail.icon;
+  const { channel, add } = useCart();
+  const [selectedPres, setSelectedPres] = useState<string>(product.presentation[0] || "");
+  const [quantity, setQuantity] = useState<number>(1);
+  const [added, setAdded] = useState(false);
+
+  // Buscar precio para la presentación seleccionada según el canal
+  // Normalizamos channel a minúsculas para comparar con la API
+  const channelLower = channel.toLowerCase();
+  const selectedPrice = product.prices?.find(
+    (p) => (p.channel === channel || p.channel === channelLower) &&
+           (!p.presentation || p.presentation === selectedPres)
+  );
+  const unitPrice = selectedPrice?.pricePerKg ?? selectedPrice?.priceUnit ?? 0;
+  const unit = selectedPrice?.unit || "kg";
+  const minQty = selectedPrice?.minQuantity ?? 1;
+
+  const handleAdd = () => {
+    if (unitPrice <= 0) {
+      // Sin precio configurado → abrir WhatsApp directo
+      window.open(waLink, "_blank");
+      return;
+    }
+    add({
+      productId: product.dbId,
+      productName: product.name,
+      presentation: selectedPres,
+      quantity,
+      unit,
+      unitPrice,
+      image: product.image,
+    });
+    setAdded(true);
+    toast.success(`${product.name} agregado a tu cotización`);
+    setTimeout(() => setAdded(false), 1500);
+  };
 
   return (
-    <Card className="group relative overflow-hidden border-border/60 bg-card hover:shadow-xl hover:shadow-ocean-900/10 transition-all duration-300 hover:-translate-y-1">
+    <Card className="group relative overflow-hidden border-border/60 bg-card hover:shadow-xl hover:shadow-ocean-900/10 transition-all duration-300 hover:-translate-y-1 flex flex-col">
       {/* Imagen */}
       <div className="relative aspect-[4/3] overflow-hidden bg-ocean-50">
         <img
@@ -52,7 +109,6 @@ function ProductCard({ product, config }: { product: Product; config: any }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ocean-950/70 via-transparent to-transparent" />
 
-        {/* Disponibilidad */}
         <div className="absolute top-3 left-3">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-sm px-3 py-1 text-xs font-semibold shadow-md">
             <AvailIcon className={cn("h-3.5 w-3.5", avail.color)} />
@@ -60,14 +116,12 @@ function ProductCard({ product, config }: { product: Product; config: any }) {
           </div>
         </div>
 
-        {/* Categoría */}
         <div className="absolute top-3 right-3">
           <Badge variant="secondary" className="bg-ocean-600/90 text-white border-0 backdrop-blur-sm capitalize text-[10px] uppercase tracking-wide">
             {product.category}
           </Badge>
         </div>
 
-        {/* Nombre sobre imagen */}
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <h3 className="font-display text-2xl font-bold text-white leading-tight drop-shadow-md">
             {product.name}
@@ -78,27 +132,89 @@ function ProductCard({ product, config }: { product: Product; config: any }) {
         </div>
       </div>
 
-      <CardContent className="p-5">
-        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4">
+      <CardContent className="p-5 flex-1">
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
           {product.description}
         </p>
 
-        {/* Presentaciones */}
-        <div className="mt-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-ocean-700 mb-2">
-            Presentaciones
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {product.presentation.map((p) => (
-              <span
-                key={p}
-                className="inline-flex items-center rounded-md bg-ocean-50 px-2 py-0.5 text-xs font-medium text-ocean-700 border border-ocean-100"
-              >
-                {p}
+        {/* Precio visible */}
+        {unitPrice > 0 ? (
+          <div className="mt-4 rounded-lg bg-ocean-50 border border-ocean-100 p-3">
+            <div className="flex items-baseline justify-between">
+              <span className="text-[11px] font-semibold uppercase tracking-wide text-ocean-700">
+                Precio {channel === "mayoreo" ? "mayoreo" : "menudeo"}
               </span>
-            ))}
+              <span className="font-display text-xl font-bold text-foreground">
+                {mxn(unitPrice)}
+                <span className="text-xs font-normal text-muted-foreground">/{unit}</span>
+              </span>
+            </div>
+            {minQty > 1 && (
+              <p className="text-[10px] text-muted-foreground mt-1">
+                Mínimo: {minQty} {unit}
+              </p>
+            )}
           </div>
-        </div>
+        ) : (
+          <div className="mt-4 rounded-lg bg-amber-brand-50 border border-amber-brand-200 p-3">
+            <p className="text-xs text-amber-brand-700 font-medium">
+              Precio bajo cotización · consultá por WhatsApp
+            </p>
+          </div>
+        )}
+
+        {/* Selector de presentación */}
+        {product.presentation.length > 0 && (
+          <div className="mt-3">
+            <label className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground mb-1.5 block">
+              Presentación
+            </label>
+            <Select value={selectedPres} onValueChange={setSelectedPres}>
+              <SelectTrigger className="h-9 text-sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {product.presentation.map((p) => (
+                  <SelectItem key={p} value={p}>{p}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {/* Selector de cantidad */}
+        {unitPrice > 0 && (
+          <div className="mt-3 flex items-center gap-2">
+            <label className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+              Cantidad
+            </label>
+            <div className="flex items-center rounded-lg border border-border overflow-hidden">
+              <button
+                onClick={() => setQuantity(Math.max(minQty, quantity - 1))}
+                className="px-2.5 py-1.5 text-sm hover:bg-muted transition-colors"
+                aria-label="Reducir"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(minQty, Number(e.target.value) || minQty))}
+                className="w-14 text-center text-sm py-1.5 border-x border-border focus:outline-none"
+                min={minQty}
+                step={minQty < 1 ? 0.5 : 1}
+              />
+              <button
+                onClick={() => setQuantity(quantity + 1)}
+                className="px-2.5 py-1.5 text-sm hover:bg-muted transition-colors"
+                aria-label="Aumentar"
+              >
+                +
+              </button>
+            </div>
+            <span className="text-xs text-muted-foreground">{unit}</span>
+          </div>
+        )}
 
         {/* Tags */}
         <div className="mt-4 flex flex-wrap gap-1.5">
@@ -113,12 +229,30 @@ function ProductCard({ product, config }: { product: Product; config: any }) {
         </div>
       </CardContent>
 
-      <CardFooter className="p-5 pt-0">
-        <Button asChild className="w-full bg-ocean-600 hover:bg-ocean-700 text-white group/btn">
+      <CardFooter className="p-5 pt-0 flex-col gap-2">
+        <Button
+          onClick={handleAdd}
+          className={cn(
+            "w-full text-white group/btn transition-all",
+            added ? "bg-emerald-600 hover:bg-emerald-600" : "bg-ocean-600 hover:bg-ocean-700"
+          )}
+        >
+          {added ? (
+            <>
+              <Check className="h-4 w-4" />
+              Agregado
+            </>
+          ) : (
+            <>
+              <Plus className="h-4 w-4" />
+              {unitPrice > 0 ? `Agregar · ${mxn(unitPrice * quantity)}` : "Cotizar por WhatsApp"}
+            </>
+          )}
+        </Button>
+        <Button asChild variant="ghost" size="sm" className="w-full text-muted-foreground">
           <a href={waLink} target="_blank" rel="noopener noreferrer">
-            <MessageCircle className="h-4 w-4" />
-            Cotizar este producto
-            <ChevronRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+            <MessageCircle className="h-3.5 w-3.5" />
+            Preguntar por WhatsApp
           </a>
         </Button>
       </CardFooter>
@@ -130,6 +264,7 @@ export function ProductCatalog() {
   const [category, setCategory] = useState<string>("todos");
   const { data: apiProducts, loading } = useApi<Product[]>("/api/public/products");
   const { data: siteConfig } = useSiteConfig();
+  const { channel, setChannel } = useCart();
 
   const products = apiProducts && apiProducts.length > 0 ? apiProducts : fallbackProducts;
 
@@ -152,14 +287,36 @@ export function ProductCatalog() {
             Nuestros productos del mar
           </h2>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Cada producto se recibe en fresco del Pacífico mexicano y se clasifica bajo
-            estándares de calidad HACCP. Tocá cualquier producto para cotizar por WhatsApp
-            en segundos.
+            Cada producto se recibe en fresco del Pacífico mexicano. Armá tu cotización
+            seleccionando productos y cantidades — se envía directo por WhatsApp y queda
+            registrado en nuestro sistema.
           </p>
         </div>
 
-        {/* Filtros */}
-        <div className="mt-8">
+        {/* Switch de canal */}
+        <div className="mt-6 inline-flex items-center gap-1 rounded-xl bg-muted p-1 border border-border">
+          <button
+            onClick={() => setChannel("MENUDEO")}
+            className={cn(
+              "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+              channel === "MENUDEO" ? "bg-amber-brand-500 text-white shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Menudeo (hogar)
+          </button>
+          <button
+            onClick={() => setChannel("MAYOREO")}
+            className={cn(
+              "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+              channel === "MAYOREO" ? "bg-ocean-600 text-white shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Mayoreo (negocio)
+          </button>
+        </div>
+
+        {/* Filtros por categoría */}
+        <div className="mt-6">
           <Tabs value={category} onValueChange={setCategory}>
             <TabsList className="bg-muted/60 h-auto p-1 flex flex-wrap gap-1">
               {Object.entries(categoryLabels).map(([value, label]) => (

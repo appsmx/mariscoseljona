@@ -154,3 +154,66 @@ Beneficios de negocio:
 - Login: admin@mariscoseljona.mx / admin123
 - Acceso: /admin (redirige a login si no autenticado)
 - Lista para que el dueño del negocio gestione su catálogo, precios y contenido sin dependencia técnica
+
+---
+
+## Task ID: 2 (Fase 2 — Sistema de pedidos y cotizaciones)
+
+**Agente**: Super Z (main)
+**Task**: Implementar la Fase 2: carrito de cotización en el sitio público, formulario de cliente, envío a la base de datos + WhatsApp, integración con el panel admin.
+
+### Work Log:
+- Arreglado el login de NextAuth para que funcione en dominios de preview dinámicos (trustHost: true, cookies sameSite lax, eliminado NEXTAUTH_URL del .env)
+- Creada API pública POST /api/public/orders que:
+  - Genera código secuencial MEJ-2026-0001
+  - Busca o crea cliente por teléfono único
+  - Calcula subtotal y total automáticamente
+  - Crea pedido con status NUEVO
+  - Crea los OrderItem correspondientes
+- Actualizada API GET /api/public/products para incluir dbId y prices
+- Actualizado tipo Product en site-data.ts para incluir dbId y prices
+- Creado hook use-cart.ts (Zustand con persistencia) con:
+  - items, channel (MAYOREO/MENUDEO), isOpen
+  - add, remove, updateQuantity, clear
+  - openCart, closeCart, toggleCart
+  - getSubtotal, getItemCount
+  - Persistencia en localStorage (parcialize)
+- Reescrito ProductCatalog con:
+  - Switch de canal (Menudeo/Mayoreo) que cambia precios dinámicamente
+  - Selector de presentación (Select de Radix) por producto
+  - Selector de cantidad con +/− y mínimos
+  - Precio visible según canal y presentación
+  - Botón "Agregar · $XXX" que añade al carrito y muestra toast
+  - Botón secundario "Preguntar por WhatsApp" para consultas directas
+  - Si no hay precio configurado, el botón abre WhatsApp directo
+- Creado CartDrawer (Sheet) con:
+  - Lista de items con imagen, presentación, cantidad editable, subtotal
+  - Subtotal total estimado
+  - Formulario de cliente (nombre, teléfono, email, dirección, ciudad, notas)
+  - Botón "Enviar cotización ($XXX)" que POSTea a /api/public/orders
+  - Pantalla de éxito con código de pedido (MEJ-2026-0001) y botón "Enviar por WhatsApp" con mensaje pre-armado
+  - Estado vacío con CTA al catálogo
+- Creado CartButton (botón flotante) que aparece cuando hay items, con badge de cantidad
+- Actualizado WhatsAppFloat para no solaparse con CartButton
+- Integrado todo en page.tsx
+- Arreglado bug: Customer.phone no tenía @unique → agregado al esquema, db:push ejecutado
+- Arreglado bug: channel del useCart venía en MAYÚSCULAS pero los prices de la API en minúsculas → normalizado en ProductCard
+- Verificado end-to-end con Agent Browser:
+  - Login funciona en dominio de preview
+  - Catálogo muestra precios reales desde la BD
+  - Switch mayoreo/menudeo cambia precios correctamente
+  - Agregar al carrito abre el drawer automáticamente
+  - Formulario de cliente se llena
+  - Enviar cotización crea pedido en la BD (POST 201)
+  - Pantalla de éxito muestra código MEJ-2026-0001
+  - Panel admin /admin/pedidos muestra el pedido nuevo de "María González"
+  - Dashboard actualiza "Pedidos nuevos" a 1
+  - Lint limpio, sin errores
+
+### Stage Summary:
+- Fase 2 completada y verificada end-to-end
+- Flujo completo: cliente arma cotización → se guarda en BD → aparece en panel admin → cliente puede enviar por WhatsApp con mensaje pre-armado
+- Carrito persistente en localStorage (sobrevive recarga)
+- 1 pedido de prueba creado: MEJ-2026-0001 de María González (Camarón + Pulpo, $1,010 MXN)
+- Panel admin muestra el pedido en bandeja con estado NUEVO
+- Lista para Fase 3 (agente IA + WhatsApp Business)

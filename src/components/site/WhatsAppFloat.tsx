@@ -72,6 +72,7 @@ export function WhatsAppFloat() {
           "relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-900/30 transition-all hover:scale-105",
           open && "rotate-90"
         )}
+        style={{ right: 0 }}
         aria-label="Abrir WhatsApp"
       >
         {!open && (

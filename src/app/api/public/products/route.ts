@@ -13,9 +13,9 @@ export async function GET() {
     orderBy: { sortOrder: "asc" },
   });
 
-  // Mapear al formato que usa el frontend (similar al site-data.ts original)
   const mapped = products.map((p) => ({
     id: p.slug,
+    dbId: p.id,
     name: p.name,
     scientific: p.scientific,
     category: p.category.slug,

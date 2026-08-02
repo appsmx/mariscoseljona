@@ -157,7 +157,7 @@ enum SalesChannel {
 model Customer {
   id          String   @id @default(cuid())
   name        String
-  phone       String
+  phone       String   @unique
   email       String?
   channel     SalesChannel @default(MENUDEO)
   businessName String?  // razón social si es mayoreo

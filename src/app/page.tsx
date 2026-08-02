@@ -13,6 +13,8 @@ import { Faq } from "@/components/site/Faq";
 import { Location } from "@/components/site/Location";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
+import { CartButton } from "@/components/site/CartButton";
+import { CartDrawer } from "@/components/site/CartDrawer";
 
 export default function Home() {
   return (
@@ -32,6 +34,8 @@ export default function Home() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <CartButton />
+      <CartDrawer />
     </div>
   );
 }

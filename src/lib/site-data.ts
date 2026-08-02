@@ -74,6 +74,7 @@ export const siteConfig = {
 
 export type Product = {
   id: string;
+  dbId?: string;
   name: string;
   scientific?: string;
   category: "marisco" | "pescado" | "especialidad";
@@ -82,6 +83,15 @@ export type Product = {
   presentation: string[];
   availability: "Diaria" | "Temporada" | "Bajo pedido";
   tags: ("mayoreo" | "menudeo" | "premium" | "congelado" | "fresco")[];
+  prices?: Array<{
+    channel: "mayoreo" | "menudeo";
+    presentation?: string | null;
+    pricePerKg?: number | null;
+    priceUnit?: number | null;
+    unit: string;
+    minQuantity: number;
+    notes?: string | null;
+  }>;
 };
 
 export const products: Product[] = [
