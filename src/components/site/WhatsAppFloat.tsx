@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { MessageCircle, X } from "lucide-react";
-import { siteConfig } from "@/lib/site-data";
+import { siteConfig as fallbackConfig } from "@/lib/site-data";
+import { useSiteConfig } from "@/hooks/use-site-config";
 import { cn } from "@/lib/utils";
 
 export function WhatsAppFloat() {
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
+  const { data: siteConfig } = useSiteConfig();
+  const config = siteConfig || fallbackConfig;
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 600);
@@ -16,8 +19,8 @@ export function WhatsAppFloat() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const waLink = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(
-    siteConfig.contact.whatsappMessage
+  const waLink = `https://wa.me/${config.contact.whatsapp}?text=${encodeURIComponent(
+    config.contact.whatsappMessage
   )}`;
 
   if (!visible) return null;

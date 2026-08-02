@@ -2,7 +2,8 @@
 
 import { Clock, Phone, MapPin, ArrowUpRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { brandEcosystem } from "@/lib/site-data";
+import { brandEcosystem as fallbackBrands } from "@/lib/site-data";
+import { useApi } from "@/hooks/use-api";
 import { cn } from "@/lib/utils";
 
 const accentMap: Record<string, { gradient: string; text: string; bg: string; border: string; ring: string }> = {
@@ -23,6 +24,18 @@ const accentMap: Record<string, { gradient: string; text: string; bg: string; bo
 };
 
 export function BrandEcosystem() {
+  const { data: apiBrands } = useApi<any[]>("/api/public/brands");
+  const brandEcosystem = apiBrands && apiBrands.length > 0
+    ? apiBrands.map((b: any) => ({
+        name: b.name,
+        subtitle: b.subtitle,
+        address: b.address,
+        description: b.description,
+        hours: b.hours,
+        accent: b.accent,
+        phone: b.phone,
+      }))
+    : fallbackBrands;
   return (
     <section id="ecosistema" className="relative py-20 sm:py-28 bg-ocean-950 text-white overflow-hidden">
       {/* Decoración */}

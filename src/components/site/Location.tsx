@@ -3,9 +3,12 @@
 import { MapPin, Phone, Mail, Clock, MessageCircle, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { siteConfig } from "@/lib/site-data";
+import { siteConfig as fallbackConfig } from "@/lib/site-data";
+import { useSiteConfig } from "@/hooks/use-site-config";
 
 export function Location() {
+  const { data: siteConfig } = useSiteConfig();
+  if (!siteConfig) return null;
   const waLink = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(
     siteConfig.contact.whatsappMessage
   )}`;

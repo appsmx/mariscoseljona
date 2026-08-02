@@ -3,7 +3,8 @@
 import { Building2, Home, Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { salesChannels, siteConfig } from "@/lib/site-data";
+import { salesChannels, siteConfig as fallbackConfig } from "@/lib/site-data";
+import { useSiteConfig } from "@/hooks/use-site-config";
 import { cn } from "@/lib/utils";
 
 const iconMap = {
@@ -31,8 +32,10 @@ const colorMap: Record<string, { bg: string; border: string; text: string; accen
 };
 
 export function SalesChannels() {
-  const waLink = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(
-    siteConfig.contact.whatsappMessage
+  const { data: siteConfig } = useSiteConfig();
+  const config = siteConfig || fallbackConfig;
+  const waLink = `https://wa.me/${config.contact.whatsapp}?text=${encodeURIComponent(
+    config.contact.whatsappMessage
   )}`;
 
   return (
@@ -58,8 +61,8 @@ export function SalesChannels() {
           {salesChannels.map((channel) => {
             const Icon = iconMap[channel.icon as keyof typeof iconMap];
             const colors = colorMap[channel.color];
-            const waLinkChannel = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(
-              `Hola Mariscos El Jona, me interesa el canal de ${channel.name}. ${channel.cta}.`
+            const waLinkChannel = `https://wa.me/${config.contact.whatsapp}?text=${encodeURIComponent(
+              `Hola ${config.brand.name}, me interesa el canal de ${channel.name}. ${channel.cta}.`
             )}`;
 
             return (

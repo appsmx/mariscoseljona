@@ -1,8 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// =====================================================
+//  Mariscos El Jona — Esquema Prisma
+//  Piloto Logan: distribuidora de pescados y mariscos
+// =====================================================
 
 generator client {
   provider = "prisma-client-js"
@@ -13,20 +12,290 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// =====================================================
+//  USUARIOS ADMIN (panel /admin)
+// =====================================================
+
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  passwordHash  String
+  role          UserRole  @default(ADMIN)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  orders        Order[]   // pedidos gestionados por este usuario
+  activityLogs  ActivityLog[]
 }
 
-model Post {
+enum UserRole {
+  ADMIN
+  EDITOR
+  STAFF
+}
+
+model ActivityLog {
   id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
+  userId    String
+  action    String   // "PRODUCT_CREATED", "ORDER_UPDATED", etc.
+  entity    String   // "product", "order", "testimonial", etc.
+  entityId  String?
+  detail    String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// =====================================================
+//  CONFIGURACIÓN GLOBAL DEL SITIO
+// =====================================================
+
+model SiteConfig {
+  id              String   @id @default("singleton")
+  brandName       String   @default("Mariscos El Jona")
+  tagline         String   @default("Del Pacífico a tu mesa")
+  slogan          String
+  description     String
+  foundedYear     Int      @default(2008)
+  phone           String
+  phoneDisplay    String
+  whatsapp        String
+  whatsappMessage String
+  email           String
+  streetAddress   String
+  city            String
+  state           String
+  zipCode         String
+  country         String  @default("México")
+  facebookUrl     String?
+  instagramUrl    String?
+  tiktokUrl       String?
+  heroImage       String
+  storyImage      String
+  ctaBannerImage  String?
+  updatedAt       DateTime @updatedAt
+}
+
+model BusinessHour {
+  id        String   @id @default(cuid())
+  day       String   // "Lunes a Viernes", "Sábado", "Domingo"
+  timeOpen  String   // "7:00 AM"
+  timeClose String   // "7:00 PM"
+  sortOrder Int      @default(0)
+}
+
+// =====================================================
+//  CATÁLOGO DE PRODUCTOS
+// =====================================================
+
+model Category {
+  id        String    @id @default(cuid())
+  slug      String    @unique // "marisco", "pescado", "especialidad"
+  name      String    // "Mariscos"
+  sortOrder Int       @default(0)
+  products  Product[]
+}
+
+model Product {
+  id            String        @id @default(cuid())
+  slug          String        @unique
+  name          String
+  scientific    String?       // nombre científico
+  categoryId    String
+  image         String
+  description   String
+  availability  Availability  @default(DIARIA)
+  featured      Boolean       @default(false)
+  active        Boolean       @default(true)
+  sortOrder     Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  category      Category      @relation(fields: [categoryId], references: [id])
+  presentations ProductPresentation[]
+  prices        ProductPrice[]
+  orderItems    OrderItem[]
+}
+
+enum Availability {
+  DIARIA       // disponible todos los días
+  TEMPORADA    // de temporada
+  BAJO_PEDIDO  // bajo pedido
+}
+
+model ProductPresentation {
+  id          String  @id @default(cuid())
+  productId   String
+  name        String  // "Entero U-15", "Pelado 16/20", etc.
+  sortOrder   Int     @default(0)
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductPrice {
+  id          String       @id @default(cuid())
+  productId   String
+  channel     SalesChannel // MAYOREO / MENUDEO
+  presentation String?     // opcional: si el precio varía por presentación
+  pricePerKg  Float?       // MXN por kilo
+  priceUnit   Float?       // MXN por pieza/docena/etc.
+  unit        String       @default("kg") // "kg", "docena", "pieza", "litro"
+  minQuantity Float        @default(1)     // mínimo de compra en esta unidad
+  notes       String?      // "precio de lista", "oferta semana", etc.
+  product     Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+enum SalesChannel {
+  MAYOREO
+  MENUDEO
+}
+
+// =====================================================
+//  CLIENTES
+// =====================================================
+
+model Customer {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  email       String?
+  channel     SalesChannel @default(MENUDEO)
+  businessName String?  // razón social si es mayoreo
+  rfc         String?
+  address     String?
+  city        String?
+  state       String?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orders      Order[]
+}
+
+// =====================================================
+//  PEDIDOS / COTIZACIONES
+// =====================================================
+
+model Order {
+  id            String      @id @default(cuid())
+  code          String      @unique // "MEJ-2026-0001"
+  customerId    String?
+  customerName  String      // snapshot por si no hay cliente registrado
+  customerPhone String
+  customerEmail String?
+  channel       SalesChannel
+  status        OrderStatus @default(NUEVO)
+  subtotal      Float       @default(0)
+  deliveryCost  Float       @default(0)
+  total         Float       @default(0)
+  deliveryAddress String?
+  deliveryCity  String?
+  deliveryDate  DateTime?
+  notes         String?
+  source        String      @default("web") // "web", "whatsapp", "phone", "admin"
+  assignedToId  String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  customer      Customer?   @relation(fields: [customerId], references: [id])
+  assignedTo    User?       @relation(fields: [assignedToId], references: [id])
+  items         OrderItem[]
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum OrderStatus {
+  NUEVO          // acaba de llegar
+  EN_REVISION    // lo está viendo el admin
+  COTIZADO       // se envió cotización al cliente
+  CONFIRMADO     // cliente aceptó
+  EN_PREPARACION // preparando el pedido
+  EN_RUTA        // salió para entrega
+  ENTREGADO
+  CANCELADO
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  productId   String?
+  productName String  // snapshot
+  presentation String?
+  quantity    Float
+  unit        String  // "kg", "docena", etc.
+  unitPrice   Float
+  subtotal    Float
+  notes       String?
+
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product? @relation(fields: [productId], references: [id])
+}
+
+// =====================================================
+//  CONTENIDO EDITABLE
+// =====================================================
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  location  String
+  rating    Int      @default(5)
+  quote     String
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model BrandEcosystemEntry {
+  id          String  @id @default(cuid())
+  name        String  // "Restaurante El Jona 1"
+  subtitle    String  // "Mariscos & Pescados"
+  address     String
+  description String
+  hours       String
+  phone       String
+  accent      String  @default("teal") // "teal" o "amber"
+  logoPath    String  @default("/jona-1-logo.svg")
+  active      Boolean @default(true)
+  sortOrder   Int     @default(0)
+}
+
+model Differentiator {
+  id          String  @id @default(cuid())
+  icon        String  // nombre del icono Lucide: "Waves", "ShieldCheck", etc.
+  title       String
+  description String
+  active      Boolean @default(true)
+  sortOrder   Int     @default(0)
+}
+
+model Stat {
+  id        String @id @default(cuid())
+  value     String // "+17"
+  label     String // "Años de trayectoria"
+  sortOrder Int    @default(0)
+  active    Boolean @default(true)
+}
+
+// =====================================================
+//  COBERTURA DE ENTREGA
+// =====================================================
+
+model CoverageZone {
+  id        String  @id @default(cuid())
+  name      String  // "Mazatlán"
+  type      String  // "primary" o "extended"
+  sortOrder Int     @default(0)
+  active    Boolean @default(true)
 }

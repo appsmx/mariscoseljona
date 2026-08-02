@@ -6,9 +6,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { faqs } from "@/lib/site-data";
+import { faqs as fallbackFaqs } from "@/lib/site-data";
+import { useApi } from "@/hooks/use-api";
 
 export function Faq() {
+  const { data: apiFaqs } = useApi<any[]>("/api/public/faqs");
+  const faqs = apiFaqs && apiFaqs.length > 0
+    ? apiFaqs.map((f: any) => ({ question: f.question, answer: f.answer }))
+    : fallbackFaqs;
   return (
     <section className="relative py-20 sm:py-28 bg-background">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

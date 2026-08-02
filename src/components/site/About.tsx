@@ -1,7 +1,8 @@
 "use client";
 
 import { Award, Anchor, Users, MapPin } from "lucide-react";
-import { siteConfig } from "@/lib/site-data";
+import { siteConfig as fallbackConfig } from "@/lib/site-data";
+import { useSiteConfig } from "@/hooks/use-site-config";
 
 const timeline = [
   {
@@ -31,6 +32,8 @@ const timeline = [
 ];
 
 export function About() {
+  const { data: siteConfig } = useSiteConfig();
+  const config = siteConfig || fallbackConfig;
   return (
     <section id="nosotros" className="relative py-20 sm:py-28 bg-background overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -39,7 +42,7 @@ export function About() {
           <div className="relative order-2 lg:order-1">
             <div className="relative aspect-[4/5] sm:aspect-[5/6] rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src={siteConfig.images.story}
+                src={config.images.story}
                 alt="Puerto pesquero de Mazatlán al atardecer"
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -55,13 +58,13 @@ export function About() {
                 </span>
                 <div>
                   <p className="font-display text-2xl font-bold text-foreground">
-                    +{siteConfig.brand.trajectoryYears} años
+                    +{config.brand.trajectoryYears} años
                   </p>
                   <p className="text-xs text-muted-foreground">de trayectoria</p>
                 </div>
               </div>
               <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                Abasteciendo a la región desde {siteConfig.brand.foundedYear}.
+                Abasteciendo a la región desde {config.brand.foundedYear}.
               </p>
             </div>
 
@@ -78,7 +81,7 @@ export function About() {
               Del puerto a tu mesa, desde 2008
             </h2>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
-              {siteConfig.brand.description}
+              {config.brand.description}
             </p>
 
             {/* Mini stats */}

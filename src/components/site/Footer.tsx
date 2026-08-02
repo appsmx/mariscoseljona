@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from "lucide-react";
-import { siteConfig } from "@/lib/site-data";
+import { siteConfig as fallbackConfig } from "@/lib/site-data";
+import { useSiteConfig } from "@/hooks/use-site-config";
 import { LoganSeal } from "@/components/site/LoganSeal";
 
 const navColumns = [
@@ -29,6 +30,8 @@ const navColumns = [
 ];
 
 export function Footer() {
+  const { data: siteConfig } = useSiteConfig();
+  if (!siteConfig) return null;
   const waLink = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(
     siteConfig.contact.whatsappMessage
   )}`;

@@ -2,9 +2,12 @@
 
 import { ArrowRight, MessageCircle, Fish } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/lib/site-data";
+import { useSiteConfig } from "@/hooks/use-site-config";
 
 export function Hero() {
+  const { data: siteConfig } = useSiteConfig();
+  if (!siteConfig) return null;
+
   const waLink = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(
     siteConfig.contact.whatsappMessage
   )}`;

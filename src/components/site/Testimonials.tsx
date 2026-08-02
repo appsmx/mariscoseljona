@@ -1,9 +1,20 @@
 "use client";
 
 import { Star, Quote } from "lucide-react";
-import { testimonials } from "@/lib/site-data";
+import { testimonials as fallbackTestimonials } from "@/lib/site-data";
+import { useApi } from "@/hooks/use-api";
 
 export function Testimonials() {
+  const { data: apiTestimonials } = useApi<any[]>("/api/public/testimonials");
+  const testimonials = apiTestimonials && apiTestimonials.length > 0
+    ? apiTestimonials.map((t: any) => ({
+        name: t.name,
+        role: t.role,
+        location: t.location,
+        rating: t.rating,
+        quote: t.quote,
+      }))
+    : fallbackTestimonials;
   return (
     <section className="relative py-20 sm:py-28 bg-muted/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

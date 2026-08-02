@@ -2,9 +2,15 @@
 
 import { MapPin, Truck, Clock, Package } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { coverage, siteConfig } from "@/lib/site-data";
+import { coverage as fallbackCoverage, siteConfig as fallbackConfig } from "@/lib/site-data";
+import { useApi } from "@/hooks/use-api";
+import { useSiteConfig } from "@/hooks/use-site-config";
 
 export function Coverage() {
+  const { data: apiCoverage } = useApi<any>("/api/public/coverage");
+  const { data: siteConfig } = useSiteConfig();
+  const config = siteConfig || fallbackConfig;
+  const coverageData = apiCoverage || fallbackCoverage;
   return (
     <section id="cobertura" className="relative py-20 sm:py-28 bg-gradient-to-b from-background to-ocean-50/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -18,7 +24,7 @@ export function Coverage() {
               Llevamos frescura a toda la región
             </h2>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
-              {coverage.deliverySchedule} Trabajamos con vehículos refrigerados que mantienen
+              {coverageData.deliverySchedule} Trabajamos con vehículos refrigerados que mantienen
               la temperatura en todo el trayecto, garantizando que el producto llegue con la
               misma frescura con la que salió del mar.
             </p>
@@ -31,7 +37,7 @@ export function Coverage() {
                 <div>
                   <h4 className="font-semibold text-foreground">Zona primaria (entrega misma dia)</h4>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {coverage.primary.join(" · ")}
+                    {coverageData.primary.join(" · ")}
                   </p>
                 </div>
               </div>
@@ -43,7 +49,7 @@ export function Coverage() {
                 <div>
                   <h4 className="font-semibold text-foreground">Zona extendida (24-48 h)</h4>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {coverage.extended.join(" · ")}
+                    {coverageData.extended.join(" · ")}
                   </p>
                 </div>
               </div>
@@ -130,7 +136,7 @@ export function Coverage() {
                 <p className="text-sm text-muted-foreground">
                   ¿Tu ciudad no está en la lista?{" "}
                   <a
-                    href={`https://wa.me/${siteConfig.contact.whatsapp}`}
+                    href={`https://wa.me/${config.contact.whatsapp}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-semibold text-ocean-700 hover:text-ocean-800 underline underline-offset-2"

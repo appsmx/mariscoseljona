@@ -5,8 +5,11 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MessageCircle, Snowflake, Sparkles, Clock, ChevronRight } from "lucide-react";
-import { products, siteConfig, type Product } from "@/lib/site-data";
+import { MessageCircle, Snowflake, Sparkles, Clock, ChevronRight, Loader2 } from "lucide-react";
+import { products as fallbackProducts, siteConfig as fallbackConfig } from "@/lib/site-data";
+import { useApi } from "@/hooks/use-api";
+import { useSiteConfig } from "@/hooks/use-site-config";
+import type { Product } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 const categoryLabels: Record<string, string> = {
@@ -30,9 +33,9 @@ const availabilityConfig: Record<string, { icon: typeof Clock; label: string; co
   "Bajo pedido": { icon: Snowflake, label: "Bajo pedido", color: "text-sky-600" },
 };
 
-function ProductCard({ product }: { product: Product }) {
-  const waLink = `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(
-    `Hola Mariscos El Jona, me interesa cotizar ${product.name}. ¿Me pueden dar precio y disponibilidad?`
+function ProductCard({ product, config }: { product: Product; config: any }) {
+  const waLink = `https://wa.me/${config.contact.whatsapp}?text=${encodeURIComponent(
+    `Hola ${config.brand.name}, me interesa cotizar ${product.name}. ¿Me pueden dar precio y disponibilidad?`
   )}`;
   const avail = availabilityConfig[product.availability];
   const AvailIcon = avail.icon;
@@ -125,11 +128,17 @@ function ProductCard({ product }: { product: Product }) {
 
 export function ProductCatalog() {
   const [category, setCategory] = useState<string>("todos");
+  const { data: apiProducts, loading } = useApi<Product[]>("/api/public/products");
+  const { data: siteConfig } = useSiteConfig();
+
+  const products = apiProducts && apiProducts.length > 0 ? apiProducts : fallbackProducts;
 
   const filtered =
     category === "todos"
       ? products
       : products.filter((p) => p.category === category);
+
+  const activeConfig = siteConfig || fallbackConfig;
 
   return (
     <section id="productos" className="relative py-20 sm:py-28 bg-background">
@@ -167,17 +176,24 @@ export function ProductCatalog() {
         </div>
 
         {/* Grid de productos */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
-          {filtered.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="mt-10 flex items-center justify-center py-12">
+            <Loader2 className="h-6 w-6 animate-spin text-ocean-600" />
+            <span className="ml-2 text-muted-foreground">Cargando catálogo...</span>
+          </div>
+        ) : (
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
+            {filtered.map((product) => (
+              <ProductCard key={product.id} product={product} config={activeConfig} />
+            ))}
+          </div>
+        )}
 
         {/* Aviso */}
         <p className="mt-10 text-center text-sm text-muted-foreground">
           ¿Buscás un producto que no está listado?{" "}
           <a
-            href={`https://wa.me/${siteConfig.contact.whatsapp}`}
+            href={`https://wa.me/${activeConfig.contact.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="font-semibold text-ocean-700 hover:text-ocean-800 underline underline-offset-2"
