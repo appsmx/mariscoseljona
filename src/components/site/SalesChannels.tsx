@@ -133,7 +133,7 @@ export function SalesChannels() {
         {/* Nota inferior */}
         <p className="mt-10 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
           Todos los pedidos se confirman por WhatsApp con foto del producto real antes del envío.
-          Precios sujetos a disponibilidad y temporada — consultá vigencia{" "}
+          Precios sujetos a disponibilidad y temporada — consulta vigencia{" "}
           <a href={waLink} target="_blank" rel="noopener noreferrer" className="font-semibold text-ocean-700 hover:text-ocean-800 underline underline-offset-2">
             aquí
           </a>.

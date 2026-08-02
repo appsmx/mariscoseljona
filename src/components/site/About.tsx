@@ -9,7 +9,7 @@ const timeline = [
     year: "2008",
     title: "El primer puesto",
     description:
-      "Don Jonathan abrió un modesto mostrador en el mercado de abastos de Mazatlán, vendiendo el producto que él mismo seleccionaba cada madrugada en el puerto.",
+      "Don Jonathan abrió un modesto mostrador en el mercado de abastos de Rosarito, vendiendo el producto que él mismo seleccionaba cada madrugada en el puerto.",
   },
   {
     year: "2013",
@@ -21,7 +21,7 @@ const timeline = [
     year: "2019",
     title: "Expansión a mayoreo",
     description:
-      "Sumamos clientes en Culiacán, Los Mochis y Guasave. Implementamos cadena de frío con monitoreo de temperatura y línea de crédito para restaurantes recurrentes.",
+      "Sumamos clientes en Tijuana, Ensenada y Mexicali. Implementamos cadena de frío con monitoreo de temperatura y línea de crédito para restaurantes recurrentes.",
   },
   {
     year: "2024",
@@ -43,7 +43,7 @@ export function About() {
             <div className="relative aspect-[4/5] sm:aspect-[5/6] rounded-3xl overflow-hidden shadow-2xl">
               <img
                 src={config.images.story}
-                alt="Puerto pesquero de Mazatlán al atardecer"
+                alt="Puerto pesquero de Rosarito al atardecer"
                 className="h-full w-full object-cover"
                 loading="lazy"
               />

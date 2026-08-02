@@ -63,7 +63,7 @@ export function ChatWidget() {
         setMessages([
           {
             role: "assistant",
-            content: `¡Hola! 🦐 Soy el asistente virtual de ${config.brand.name}. Estoy para ayudarte con consultas sobre productos, precios, disponibilidad y entregas. ¿Qué necesitás saber?`,
+            content: `¡Hola! 🦐 Soy el asistente virtual de ${config.brand.name}. Estoy para ayudarte con consultas sobre productos, precios, disponibilidad y entregas. ¿Qué necesitas saber?`,
             timestamp: Date.now(),
           },
         ]);
@@ -317,7 +317,7 @@ export function ChatWidget() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribí tu consulta..."
+              placeholder="Escribe tu consulta..."
               disabled={loading}
               className="flex-1 h-10 rounded-full bg-muted px-4 text-sm focus:outline-none focus:ring-2 focus:ring-ocean-500/30 disabled:opacity-50"
               maxLength={500}

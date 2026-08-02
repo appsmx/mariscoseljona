@@ -1,51 +1,69 @@
 /**
- * Seed de Mariscos El Jona
- * Puebla la BD con la información actual del sitio.
- * Ejecutar con: bun run db:seed
+ * Reseed de Mariscos El Jona — limpia la BD y vuelve a sembrar
+ * con los datos actualizados a Rosarito, Baja California.
+ * Ejecutar con: bun run scripts/reseed.ts
  */
 import bcrypt from "bcryptjs";
 import { db } from "../src/lib/db";
 
 async function main() {
-  console.log("🌱 Iniciando seed...");
+  console.log("🧹 Limpiando base de datos...");
 
-  // 1. Usuario admin por defecto
+  // Limpiar en orden (respetando foreign keys)
+  await db.orderItem.deleteMany();
+  await db.order.deleteMany();
+  await db.customer.deleteMany();
+  await db.productPrice.deleteMany();
+  await db.productPresentation.deleteMany();
+  await db.product.deleteMany();
+  await db.category.deleteMany();
+  await db.testimonial.deleteMany();
+  await db.faq.deleteMany();
+  await db.brandEcosystemEntry.deleteMany();
+  await db.differentiator.deleteMany();
+  await db.stat.deleteMany();
+  await db.coverageZone.deleteMany();
+  await db.businessHour.deleteMany();
+  await db.activityLog.deleteMany();
+  await db.siteConfig.deleteMany();
+  await db.user.deleteMany();
+  console.log("  ✓ Base de datos limpia");
+
+  console.log("🌱 Iniciando reseed con datos de Rosarito, Baja California...");
+
+  // 1. Usuario admin
   const adminPassword = await bcrypt.hash("admin123", 10);
-  const admin = await db.user.upsert({
-    where: { email: "admin@mariscoseljona.mx" },
-    update: {},
-    create: {
+  await db.user.create({
+    data: {
       email: "admin@mariscoseljona.mx",
       name: "Administrador",
       passwordHash: adminPassword,
       role: "ADMIN",
     },
   });
-  console.log(`  ✓ Usuario admin: ${admin.email} (contraseña: admin123)`);
+  console.log("  ✓ Usuario admin: admin@mariscoseljona.mx / admin123");
 
-  // 2. Configuración del sitio
-  await db.siteConfig.upsert({
-    where: { id: "singleton" },
-    update: {},
-    create: {
+  // 2. Configuración del sitio — Rosarito, Baja California
+  await db.siteConfig.create({
+    data: {
       id: "singleton",
       brandName: "Mariscos El Jona",
       tagline: "Del Pacífico a tu mesa",
       slogan:
-        "Pescados y mariscos frescos seleccionados cada mañana, listos para mayoreo y menudeo en todo el estado.",
+        "Pescados y mariscos frescos seleccionados cada mañana, listos para mayoreo y menudeo en toda la región.",
       description:
         "Distribuidora de pescados y mariscos frescos con más de una década y media de trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. Trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.",
       foundedYear: 2008,
-      phone: "+52 669 123 4567",
-      phoneDisplay: "(669) 123-4567",
-      whatsapp: "526691234567",
+      phone: "+52 661 612 3456",
+      phoneDisplay: "(661) 612-3456",
+      whatsapp: "526616123456",
       whatsappMessage:
         "Hola Mariscos El Jona, me gustaría cotizar productos de mariscos.",
       email: "ventas@mariscoseljona.mx",
-      streetAddress: "Av. del Mar 1452, Col. Centro",
-      city: "Mazatlán",
-      state: "Sinaloa",
-      zipCode: "82000",
+      streetAddress: "Blvd. Benito Juárez 1452, Col. Centro",
+      city: "Rosarito",
+      state: "Baja California",
+      zipCode: "22710",
       country: "México",
       facebookUrl: "https://facebook.com/mariscoseljona",
       instagramUrl: "https://instagram.com/mariscoseljona",
@@ -54,7 +72,7 @@ async function main() {
       storyImage: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/dbc81f24f53e.jpg",
     },
   });
-  console.log("  ✓ Configuración del sitio");
+  console.log("  ✓ Configuración del sitio (Rosarito, BC)");
 
   // 3. Horarios
   const hours = [
@@ -80,7 +98,7 @@ async function main() {
   }
   console.log(`  ✓ ${categories.length} categorías`);
 
-  // 5. Productos (con presentaciones y precios)
+  // 5. Productos
   const products = [
     {
       slug: "camaron",
@@ -141,7 +159,7 @@ async function main() {
       categoryId: categoryMap["marisco"],
       image: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8ad617fdb5f6.jpg",
       description:
-        "El auténtico callo de hacha sinaloense, desvalvado a mano y empacado en su propio jugo. Joya de las costas del Pacífico para ceviches y cócteles premium.",
+        "El auténtico callo de hacha bajacaliforniano, desvalvado a mano y empacado en su propio jugo. Joya de las costas del Pacífico para ceviches y cócteles premium.",
       availability: "TEMPORADA",
       featured: true,
       sortOrder: 4,
@@ -174,7 +192,7 @@ async function main() {
       categoryId: categoryMap["marisco"],
       image: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/670e74545aac.jpg",
       description:
-        "Ostiones cultivados en aguas certificadas de Sonora y Sinaloa, entregados vivos en concha o desvalvados al momento. Sabor salino intenso y textura cremosa.",
+        "Ostiones cultivados en aguas certificadas de Baja California, entregados vivos en concha o desvalvados al momento. Sabor salino intenso y textura cremosa.",
       availability: "DIARIA",
       featured: true,
       sortOrder: 6,
@@ -234,9 +252,9 @@ async function main() {
 
   // 6. Testimonios
   const testimonials = [
-    { name: "Chef Ricardo Belmonte", role: "Restaurante Marea Alta", location: "Mazatlán", rating: 5, quote: "Llevo seis años comprándoles el pulpo y el callo de hacha. La consistencia en frescura es lo que mantiene nuestro menú en el nivel que exigimos. Nunca me han fallado en un servicio.", sortOrder: 1 },
-    { name: "Laura Quintero", role: "Pescadería La Sirena", location: "Culiacán", rating: 5, quote: "Como pescadería dependemos totalmente de un proveedor confiable. El Jona nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.", sortOrder: 2 },
-    { name: "Familia Ríos", role: "Cliente menudeo", location: "Mazatlán", rating: 5, quote: "Cada quinceenario y cumpleaños pido la mariscada para la familia. Llega impecable, fresca y bien empacada. Las recomendaciones de preparación del equipo son oro. Ya no compro en otro lado.", sortOrder: 3 },
+    { name: "Chef Ricardo Belmonte", role: "Restaurante Marea Alta", location: "Rosarito", rating: 5, quote: "Llevo seis años comprándoles el pulpo y el callo de hacha. La consistencia en frescura es lo que mantiene nuestro menú en el nivel que exigimos. Nunca me han fallado en un servicio.", sortOrder: 1 },
+    { name: "Laura Quintero", role: "Pescadería La Sirena", location: "Tijuana", rating: 5, quote: "Como pescadería dependemos totalmente de un proveedor confiable. El Jona nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.", sortOrder: 2 },
+    { name: "Familia Ríos", role: "Cliente menudeo", location: "Rosarito", rating: 5, quote: "Cada quinceañero y cumpleaños pido la mariscada para la familia. Llega impecable, fresca y bien empacada. Las recomendaciones de preparación del equipo son oro. Ya no compro en otro lado.", sortOrder: 3 },
   ];
   for (const t of testimonials) {
     await db.testimonial.create({ data: t });
@@ -246,9 +264,9 @@ async function main() {
   // 7. FAQs
   const faqs = [
     { question: "¿Con qué frecuencia reciben producto fresco?", answer: "Recibimos producto del puerto todos los días antes de las 6:00 AM. El inventario de mariscos frescos se renueva diariamente; lo que ves disponible hoy salió del mar esa misma madrugada.", sortOrder: 1 },
-    { question: "¿Hacen entregas a domicilio?", answer: "Sí. En zona metropolitana de Mazatlán y Culiacán entregamos el mismo día si el pedido se realiza antes de las 11:00 AM. Para otras ciudades enviamos por paquetería refrigerada con llegada de 24 a 48 horas.", sortOrder: 2 },
+    { question: "¿Hacen entregas a domicilio?", answer: "Sí. En zona metropolitana de Rosarito y Tijuana entregamos el mismo día si el pedido se realiza antes de las 11:00 AM. Para Ensenada, Mexicali y otras ciudades enviamos por paquetería refrigerada con llegada de 24 a 48 horas.", sortOrder: 2 },
     { question: "¿Cuál es el mínimo de compra para mayoreo?", answer: "El mínimo para precios de mayoreo es de 5 kilogramos por producto o un ticket equivalente. Ofrecemos precios escalonados: mayor volumen, mejor precio unitario.", sortOrder: 3 },
-    { question: "¿Aceptan tarjeta o solo efectivo?", answer: "Aceptamos efectivo, transferencia bancaria, tarjetas de débito y crédito, y Wallet móviles. Para clientes de mayoreo recurrente abrimos línea de crédito a 30 días.", sortOrder: 4 },
+    { question: "¿Aceptan tarjeta o solo efectivo?", answer: "Aceptamos efectivo, transferencia bancaria, tarjetas de débito y crédito, y wallets móviles. Para clientes de mayoreo recurrente abrimos línea de crédito a 30 días.", sortOrder: 4 },
     { question: "¿Cómo garantizan la cadena de frío?", answer: "Trabajamos con cuartos fríos a -2°C para frescos y -18°C para congelados. Las entregas se hacen en vehículos con hieleras industriales y monitoreo de temperatura en todo el trayecto.", sortOrder: 5 },
   ];
   for (const f of faqs) {
@@ -280,26 +298,26 @@ async function main() {
   }
   console.log(`  ✓ ${stats.length} estadísticas`);
 
-  // 10. Ecosistema de marcas
+  // 10. Ecosistema de marcas — Rosarito, BC
   const brands = [
-    { name: "Restaurante El Jona 1", subtitle: "Mariscos & Pescados", address: "Av. del Mar 1452, Mazatlán, Sinaloa", description: "Nuestra casa matriz. Cocina sinaloense tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.", hours: "Lun a Dom · 12:00 PM – 11:00 PM", phone: "+52 669 100 2001", accent: "teal", logoPath: "/jona-1-logo.svg", sortOrder: 1 },
-    { name: "Restaurante El Jona 2", subtitle: "Marisquería & Bar", address: "Blvd. Marina 880, Mazatlán, Sinaloa", description: "Nuestra segunda ubicación, con ambiente más contemporáneo y carta de mariscos al carbón, ostras frescas y coctelería. Terraza frente al malecón con vista al puerto.", hours: "Mar a Dom · 1:00 PM – 12:00 AM", phone: "+52 669 100 2002", accent: "amber", logoPath: "/jona-2-logo.svg", sortOrder: 2 },
+    { name: "Restaurante El Jona 1", subtitle: "Mariscos & Pescados", address: "Blvd. Benito Juárez 1452, Rosarito, Baja California", description: "Nuestra casa matriz. Cocina bajacaliforniana tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.", hours: "Lun a Dom · 12:00 PM – 11:00 PM", phone: "+52 661 100 2001", accent: "teal", logoPath: "/jona-1-logo.svg", sortOrder: 1 },
+    { name: "Restaurante El Jona 2", subtitle: "Marisquería & Bar", address: "Av. del Mar 880, Rosarito, Baja California", description: "Nuestra segunda ubicación, con ambiente más contemporáneo y carta de mariscos al carbón, ostras frescas y coctelería. Terraza frente al malecón con vista al Pacífico.", hours: "Mar a Dom · 1:00 PM – 12:00 AM", phone: "+52 661 100 2002", accent: "amber", logoPath: "/jona-2-logo.svg", sortOrder: 2 },
   ];
   for (const b of brands) {
     await db.brandEcosystemEntry.create({ data: b });
   }
   console.log(`  ✓ ${brands.length} marcas del ecosistema`);
 
-  // 11. Cobertura
+  // 11. Cobertura — Baja California
   const zones = [
-    { name: "Mazatlán", type: "primary", sortOrder: 1 },
-    { name: "Culiacán", type: "primary", sortOrder: 2 },
-    { name: "Los Mochis", type: "primary", sortOrder: 3 },
-    { name: "Guasave", type: "primary", sortOrder: 4 },
-    { name: "Navolato", type: "primary", sortOrder: 5 },
-    { name: "Culiacán a Guamúchil", type: "extended", sortOrder: 6 },
-    { name: "Mazatlán y alrededores", type: "extended", sortOrder: 7 },
-    { name: "Costa de Sinaloa", type: "extended", sortOrder: 8 },
+    { name: "Rosarito", type: "primary", sortOrder: 1 },
+    { name: "Tijuana", type: "primary", sortOrder: 2 },
+    { name: "Ensenada", type: "primary", sortOrder: 3 },
+    { name: "Mexicali", type: "primary", sortOrder: 4 },
+    { name: "San Quintín", type: "primary", sortOrder: 5 },
+    { name: "Tijuana a Tecate", type: "extended", sortOrder: 6 },
+    { name: "Rosarito y costa de Baja California", type: "extended", sortOrder: 7 },
+    { name: "Valle de Guadalupe", type: "extended", sortOrder: 8 },
     { name: "Envíos foráneos por paquetería refrigerada", type: "extended", sortOrder: 9 },
   ];
   for (const z of zones) {
@@ -307,13 +325,14 @@ async function main() {
   }
   console.log(`  ✓ ${zones.length} zonas de cobertura`);
 
-  console.log("\n✅ Seed completado con éxito.");
+  console.log("\n✅ Reseed completado con éxito.");
+  console.log("   Ubicación: Rosarito, Baja California");
   console.log("   Login admin: admin@mariscoseljona.mx / admin123");
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Error en seed:", e);
+    console.error("❌ Error en reseed:", e);
     process.exit(1);
   })
   .finally(async () => {

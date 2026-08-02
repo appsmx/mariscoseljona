@@ -15,16 +15,18 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Mariscos El Jona | Pescados y Mariscos Frescos en Sinaloa",
+  title: "Mariscos El Jona | Pescados y Mariscos Frescos en Baja California",
   description:
-    "Distribuidora de pescados y mariscos frescos en Mazatlán, Sinaloa. Mayoreo y menudeo con entrega a domicilio. Pulpo, camarón, calamar, callo de hacha, almejas, ostiones y más.",
+    "Distribuidora de pescados y mariscos frescos en Rosarito, Baja California. Mayoreo y menudeo con entrega a domicilio. Pulpo, camarón, calamar, callo de hacha, almejas, ostiones y más.",
   keywords: [
     "mariscos",
     "pescados frescos",
     "mayoreo mariscos",
     "menudeo mariscos",
-    "Mazatlán",
-    "Sinaloa",
+    "Rosarito",
+    "Baja California",
+    "Tijuana",
+    "Ensenada",
     "pulpo",
     "camarón",
     "callo de hacha",

@@ -206,7 +206,7 @@ export default function AdminDashboard() {
                   </p>
                 ) : (
                   <p className="text-sm text-muted-foreground">
-                    Hacé click en "Generar resumen" para que la IA analice tus pedidos, ingresos y productos más vendidos, y te dé sugerencias accionables.
+                    Haz clic en "Generar resumen" para que la IA analice tus pedidos, ingresos y productos más vendidos, y te dé sugerencias accionables.
                   </p>
                 )}
               </div>

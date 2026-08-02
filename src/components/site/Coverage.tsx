@@ -96,11 +96,11 @@ export function Coverage() {
                   />
                   {/* Marcadores de ciudad */}
                   {[
-                    { x: 80, y: 200, label: "Los Mochis" },
-                    { x: 130, y: 210, label: "Guasave" },
-                    { x: 200, y: 215, label: "Culiacán" },
-                    { x: 280, y: 220, label: "Navolato" },
-                    { x: 340, y: 230, label: "Mazatlán" },
+                    { x: 80, y: 180, label: "Tijuana" },
+                    { x: 120, y: 210, label: "Rosarito" },
+                    { x: 180, y: 160, label: "Tecate" },
+                    { x: 240, y: 220, label: "Ensenada" },
+                    { x: 320, y: 250, label: "San Quintín" },
                   ].map((c) => (
                     <g key={c.label}>
                       <circle cx={c.x} cy={c.y} r="6" fill="#d97706" />
@@ -112,7 +112,7 @@ export function Coverage() {
                   ))}
                   {/* Línea de conexión */}
                   <path
-                    d="M80 200 L130 210 L200 215 L280 220 L340 230"
+                    d="M80 180 L120 210 L180 160 L240 220 L320 250"
                     fill="none"
                     stroke="#d97706"
                     strokeWidth="1.5"
@@ -126,7 +126,7 @@ export function Coverage() {
                   <div className="flex items-center gap-2">
                     <Package className="h-4 w-4 text-amber-brand-600" />
                     <span className="text-xs font-semibold text-foreground">
-                      Cobertura Sinaloa
+                      Cobertura Baja California
                     </span>
                   </div>
                 </div>

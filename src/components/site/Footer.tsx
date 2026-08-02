@@ -100,7 +100,7 @@ export function Footer() {
 
             <p className="mt-5 text-sm text-white/70 leading-relaxed max-w-md">
               Distribuidora de pescados y mariscos frescos con más de 17 años abasteciendo
-              a restaurantes, pescaderías y hogares de Sinaloa. Frescura, trazabilidad y
+              a restaurantes, pescaderías y hogares de Baja California. Frescura, trazabilidad y
               precio justo en cada entrega.
             </p>
 
@@ -200,9 +200,9 @@ export function Footer() {
           <LoganSeal variant="dark" />
 
           <div className="flex items-center gap-4">
-            <span>Mazatlán, Sinaloa · México</span>
+            <span>Rosarito, Baja California · México</span>
             <span className="hidden sm:inline">·</span>
-            <span>Hecho con orgullo sinaloense</span>
+            <span>Hecho con orgullo bajacaliforniano</span>
           </div>
         </div>
       </div>

@@ -14,26 +14,26 @@ export const siteConfig = {
     name: "Mariscos El Jona",
     tagline: "Del Pacífico a tu mesa",
     slogan:
-      "Pescados y mariscos frescos seleccionados cada mañana, listos para mayoreo y menudeo en todo el estado.",
+      "Pescados y mariscos frescos seleccionados cada mañana, listos para mayoreo y menudeo en toda la región.",
     foundedYear: 2008,
     trajectoryYears: 17,
     description:
-      "Distribuidora de pescados y mariscos frescos con más de una década y media de trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.",
+      "Distribuidora de pescados y mariscos frescos con más de una década y media de trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. Trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.",
   },
 
   // ---- Contacto ----
   contact: {
-    phone: "+52 669 123 4567",
-    phoneDisplay: "(669) 123-4567",
-    whatsapp: "526691234567", // sin signos, formato internacional
+    phone: "+52 661 612 3456",
+    phoneDisplay: "(661) 612-3456",
+    whatsapp: "526616123456", // sin signos, formato internacional
     whatsappMessage:
       "Hola Mariscos El Jona, me gustaría cotizar productos de mariscos.",
     email: "ventas@mariscoseljona.mx",
     address: {
-      street: "Av. del Mar 1452, Col. Centro",
-      city: "Mazatlán",
-      state: "Sinaloa",
-      zip: "82000",
+      street: "Blvd. Benito Juárez 1452, Col. Centro",
+      city: "Rosarito",
+      state: "Baja California",
+      zip: "22710",
       country: "México",
     },
     hours: [
@@ -142,7 +142,7 @@ export const products: Product[] = [
     image:
       "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8ad617fdb5f6.jpg",
     description:
-      "El auténtico callo de hacha sinaloense, desvalvado a mano y empacado en su propio jugo. Joya de las costas del Pacífico para ceviches y cócteles premium.",
+      "El auténtico callo de hacha bajacaliforniano, desvalvado a mano y empacado en su propio jugo. Joya de las costas del Pacífico para ceviches y cócteles premium.",
     presentation: ["Medio litro", "Litro", "Bandeja 500 g"],
     availability: "Temporada",
     tags: ["mayoreo", "menudeo", "fresco", "premium"],
@@ -168,7 +168,7 @@ export const products: Product[] = [
     image:
       "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/670e74545aac.jpg",
     description:
-      "Ostiones cultivados en aguas certificadas de Sonora y Sinaloa, entregados vivos en concha o desvalvados al momento. Sabor salino intenso y textura cremosa.",
+      "Ostiones cultivados en aguas certificadas de Baja California, entregados vivos en concha o desvalvados al momento. Sabor salino intenso y textura cremosa.",
     presentation: ["En concha por docena", "Desvalvados", "Frasco litro"],
     availability: "Diaria",
     tags: ["mayoreo", "menudeo", "fresco", "premium"],
@@ -250,20 +250,20 @@ export const salesChannels = [
 
 export const coverage = {
   primary: [
-    "Mazatlán",
-    "Culiacán",
-    "Los Mochis",
-    "Guasave",
-    "Navolato",
+    "Rosarito",
+    "Tijuana",
+    "Ensenada",
+    "Mexicali",
+    "San Quintín",
   ],
   extended: [
-    "Culiacán a Guamúchil",
-    "Mazatlán y alrededores",
-    "Costa de Sinaloa",
+    "Tijuana a Tecate",
+    "Rosarito y costa de Baja California",
+    "Valle de Guadalupe",
     "Envíos foráneos por paquetería refrigerada",
   ],
   deliverySchedule:
-    "Entregas lunes a sábado. Pedidos antes de las 11:00 AM se entregan el mismo día en zona metropolitana.",
+    "Entregas lunes a sábado. Pedidos antes de las 11:00 AM se entregan el mismo día en zona metropolitana de Rosarito y Tijuana.",
 };
 
 // ============================================================
@@ -274,7 +274,7 @@ export const testimonials = [
   {
     name: "Chef Ricardo Belmonte",
     role: "Restaurante Marea Alta",
-    location: "Mazatlán",
+    location: "Rosarito",
     rating: 5,
     quote:
       "Llevo seis años comprándoles el pulpo y el callo de hacha. La consistencia en frescura es lo que mantiene nuestro menú en el nivel que exigimos. Nunca me han fallado en un servicio.",
@@ -282,7 +282,7 @@ export const testimonials = [
   {
     name: "Laura Quintero",
     role: "Pescadería La Sirena",
-    location: "Culiacán",
+    location: "Tijuana",
     rating: 5,
     quote:
       "Como pescadería dependemos totalmente de un proveedor confiable. El Jona nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.",
@@ -290,10 +290,10 @@ export const testimonials = [
   {
     name: "Familia Ríos",
     role: "Cliente menudeo",
-    location: "Mazatlán",
+    location: "Rosarito",
     rating: 5,
     quote:
-      "Cada quinceenario y cumpleaños pido la mariscada para la familia. Llega impecable, fresca y bien empacada. Las recomendaciones de preparación del equipo son oro. Ya no compro en otro lado.",
+      "Cada quinceañero y cumpleaños pido la mariscada para la familia. Llega impecable, fresca y bien empacada. Las recomendaciones de preparación del equipo son oro. Ya no compro en otro lado.",
   },
 ];
 
@@ -305,22 +305,22 @@ export const brandEcosystem = [
   {
     name: "Restaurante El Jona 1",
     subtitle: "Mariscos & Pescados",
-    address: "Av. del Mar 1452, Mazatlán, Sinaloa",
+    address: "Blvd. Benito Juárez 1452, Rosarito, Baja California",
     description:
-      "Nuestra casa matriz. Cocina sinaloense tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.",
+      "Nuestra casa matriz. Cocina bajacaliforniana tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.",
     hours: "Lun a Dom · 12:00 PM – 11:00 PM",
     accent: "teal",
-    phone: "+52 669 100 2001",
+    phone: "+52 661 100 2001",
   },
   {
     name: "Restaurante El Jona 2",
     subtitle: "Marisquería & Bar",
-    address: "Blvd. Marina 880, Mazatlán, Sinaloa",
+    address: "Av. del Mar 880, Rosarito, Baja California",
     description:
-      "Nuestra segunda ubicación, con ambiente más contemporáneo y carta de mariscos al carbón, ostras frescas y coctelería. Terraza frente al malecón con vista al puerto.",
+      "Nuestra segunda ubicación, con ambiente más contemporáneo y carta de mariscos al carbón, ostras frescas y coctelería. Terraza frente al malecón con vista al Pacífico.",
     hours: "Mar a Dom · 1:00 PM – 12:00 AM",
     accent: "amber",
-    phone: "+52 669 100 2002",
+    phone: "+52 661 100 2002",
   },
 ] as const;
 
@@ -337,7 +337,7 @@ export const faqs = [
   {
     question: "¿Hacen entregas a domicilio?",
     answer:
-      "Sí. En zona metropolitana de Mazatlán y Culiacán entregamos el mismo día si el pedido se realiza antes de las 11:00 AM. Para otras ciudades enviamos por paquetería refrigerada con llegada de 24 a 48 horas.",
+      "Sí. En zona metropolitana de Rosarito y Tijuana entregamos el mismo día si el pedido se realiza antes de las 11:00 AM. Para Ensenada, Mexicali y otras ciudades enviamos por paquetería refrigerada con llegada de 24 a 48 horas.",
   },
   {
     question: "¿Cuál es el mínimo de compra para mayoreo?",
@@ -347,7 +347,7 @@ export const faqs = [
   {
     question: "¿Aceptan tarjeta o solo efectivo?",
     answer:
-      "Aceptamos efectivo, transferencia bancaria, tarjetas de débito y crédito, y Wallet móviles. Para clientes de mayoreo recurrente abrimos línea de crédito a 30 días.",
+      "Aceptamos efectivo, transferencia bancaria, tarjetas de débito y crédito, y wallets móviles. Para clientes de mayoreo recurrente abrimos línea de crédito a 30 días.",
   },
   {
     question: "¿Cómo garantizan la cadena de frío?",

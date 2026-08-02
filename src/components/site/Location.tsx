@@ -24,13 +24,13 @@ export function Location() {
           {/* Información de contacto */}
           <div className="flex flex-col justify-center">
             <span className="inline-flex items-center gap-2 rounded-full bg-amber-brand-50 border border-amber-brand-200 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-brand-700 w-fit">
-              Visitanos o escribinos
+              Visítanos o escríbenos
             </span>
             <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-              Estamos en Mazatlán, Sinaloa
+              Estamos en Rosarito, Baja California
             </h2>
             <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Pasá a comprar directo al mostrador, llamános por teléfono o escribinos por
+              Pasa a comprar directo al mostrador, llámanos por teléfono o escríbenos por
               WhatsApp. La atención es personalizada y siempre vas a hablar con alguien del
               equipo, nunca con un menú automático.
             </p>
@@ -129,7 +129,7 @@ export function Location() {
           <div className="relative min-h-[400px] lg:min-h-full rounded-3xl overflow-hidden shadow-xl border border-border">
             <iframe
               title="Ubicación de Mariscos El Jona"
-              src={`https://www.openstreetmap.org/export/embed.html?bbox=-106.5%2C23.18%2C-106.35%2C23.28&layer=mapnik&marker=23.23%2C-106.42`}
+              src={`https://www.openstreetmap.org/export/embed.html?bbox=-117.15%2C32.18%2C-116.95%2C32.30&layer=mapnik&marker=32.237%2C-117.053`}
               className="absolute inset-0 h-full w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

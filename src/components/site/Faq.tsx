@@ -22,10 +22,10 @@ export function Faq() {
             Preguntas frecuentes
           </span>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-            Resolvé tus dudas
+            Resuelve tus dudas
           </h2>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Las preguntas que más nos hacen. ¿No encontrás tu respuesta? Escribinos por
+            Las preguntas que más nos hacen. ¿No encuentras tu respuesta? Escríbenos por
             WhatsApp y te respondemos al instante.
           </p>
         </div>

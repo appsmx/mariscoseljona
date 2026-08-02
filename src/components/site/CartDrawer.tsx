@@ -91,7 +91,7 @@ export function CartDrawer() {
 
   const handleSubmit = async () => {
     if (!form.customerName || !form.customerPhone) {
-      toast.error("Completá tu nombre y teléfono para enviar la cotización");
+      toast.error("Completa tu nombre y teléfono para enviar la cotización");
       return;
     }
     if (items.length === 0) {
@@ -180,7 +180,7 @@ export function CartDrawer() {
             <p className="font-mono text-lg font-bold text-ocean-700 mt-1">{success.code}</p>
             <p className="text-sm text-muted-foreground mt-4 max-w-xs">
               Nosotros recibimos tu solicitud y te contactaremos en breve. Para acelerar
-              la respuesta, enviá el detalle también por WhatsApp:
+              la respuesta, envía el detalle también por WhatsApp:
             </p>
             <Button asChild className="mt-6 bg-emerald-600 hover:bg-emerald-700 text-white">
               <a href={success.waLink} target="_blank" rel="noopener noreferrer">
@@ -202,7 +202,7 @@ export function CartDrawer() {
               Tu carrito está vacío
             </h3>
             <p className="text-sm text-muted-foreground mt-2 max-w-xs">
-              Explorá el catálogo y agregá los productos que te interesan.
+              Explora el catálogo y agrega los productos que te interesan.
               Vas a poder enviar todo junto en una sola cotización.
             </p>
             <Button onClick={handleClose} className="mt-6 bg-ocean-600 hover:bg-ocean-700">
@@ -329,7 +329,7 @@ export function CartDrawer() {
                     <Input
                       value={form.deliveryCity}
                       onChange={(e) => update("deliveryCity", e.target.value)}
-                      placeholder="Mazatlán, Culiacán..."
+                      placeholder="Rosarito, Tijuana..."
                       className="h-9"
                     />
                   </div>

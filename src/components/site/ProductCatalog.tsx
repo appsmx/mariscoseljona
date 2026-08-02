@@ -158,7 +158,7 @@ function ProductCard({ product, config }: { product: Product; config: any }) {
         ) : (
           <div className="mt-4 rounded-lg bg-amber-brand-50 border border-amber-brand-200 p-3">
             <p className="text-xs text-amber-brand-700 font-medium">
-              Precio bajo cotización · consultá por WhatsApp
+              Precio bajo cotización · consulta por WhatsApp
             </p>
           </div>
         )}
@@ -287,7 +287,7 @@ export function ProductCatalog() {
             Nuestros productos del mar
           </h2>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Cada producto se recibe en fresco del Pacífico mexicano. Armá tu cotización
+            Cada producto se recibe en fresco del Pacífico mexicano. Arma tu cotización
             seleccionando productos y cantidades — se envía directo por WhatsApp y queda
             registrado en nuestro sistema.
           </p>
@@ -348,7 +348,7 @@ export function ProductCatalog() {
 
         {/* Aviso */}
         <p className="mt-10 text-center text-sm text-muted-foreground">
-          ¿Buscás un producto que no está listado?{" "}
+          ¿Buscas un producto que no está listado?{" "}
           <a
             href={`https://wa.me/${activeConfig.contact.whatsapp}`}
             target="_blank"

@@ -18,7 +18,7 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <img
           src={siteConfig.images.hero}
-          alt="Atardecer en el puerto de Mazatlán"
+          alt="Atardecer en el puerto de Rosarito"
           className="h-full w-full object-cover"
           fetchPriority="high"
         />
@@ -39,7 +39,7 @@ export function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-medium text-white mb-6 animate-fade-up">
             <span className="inline-flex h-2 w-2 rounded-full bg-amber-brand-400 animate-pulse" />
-            Frescura diaria del Pacífico mexicano · Mazatlán, Sinaloa
+            Frescura diaria del Pacífico mexicano · Rosarito, Baja California
           </div>
 
           {/* Título */}
