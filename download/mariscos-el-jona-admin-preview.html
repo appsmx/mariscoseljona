@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Admin — Mariscos El Jona</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-950: #082f49;
+    --ocean-900: #0c4a6e;
+    --ocean-800: #155e75;
+    --ocean-700: #0e7490;
+    --ocean-600: #0891b2;
+    --ocean-500: #06b6d4;
+    --ocean-100: #cffafe;
+    --ocean-50: #ecfeff;
+    --amber-700: #b45309;
+    --amber-600: #d97706;
+    --amber-500: #f59e0b;
+    --amber-100: #fef3c7;
+    --amber-50: #fffbeb;
+    --white: #ffffff;
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-500: #64748b;
+    --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --slate-50: #f8fafc;
+    --emerald-500: #10b981;
+    --emerald-100: #d1fae5;
+    --rose-500: #f43f5e;
+    --rose-100: #ffe4e6;
+    --purple-500: #8b5cf6;
+    --purple-100: #ede9fe;
+    --cyan-500: #06b6d4;
+    --cyan-100: #cffafe;
+    --indigo-500: #6366f1;
+    --indigo-100: #e0e7ff;
+    --display: 'Playfair Display', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--slate-50);
+    color: var(--slate-800);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Banner */
+  .offline-banner {
+    background: var(--amber-500);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+  }
+
+  /* Layout */
+  .admin-layout {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 2rem;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 280px;
+    background: var(--ocean-950);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 2rem; left: 0; bottom: 0;
+    z-index: 40;
+  }
+  .sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .sidebar-logo {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--amber-400), var(--amber-600));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .sidebar-logo svg { width: 28px; height: 28px; }
+  .sidebar-brand-name {
+    font-family: var(--display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .sidebar-brand-tagline {
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber-300);
+    margin-top: 0.25rem;
+  }
+  .sidebar-nav {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+  .sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+  }
+  .sidebar-nav a:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--white);
+  }
+  .sidebar-nav a.active {
+    background: rgba(255,255,255,0.1);
+    color: var(--white);
+    border-left-color: var(--amber-400);
+  }
+  .sidebar-nav .icon {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+  }
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .sidebar-footer a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .sidebar-footer a:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+  .sidebar-footer .logout { color: #fda4af; }
+  .sidebar-footer .logout:hover { background: rgba(244,63,94,0.1); color: #fecaca; }
+
+  /* Main */
+  .main {
+    flex: 1;
+    margin-left: 280px;
+    padding: 1.5rem 2rem;
+  }
+
+  .page-header {
+    margin-bottom: 1.5rem;
+  }
+  .page-title {
+    font-family: var(--display);
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--slate-900);
+  }
+  .page-subtitle {
+    font-size: 0.875rem;
+    color: var(--slate-500);
+    margin-top: 0.25rem;
+  }
+
+  /* AI Summary Card */
+  .ai-card {
+    background: linear-gradient(135deg, rgba(8,145,178,0.05), rgba(245,158,11,0.03));
+    border: 1px solid var(--ocean-200, #a5f3fc);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .ai-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--ocean-500), var(--ocean-700));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white);
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(8,145,178,0.3);
+  }
+  .ai-content { flex: 1; }
+  .ai-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem  }
+  .ai-title {
+    font-family: var(--display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--slate-900);
+  }
+  .ai-subtitle {
+    font-size: 0.75rem;
+    color: var(--slate-500);
+    margin-top: 0.125rem;
+  }
+  .ai-btn {
+    background: var(--white);
+    border: 1px solid var(--ocean-200, #a5f3fc);
+    color: var(--ocean-700, #0e7490);
+    padding: 0.375rem 0.875rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    transition: all 0.2s;
+  }
+  .ai-btn:hover { background: var(--ocean-50, #ecfeff); }
+  .ai-text {
+    font-size: 0.85rem;
+    color: var(--slate-600);
+    line-height: 1.6;
+  }
+
+  /* KPI Grid */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .kpi-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .kpi-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .kpi-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--slate-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .kpi-value {
+    font-family: var(--display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin-top: 0.25rem;
+    line-height: 1;
+  }
+  .kpi-sub {
+    font-size: 0.7rem;
+    color: var(--slate-400);
+    margin-top: 0.25rem;
+  }
+  .kpi-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.125rem;
+  }
+  .kpi-icon.ocean { background: var(--ocean-50, #ecfeff); }
+  .kpi-icon.amber { background: var(--amber-50, #fffbeb); }
+  .kpi-icon.emerald { background: var(--emerald-100, #d1fae5); }
+  .kpi-icon.purple { background: var(--purple-100, #ede9fe); }
+
+  /* Card */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Status grid */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.5rem;
+  }
+  .status-item {
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+  }
+  .status-item .count {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .status-item .label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+  }
+  .status-nuevo { background: #dbeafe; border-color: #bfdbfe; color: #1e40af; }
+  .status-revision { background: #fef3c7; border-color: #fde68a; color: #92400e; }
+  .status-cotizado { background: var(--purple-100); border-color: #ddd6fe; color: #5b21b6; }
+  .status-confirmado { background: var(--emerald-100); border-color: #a7f3d0; color: #065f46; }
+  .status-preparacion { background: var(--cyan-100); border-color: #a5f3fc; color: #155e75; }
+  .status-ruta { background: var(--indigo-100); border-color: #c7d2fe; color: #3730a3; }
+  .status-entregado { background: #d1fae5; border-color: #a7f3d0; color: #065f46; }
+  .status-cancelado { background: var(--rose-100); border-color: #fecdd3; color: #9f1239; }
+  .status-empty { background: var(--slate-50); border-color: var(--slate-200); color: var(--slate-400); }
+
+  /* Two col */
+  .two-col {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Order list */
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.875rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: background 0.2s;
+  }
+  .order-item:hover { background: var(--slate-50); }
+  .order-info { flex: 1; min-width: 0; }
+  .order-code {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ocean-700, #0e7490);
+  }
+  .order-customer {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin-top: 0.125rem;
+  }
+  .order-meta {
+    font-size: 0.7rem;
+    color: var(--slate-500);
+    margin-top: 0.25rem;
+  }
+  .order-amount {
+    font-family: var(--display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    text-align: right;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 600;
+    padding: 0.125rem 0.5rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 0.5rem;
+  }
+  .badge-nuevo { background: #dbeafe; color: #1e40af; }
+  .badge-revision { background: #fef3c7; color: #92400e; }
+  .badge-cotizado { background: var(--purple-100); color: #5b21b6; }
+  .badge-confirmado { background: var(--emerald-100); color: #065f46; }
+  .badge-preparacion { background: var(--cyan-100); color: #155e75; }
+  .badge-ruta { background: var(--indigo-100); color: #3730a3; }
+  .badge-entregado { background: #d1fae5; color: #065f46; }
+  .badge-cancelado { background: var(--rose-100); color: #9f1239; }
+  .badge-mayoreo { background: var(--ocean-50, #ecfeff); color: var(--ocean-700, #0e7490); }
+  .badge-menudeo { background: var(--amber-50, #fffbeb); color: var(--amber-700, #b45309); }
+
+  /* Top products */
+  .top-product {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .top-product:last-child { border-bottom: none; }
+  .top-num {
+    width: 32px; height: 32px;
+    background: var(--ocean-50, #ecfeff);
+    color: var(--ocean-700, #0e7490);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+  .top-info { flex: 1; }
+  .top-name { font-size: 0.875rem; font-weight: 500; color: var(--slate-900); }
+  .top-meta { font-size: 0.7rem; color: var(--slate-500); margin-top: 0.125rem; }
+
+  /* Products grid */
+  .products-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .product-admin-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .product-admin-card:hover {
+    box-shadow: 0 8px 20px rgba(8,47,73,0.08);
+    transform: translateY(-2px);
+  }
+  .product-admin-image {
+    aspect-ratio: 4/3;
+    background: var(--slate-100);
+    position: relative;
+    overflow: hidden;
+  }
+  .product-admin-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .product-admin-image .featured-badge {
+    position: absolute;
+    top: 0.5rem; right: 0.5rem;
+    background: var(--amber-500);
+    color: var(--white);
+    font-size: 0.625rem;
+    font-weight: 700;
+    padding: 0.125rem 0.5rem;
+    border-radius: 6px;
+  }
+  .product-admin-body {
+    padding: 0.875rem;
+  }
+  .product-admin-name {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .product-admin-scientific {
+    font-size: 0.7rem;
+    color: var(--slate-400);
+    font-style: italic;
+    margin-top: 0.125rem;
+  }
+  .product-admin-tags {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .product-admin-actions {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.625rem 0.875rem;
+    border-top: 1px solid var(--slate-100);
+  }
+  .action-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 0.375rem;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--slate-500);
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    transition: all 0.2s;
+  }
+  .action-btn:hover { background: var(--slate-100); color: var(--slate-700); }
+  .action-btn.delete:hover { background: var(--rose-100); color: var(--rose-500); }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .toolbar-left { display: flex; gap: 0.5rem; align-items: center; }
+  .search-box {
+    position: relative;
+  }
+  .search-box input {
+    padding: 0.5rem 0.75rem 0.5rem 2rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    width: 280px;
+    font-family: inherit;
+  }
+  .search-box input:focus {
+    outline: none;
+    border-color: var(--ocean-500, #06b6d4);
+    box-shadow: 0 0 0 3px rgba(6,182,212,0.1);
+  }
+  .search-box .search-icon {
+    position: absolute;
+    left: 0.625rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--slate-400);
+  }
+  .filter-select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    background: var(--white);
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .btn-primary-sm {
+    background: var(--ocean-600, #0891b2);
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .btn-outline-sm {
+    background: var(--white);
+    color: var(--slate-700);
+    border: 1px solid var(--slate-200);
+    padding: 0.5rem 0.875rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .btn-outline-sm:hover { background: var(--slate-50); }
+
+  /* Content editor cards */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .content-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .content-card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--slate-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .content-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--slate-900);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .content-card-body {
+    padding: 1rem 1.25rem;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .content-item {
+    border: 1px solid var(--slate-200);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .content-item-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.375rem;
+  }
+  .content-input {
+    padding: 0.375rem 0.5rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-family: inherit;
+  }
+  .content-input:focus {
+    outline: none;
+    border-color: var(--ocean-500, #06b6d4);
+  }
+  .content-textarea {
+    width: 100%;
+    padding: 0.375rem 0.5rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 50px;
+  }
+  .stars-row {
+    display: flex;
+    gap: 0.125rem;
+    margin: 0.25rem 0;
+  }
+  .star { color: var(--amber-400); font-size: 1rem; cursor: pointer; }
+  .star.empty { color: var(--slate-300); }
+  .switch-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+  .switch {
+    position: relative;
+    width: 36px; height: 20px;
+    background: var(--slate-200);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .switch.on { background: var(--emerald-500); }
+  .switch::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 16px; height: 16px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  .switch.on::after { transform: translateX(16px); }
+  .switch-label { font-size: 0.7rem; color: var(--slate-600); }
+
+  /* Config form */
+  .config-section {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .config-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .config-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .config-field label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--slate-600);
+    margin-bottom: 0.25rem;
+  }
+  .config-field input, .config-field textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-family: inherit;
+  }
+  .config-field input:focus, .config-field textarea:focus {
+    outline: none;
+    border-color: var(--ocean-500, #06b6d4);
+    box-shadow: 0 0 0 3px rgba(6,182,212,0.1);
+  }
+  .config-preview {
+    margin-top: 0.5rem;
+    height: 80px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--slate-200);
+  }
+  .config-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Page tabs */
+  .page-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .page-tab {
+    padding: 0.625rem 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--slate-500);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    font-family: inherit;
+  }
+  .page-tab:hover { color: var(--slate-700); }
+  .page-tab.active {
+    color: var(--ocean-700, #0e7490);
+    border-bottom-color: var(--ocean-600, #0891b2);
+  }
+
+  /* Page visibility */
+  .page-content { display: none; }
+  .page-content.active { display: block; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; padding: 1rem; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .status-grid { grid-template-columns: repeat(4, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .products-admin-grid { grid-template-columns: repeat(2, 1fr); }
+    .content-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .status-grid { grid-template-columns: repeat(2, 1fr); }
+    .products-admin-grid { grid-template-columns: 1fr; }
+    .search-box input { width: 100%; }
+    .toolbar-left { width: 100%; flex-direction: column; align-items: stretch; }
+  }
+
+  /* Mobile toggle */
+  .mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 2.5rem; left: 1rem;
+    z-index: 50;
+    background: var(--ocean-700, #0e7490);
+    color: var(--white);
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 1024px) {
+    .mobile-toggle { display: flex; }
+  }
+</style>
+</head>
+<body>
+
+<div class="offline-banner">
+  📄 Versión de demostración del panel admin · Datos de muestra · Las acciones (guardar, editar, eliminar) no funcionan en esta versión offline
+</div>
+
+<button class="mobile-toggle" id="mobileToggle">☰</button>
+
+<div class="admin-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M14 36c0-7 6-13 13-13 4 0 8 2 10 5 1-4 5-7 9-7 1 0 2 0 3 1-3 1-5 4-5 7 0 0 4-2 7-1-2 4-6 6-10 6-2 0-3 0-4-1-1 4-5 7-9 7-7 0-14-1-14-4z" fill="#fef3c7"/>
+          <circle cx="22" cy="32" r="1.6" fill="#0d9488"/>
+        </svg>
+      </div>
+      <div>
+        <div class="sidebar-brand-name">El Jona</div>
+        <div class="sidebar-brand-tagline">Panel Admin</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active" data-page="dashboard">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="#" data-page="productos">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Productos
+      </a>
+      <a href="#" data-page="pedidos">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Pedidos
+      </a>
+      <a href="#" data-page="contenido">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Contenido
+      </a>
+      <a href="#" data-page="configuracion">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Configuración
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Ver sitio público
+      </a>
+      <a href="#" class="logout">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Cerrar sesión
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="page-content active" id="page-dashboard">
+      <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle" id="todayDate">Resumen general del negocio</p>
+      </div>
+
+      <!-- AI Summary -->
+      <div class="ai-card">
+        <div class="ai-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L13.09 8.26L20 9L14.5 14L16.18 21L12 17.5L7.82 21L9.5 14L4 9L10.91 8.26L12 2Z"/></svg>
+        </div>
+        <div class="ai-content">
+          <div class="ai-title-row">
+            <div>
+              <div class="ai-title">Resumen inteligente</div>
+              <div class="ai-subtitle">Tu asistente de gestión analizando el estado del negocio</div>
+            </div>
+            <button class="ai-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L13.09 8.26L20 9L14.5 14L16.18 21L12 17.5L7.82 21L9.5 14L4 9L10.91 8.26L12 2Z"/></svg>
+              Generar resumen
+            </button>
+          </div>
+          <div class="ai-text">
+            Haz clic en "Generar resumen" para que la IA analice tus pedidos, ingresos y productos más vendidos, y te dé sugerencias accionables.
+          </div>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-row">
+            <div>
+              <div class="kpi-label">Productos activos</div>
+              <div class="kpi-value">8</div>
+              <div class="kpi-sub">de 8 total</div>
+            </div>
+            <div class="kpi-icon ocean">📦</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row">
+            <div>
+              <div class="kpi-label">Pedidos nuevos</div>
+              <div class="kpi-value">3</div>
+              <div class="kpi-sub">de 7 total</div>
+            </div>
+            <div class="kpi-icon amber">🛒</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row">
+            <div>
+              <div class="kpi-label">Clientes registrados</div>
+              <div class="kpi-value">12</div>
+              <div class="kpi-sub">+4 este mes</div>
+            </div>
+            <div class="kpi-icon emerald">👥</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row">
+            <div>
+              <div class="kpi-label">Ingresos del mes</div>
+              <div class="kpi-value">$18,450</div>
+              <div class="kpi-sub">MXN</div>
+            </div>
+            <div class="kpi-icon purple">💰</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedidos por estado -->
+      <div class="card">
+        <div class="card-title">📈 Pedidos por estado</div>
+        <div class="status-grid">
+          <div class="status-item status-nuevo"><div class="count">3</div><div class="label">Nuevo</div></div>
+          <div class="status-item status-revision"><div class="count">1</div><div class="label">Revisión</div></div>
+          <div class="status-item status-cotizado"><div class="count">1</div><div class="label">Cotizado</div></div>
+          <div class="status-item status-confirmado"><div class="count">1</div><div class="label">Confirmado</div></div>
+          <div class="status-item status-preparacion"><div class="count">1</div><div class="label">Preparación</div></div>
+          <div class="status-item status-empty"><div class="count">0</div><div class="label">En ruta</div></div>
+          <div class="status-item status-entregado"><div class="count">0</div><div class="label">Entregado</div></div>
+          <div class="status-item status-empty"><div class="count">0</div><div class="label">Cancelado</div></div>
+        </div>
+      </div>
+
+      <!-- Recientes + Top -->
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">🕐 Pedidos recientes</div>
+          <div class="order-item">
+            <div class="order-info">
+              <div class="order-code">MEJ-2026-0007 <span class="badge badge-nuevo">Nuevo</span> <span class="badge badge-menudeo">Menudeo</span></div>
+              <div class="order-customer">María González</div>
+              <div class="order-meta">2 productos · hoy 14:32</div>
+            </div>
+            <div class="order-amount">$1,010</div>
+          </div>
+          <div class="order-item">
+            <div class="order-info">
+              <div class="order-code">MEJ-2026-0006 <span class="badge badge-nuevo">Nuevo</span> <span class="badge badge-mayoreo">Mayoreo</span></div>
+              <div class="order-customer">Restaurante Marea Alta</div>
+              <div class="order-meta">5 productos · hoy 11:15</div>
+            </div>
+            <div class="order-amount">$8,750</div>
+          </div>
+          <div class="order-item">
+            <div class="order-info">
+              <div class="order-code">MEJ-2026-0005 <span class="badge badge-nuevo">Nuevo</span> <span class="badge badge-menudeo">Menudeo</span></div>
+              <div class="order-customer">Juan Pérez</div>
+              <div class="order-meta">1 producto · hoy 09:48</div>
+            </div>
+            <div class="order-amount">$450</div>
+          </div>
+          <div class="order-item">
+            <div class="order-info">
+              <div class="order-code">MEJ-2026-0004 <span class="badge badge-revision">Revisión</span> <span class="badge badge-mayoreo">Mayoreo</span></div>
+              <div class="order-customer">Pescadería La Sirena</div>
+              <div class="order-meta">8 productos · ayer 16:20</div>
+            </div>
+            <div class="order-amount">$4,200</div>
+          </div>
+          <div class="order-item">
+            <div class="order-info">
+              <div class="order-code">MEJ-2026-0003 <span class="badge badge-cotizado">Cotizado</span> <span class="badge badge-mayoreo">Mayoreo</span></div>
+              <div class="order-customer">Hotel Rosarito Inn</div>
+              <div class="order-meta">12 productos · ayer 10:05</div>
+            </div>
+            <div class="order-amount">$12,400</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🏆 Más pedidos</div>
+          <div class="top-product">
+            <div class="top-num">1</div>
+            <div class="top-info">
+              <div class="top-name">Camarón</div>
+              <div class="top-meta">7 pedidos · 28 kg</div>
+            </div>
+          </div>
+          <div class="top-product">
+            <div class="top-num">2</div>
+            <div class="top-info">
+              <div class="top-name">Pulpo</div>
+              <div class="top-meta">5 pedidos · 18 kg</div>
+            </div>
+          </div>
+          <div class="top-product">
+            <div class="top-num">3</div>
+            <div class="top-info">
+              <div class="top-name">Ostiones</div>
+              <div class="top-meta">4 pedidos · 12 docenas</div>
+            </div>
+          </div>
+          <div class="top-product">
+            <div class="top-num">4</div>
+            <div class="top-info">
+              <div class="top-name">Callo de Hacha</div>
+              <div class="top-meta">3 pedidos · 6 litros</div>
+            </div>
+          </div>
+          <div class="top-product">
+            <div class="top-num">5</div>
+            <div class="top-info">
+              <div class="top-name">Pescados Frescos</div>
+              <div class="top-meta">2 pedidos · 9 kg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PRODUCTOS ===== -->
+    <div class="page-content" id="page-productos">
+      <div class="toolbar">
+        <div>
+          <h1 class="page-title">Productos</h1>
+          <p class="page-subtitle">8 productos · 8 activos</p>
+        </div>
+        <button class="btn-primary-sm">+ Nuevo producto</button>
+      </div>
+
+      <div class="toolbar-left" style="margin-bottom: 1.5rem;">
+        <div class="search-box">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Buscar producto...">
+        </div>
+        <select class="filter-select">
+          <option>Todas las categorías</option>
+          <option>Mariscos</option>
+          <option>Pescados</option>
+          <option>Especialidades</option>
+        </select>
+      </div>
+
+      <div class="products-admin-grid">
+        <!-- Camarón -->
+        <div class="product-admin-card">
+          <div class="product-admin-image">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7e5a94b57e1b.jpg" alt="Camarón">
+            <span class="featured-badge">★ Destacado</span>
+          </div>
+          <div class="product-admin-body">
+            <div class="product-admin-name">Camarón</div>
+            <div class="product-admin-scientific">Litopenaeus vannamei</div>
+            <div class="product-admin-tags">
+              <span class="badge badge-mayoreo">Mayoreo</span>
+              <span class="badge badge-menudeo">Menudeo</span>
+              <span class="badge badge-confirmado">Fresco</span>
+            </div>
+          </div>
+          <div class="product-admin-actions">
+            <button class="action-btn">✏️ Editar</button>
+            <button class="action-btn">👁️</button>
+            <button class="action-btn delete">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Pulpo -->
+        <div class="product-admin-card">
+          <div class="product-admin-image">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d59b02deb53e.jpg" alt="Pulpo">
+            <span class="featured-badge">★ Destacado</span>
+          </div>
+          <div class="product-admin-body">
+            <div class="product-admin-name">Pulpo</div>
+            <div class="product-admin-scientific">Octopus maya</div>
+            <div class="product-admin-tags">
+              <span class="badge badge-mayoreo">Mayoreo</span>
+              <span class="badge badge-menudeo">Menudeo</span>
+              <span class="badge badge-confirmado">Fresco</span>
+            </div>
+          </div>
+          <div class="product-admin-actions">
+            <button class="action-btn">✏️ Editar</button>
+            <button class="action-btn">👁️</button>
+            <button class="action-btn delete">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Calamar -->
+        <div class="product-admin-card">
+          <div class="product-admin-image">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3c4315c890f8.jpeg" alt="Calamar">
+          </div>
+          <div class="product-admin-body">
+            <div class="product-admin-name">Calamar</div>
+            <div class="product-admin-scientific">Dosidicus gigas</div>
+            <div class="product-admin-tags">
+              <span class="badge badge-mayoreo">Mayoreo</span>
+              <span class="badge badge-menudeo">Menudeo</span>
+              <span class="badge badge-confirmado">Fresco</span>
+            </div>
+          </div>
+          <div class="product-admin-actions">
+            <button class="action-btn">✏️ Editar</button>
+            <button class="action-btn">👁️</button>
+            <button class="action-btn delete">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Callo de Hacha -->
+        <div class="product-admin-card">
+          <div class="product-admin-image">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8ad617fdb5f6.jpg" alt="Callo de Hacha">
+            <span class="featured-badge">★ Destacado</span>
+          </div>
+          <div class="product-admin-body">
+            <div class="product-admin-name">Callo de Hacha</div>
+            <div class="product-admin-scientific">Atrina maura</div>
+            <div class="product-admin-tags">
+              <span class="badge badge-mayoreo">Mayoreo</span>
+              <span class="badge badge-menudeo">Menudeo</span>
+              <span class="badge badge-cotizado">Temporada</span>
+            </div>
+          </div>
+          <div class="product-admin-actions">
+            <button class="action-btn">✏️ Editar</button>
+            <button class="action-btn">👁️</button>
+            <button class="action-btn delete">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Almeja -->
+        <div class="product-admin-card">
+          <div class="product-admin-image">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/250e30c16398.jpg" alt="Almeja">
+          </div>
+          <div class="product-admin-body">
+            <div class="product-admin-name">Almeja</div>
+            <div class="product-admin-scientific">Megapitaria squalida</div>
+            <div class="product-admin-tags">
+              <span class="badge badge-mayoreo">Mayoreo</span>
+              <span class="badge badge-menudeo">Menudeo</span>
+              <span class="badge badge-confirmado">Fresco</span>
+            </div>
+          </div>
+          <div class="product-admin-actions">
+            <button class="action-btn">✏️ Editar</button>
+            <button class="action-btn">👁️</button>
+            <button class="action-btn delete">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Ostiones -->
+        <div class="product-admin-card">
+          <div class="product-admin-image">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/670e74545aac.jpg" alt="Ostiones">
+            <span class="featured-badge">★ Destacado</span>
+          </div>
+          <div class="product-admin-body">
+            <div class="product-admin-name">Ostiones</div>
+            <div class="product-admin-scientific">Crassostrea gigas</div>
+            <div class="product-admin-tags">
+              <span class="badge badge-mayoreo">Mayoreo</span>
+              <span class="badge badge-menudeo">Menudeo</span>
+              <span class="badge badge-confirmado">Fresco</span>
+            </div>
+          </div>
+          <div class="product-admin-actions">
+            <button class="action-btn">✏️ Editar</button>
+            <button class="action-btn">👁️</button>
+            <button class="action-btn delete">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Pescados Frescos -->
+        <div class="product-admin-card">
+          <div class="product-admin-image">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9518189e3f08.jpg" alt="Pescados">
+          </div>
+          <div class="product-admin-body">
+            <div class="product-admin-name">Pescados Frescos</div>
+            <div class="product-admin-scientific">Variedad del día</div>
+            <div class="product-admin-tags">
+              <span class="badge badge-mayoreo">Mayoreo</span>
+              <span class="badge badge-menudeo">Menudeo</span>
+              <span class="badge badge-confirmado">Fresco</span>
+            </div>
+          </div>
+          <div class="product-admin-actions">
+            <button class="action-btn">✏️ Editar</button>
+            <button class="action-btn">👁️</button>
+            <button class="action-btn delete">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Especialidades -->
+        <div class="product-admin-card">
+          <div class="product-admin-image">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3a02cf2cdb77.jpg" alt="Especialidades">
+          </div>
+          <div class="product-admin-body">
+            <div class="product-admin-name">Especialidades</div>
+            <div class="product-admin-scientific">Ceviches y mariscadas</div>
+            <div class="product-admin-tags">
+              <span class="badge badge-mayoreo">Mayoreo</span>
+              <span class="badge badge-menudeo">Menudeo</span>
+              <span class="badge badge-revision">Bajo pedido</span>
+            </div>
+          </div>
+          <div class="product-admin-actions">
+            <button class="action-btn">✏️ Editar</button>
+            <button class="action-btn">👁️</button>
+            <button class="action-btn delete">🗑️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PEDIDOS ===== -->
+    <div class="page-content" id="page-pedidos">
+      <div class="toolbar">
+        <div>
+          <h1 class="page-title">Pedidos</h1>
+          <p class="page-subtitle">7 pedidos</p>
+        </div>
+        <div class="toolbar-left">
+          <div class="search-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Buscar por código, nombre o teléfono...">
+          </div>
+          <select class="filter-select">
+            <option>Todos los estados</option>
+            <option>Nuevo</option>
+            <option>En revisión</option>
+            <option>Cotizado</option>
+            <option>Confirmado</option>
+            <option>En preparación</option>
+            <option>En ruta</option>
+            <option>Entregado</option>
+            <option>Cancelado</option>
+          </select>
+          <button class="btn-outline-sm">📥 CSV</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 0;">
+        <div class="order-item" style="border: none; border-bottom: 1px solid var(--slate-200); border-radius: 0;">
+          <div class="order-info">
+            <div class="order-code">MEJ-2026-0007 <span class="badge badge-nuevo">Nuevo</span> <span class="badge badge-menudeo">Menudeo</span></div>
+            <div class="order-customer">María González</div>
+            <div class="order-meta">2 productos · hoy 14:32 · web</div>
+          </div>
+          <div class="order-amount">$1,010</div>
+        </div>
+        <div class="order-item" style="border: none; border-bottom: 1px solid var(--slate-200); border-radius: 0;">
+          <div class="order-info">
+            <div class="order-code">MEJ-2026-0006 <span class="badge badge-nuevo">Nuevo</span> <span class="badge badge-mayoreo">Mayoreo</span></div>
+            <div class="order-customer">Restaurante Marea Alta</div>
+            <div class="order-meta">5 productos · hoy 11:15 · web</div>
+          </div>
+          <div class="order-amount">$8,750</div>
+        </div>
+        <div class="order-item" style="border: none; border-bottom: 1px solid var(--slate-200); border-radius: 0;">
+          <div class="order-info">
+            <div class="order-code">MEJ-2026-0005 <span class="badge badge-nuevo">Nuevo</span> <span class="badge badge-menudeo">Menudeo</span></div>
+            <div class="order-customer">Juan Pérez</div>
+            <div class="order-meta">1 producto · hoy 09:48 · web</div>
+          </div>
+          <div class="order-amount">$450</div>
+        </div>
+        <div class="order-item" style="border: none; border-bottom: 1px solid var(--slate-200); border-radius: 0;">
+          <div class="order-info">
+            <div class="order-code">MEJ-2026-0004 <span class="badge badge-revision">Revisión</span> <span class="badge badge-mayoreo">Mayoreo</span></div>
+            <div class="order-customer">Pescadería La Sirena</div>
+            <div class="order-meta">8 productos · ayer 16:20 · whatsapp</div>
+          </div>
+          <div class="order-amount">$4,200</div>
+        </div>
+        <div class="order-item" style="border: none; border-bottom: 1px solid var(--slate-200); border-radius: 0;">
+          <div class="order-info">
+            <div class="order-code">MEJ-2026-0003 <span class="badge badge-cotizado">Cotizado</span> <span class="badge badge-mayoreo">Mayoreo</span></div>
+            <div class="order-customer">Hotel Rosarito Inn</div>
+            <div class="order-meta">12 productos · ayer 10:05 · web</div>
+          </div>
+          <div class="order-amount">$12,400</div>
+        </div>
+        <div class="order-item" style="border: none; border-bottom: 1px solid var(--slate-200); border-radius: 0;">
+          <div class="order-info">
+            <div class="order-code">MEJ-2026-0002 <span class="badge badge-confirmado">Confirmado</span> <span class="badge badge-mayoreo">Mayoreo</span></div>
+            <div class="order-customer">Chef Ricardo Belmonte</div>
+            <div class="order-meta">6 productos · hace 2 días · web</div>
+          </div>
+          <div class="order-amount">$6,800</div>
+        </div>
+        <div class="order-item" style="border: none; border-radius: 0;">
+          <div class="order-info">
+            <div class="order-code">MEJ-2026-0001 <span class="badge badge-preparacion">Preparación</span> <span class="badge badge-mayoreo">Mayoreo</span></div>
+            <div class="order-customer">Familia Ríos</div>
+            <div class="order-meta">1 producto · hace 3 días · whatsapp</div>
+          </div>
+          <div class="order-amount">$1,200</div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+        <p style="font-size: 0.75rem; color: var(--slate-500);">Página 1 de 1 · 7 pedidos total</p>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn-outline-sm" disabled style="opacity: 0.5;">← Anterior</button>
+          <span style="padding: 0.5rem 0.75rem; font-size: 0.875rem; font-weight: 500;">1 / 1</span>
+          <button class="btn-outline-sm" disabled style="opacity: 0.5;">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONTENIDO ===== -->
+    <div class="page-content" id="page-contenido">
+      <div class="page-header">
+        <h1 class="page-title">Contenido</h1>
+        <p class="page-subtitle">Gestiona testimonios, preguntas frecuentes, estadísticas y cobertura.</p>
+      </div>
+
+      <div class="content-grid">
+        <!-- Testimonios -->
+        <div class="content-card">
+          <div class="content-card-header">
+            <div class="content-card-title">💬 Testimonios</div>
+            <button class="btn-outline-sm">+ Nuevo</button>
+          </div>
+          <div class="content-card-body">
+            <div class="content-item">
+              <div class="content-item-row">
+                <input class="content-input" value="Chef Ricardo Belmonte">
+                <input class="content-input" value="Restaurante Marea Alta">
+              </div>
+              <div class="content-item-row">
+                <input class="content-input" value="Rosarito">
+                <div class="stars-row">
+                  <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                </div>
+              </div>
+              <textarea class="content-textarea">Llevo seis años comprándoles el pulpo y el callo de hacha. La consistencia en frescura es lo que mantiene nuestro menú en el nivel que exigimos.</textarea>
+              <div class="switch-row">
+                <span class="switch-label">Activo</span>
+                <div class="switch on"></div>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="content-item-row">
+                <input class="content-input" value="Laura Quintero">
+                <input class="content-input" value="Pescadería La Sirena">
+              </div>
+              <div class="content-item-row">
+                <input class="content-input" value="Tijuana">
+                <div class="stars-row">
+                  <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                </div>
+              </div>
+              <textarea class="content-textarea">Como pescadería dependemos totalmente de un proveedor confiable. El Jona nos entrega tres veces por semana puntual.</textarea>
+              <div class="switch-row">
+                <span class="switch-label">Activo</span>
+                <div class="switch on"></div>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="content-item-row">
+                <input class="content-input" value="Familia Ríos">
+                <input class="content-input" value="Cliente menudeo">
+              </div>
+              <div class="content-item-row">
+                <input class="content-input" value="Rosarito">
+                <div class="stars-row">
+                  <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                </div>
+              </div>
+              <textarea class="content-textarea">Cada quinceañero y cumpleaños pido la mariscada para la familia. Llega impecable, fresca y bien empacada.</textarea>
+              <div class="switch-row">
+                <span class="switch-label">Activo</span>
+                <div class="switch on"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="content-card">
+          <div class="content-card-header">
+            <div class="content-card-title">❓ Preguntas frecuentes</div>
+            <button class="btn-outline-sm">+ Nueva</button>
+          </div>
+          <div class="content-card-body">
+            <div class="content-item">
+              <input class="content-input" value="¿Con qué frecuencia reciben producto fresco?" style="width: 100%; margin-bottom: 0.375rem;">
+              <textarea class="content-textarea">Recibimos producto del puerto todos los días antes de las 6:00 AM. El inventario de mariscos frescos se renueva diariamente.</textarea>
+              <div class="switch-row">
+                <span class="switch-label">Activa</span>
+                <div class="switch on"></div>
+              </div>
+            </div>
+            <div class="content-item">
+              <input class="content-input" value="¿Hacen entregas a domicilio?" style="width: 100%; margin-bottom: 0.375rem;">
+              <textarea class="content-textarea">Sí. En zona metropolitana de Rosarito y Tijuana entregamos el mismo día si el pedido se realiza antes de las 11:00 AM.</textarea>
+              <div class="switch-row">
+                <span class="switch-label">Activa</span>
+                <div class="switch on"></div>
+              </div>
+            </div>
+            <div class="content-item">
+              <input class="content-input" value="¿Cuál es el mínimo de compra para mayoreo?" style="width: 100%; margin-bottom: 0.375rem;">
+              <textarea class="content-textarea">El mínimo para precios de mayoreo es de 5 kilogramos por producto. Ofrecemos precios escalonados por volumen.</textarea>
+              <div class="switch-row">
+                <span class="switch-label">Activa</span>
+                <div class="switch on"></div>
+              </div>
+            </div>
+            <div class="content-item">
+              <input class="content-input" value="¿Aceptan tarjeta o solo efectivo?" style="width: 100%; margin-bottom: 0.375rem;">
+              <textarea class="content-textarea">Aceptamos efectivo, transferencia, tarjetas de débito y crédito, y wallets móviles.</textarea>
+              <div class="switch-row">
+                <span class="switch-label">Activa</span>
+                <div class="switch on"></div>
+              </div>
+            </div>
+            <div class="content-item">
+              <input class="content-input" value="¿Cómo garantizan la cadena de frío?" style="width: 100%; margin-bottom: 0.375rem;">
+              <textarea class="content-textarea">Trabajamos con cuartos fríos a -2°C para frescos y -18°C para congelados. Vehículos con hieleras industriales y monitoreo de temperatura.</textarea>
+              <div class="switch-row">
+                <span class="switch-label">Activa</span>
+                <div class="switch on"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="content-card">
+          <div class="content-card-header">
+            <div class="content-card-title">🏆 Estadísticas (hero)</div>
+            <button class="btn-outline-sm">+ Nueva</button>
+          </div>
+          <div class="content-card-body">
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <input class="content-input" value="+17" style="width: 80px;">
+              <input class="content-input" value="Años de trayectoria" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <input class="content-input" value="+40" style="width: 80px;">
+              <input class="content-input" value="Productos del mar" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <input class="content-input" value="+800" style="width: 80px;">
+              <input class="content-input" value="Clientes activos" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <input class="content-input" value="100%" style="width: 80px;">
+              <input class="content-input" value="Frescura garantizada" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cobertura -->
+        <div class="content-card">
+          <div class="content-card-header">
+            <div class="content-card-title">🗺️ Zonas de cobertura</div>
+            <button class="btn-outline-sm">+ Nueva</button>
+          </div>
+          <div class="content-card-body">
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <span class="badge badge-mayoreo">Primaria</span>
+              <input class="content-input" value="Rosarito" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <span class="badge badge-mayoreo">Primaria</span>
+              <input class="content-input" value="Tijuana" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <span class="badge badge-mayoreo">Primaria</span>
+              <input class="content-input" value="Ensenada" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <span class="badge badge-mayoreo">Primaria</span>
+              <input class="content-input" value="Mexicali" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <span class="badge badge-mayoreo">Primaria</span>
+              <input class="content-input" value="San Quintín" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+            <div class="content-item" style="display: flex; gap: 0.5rem; align-items: center;">
+              <span class="badge badge-menudeo">Extendida</span>
+              <input class="content-input" value="Valle de Guadalupe" style="flex: 1;">
+              <button class="action-btn">💾</button>
+              <button class="action-btn delete">🗑️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONFIGURACIÓN ===== -->
+    <div class="page-content" id="page-configuracion">
+      <div class="toolbar">
+        <div>
+          <h1 class="page-title">Configuración</h1>
+          <p class="page-subtitle">Datos generales del negocio. Se reflejan en todo el sitio público.</p>
+        </div>
+        <button class="btn-primary-sm">💾 Guardar cambios</button>
+      </div>
+
+      <!-- Identidad -->
+      <div class="config-section">
+        <div class="config-section-title">🏢 Identidad</div>
+        <div class="config-row">
+          <div class="config-field">
+            <label>Nombre del negocio</label>
+            <input value="Mariscos El Jona">
+          </div>
+          <div class="config-field">
+            <label>Tagline (frase corta)</label>
+            <input value="Del Pacífico a tu mesa">
+          </div>
+        </div>
+        <div class="config-field" style="margin-bottom: 0.75rem;">
+          <label>Slogan (hero)</label>
+          <textarea rows="2">Pescados y mariscos frescos seleccionados cada mañana, listos para mayoreo y menudeo en toda la región.</textarea>
+        </div>
+        <div class="config-field">
+          <label>Descripción (sección nosotros)</label>
+          <textarea rows="4">Distribuidora de pescados y mariscos frescos con trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. Trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.</textarea>
+        </div>
+      </div>
+
+      <!-- Contacto -->
+      <div class="config-section">
+        <div class="config-section-title">📞 Contacto</div>
+        <div class="config-row">
+          <div class="config-field">
+            <label>Teléfono (link)</label>
+            <input value="+52 661 612 3456">
+          </div>
+          <div class="config-field">
+            <label>Teléfono (display)</label>
+            <input value="(661) 612-3456">
+          </div>
+        </div>
+        <div class="config-field" style="margin-bottom: 0.75rem;">
+          <label>WhatsApp (solo números, con código país)</label>
+          <input value="526616123456">
+        </div>
+        <div class="config-field">
+          <label>Email</label>
+          <input type="email" value="ventas@mariscoseljona.mx">
+        </div>
+      </div>
+
+      <!-- Dirección -->
+      <div class="config-section">
+        <div class="config-section-title">📍 Dirección</div>
+        <div class="config-field" style="margin-bottom: 0.75rem;">
+          <label>Calle y número</label>
+          <input value="Blvd. Benito Juárez 1452, Col. Centro">
+        </div>
+        <div class="config-row">
+          <div class="config-field">
+            <label>Ciudad</label>
+            <input value="Rosarito">
+          </div>
+          <div class="config-field">
+            <label>Estado</label>
+            <input value="Baja California">
+          </div>
+        </div>
+        <div class="config-row">
+          <div class="config-field">
+            <label>Código postal</label>
+            <input value="22710">
+          </div>
+          <div class="config-field">
+            <label>País</label>
+            <input value="México">
+          </div>
+        </div>
+      </div>
+
+      <!-- Redes e imágenes -->
+      <div class="config-section">
+        <div class="config-section-title">📷 Redes e imágenes</div>
+        <div class="config-field" style="margin-bottom: 0.75rem;">
+          <label>Facebook URL</label>
+          <input value="https://facebook.com/mariscoseljona">
+        </div>
+        <div class="config-field" style="margin-bottom: 0.75rem;">
+          <label>Instagram URL</label>
+          <input value="https://instagram.com/mariscoseljona">
+        </div>
+        <div class="config-field" style="margin-bottom: 0.75rem;">
+          <label>Imagen hero (URL)</label>
+          <input value="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/198b130d5c30.jpg">
+          <div class="config-preview">
+            <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/198b130d5c30.jpg" alt="preview">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // ===== NAVEGACIÓN ENTRE PÁGINAS =====
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const pages = document.querySelectorAll('.page-content');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetPage = link.dataset.page;
+
+      // Activar link
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+
+      // Mostrar página
+      pages.forEach(p => p.classList.remove('active'));
+      document.getElementById(`page-${targetPage}`).classList.add('active');
+
+      // Cerrar sidebar mobile
+      document.getElementById('sidebar').classList.remove('open');
+    });
+  });
+
+  // ===== FECHA ACTUAL =====
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('es-MX', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+  document.getElementById('todayDate').textContent = `Resumen general del negocio · ${dateStr}`;
+
+  // ===== MOBILE TOGGLE =====
+  document.getElementById('mobileToggle').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+  });
+
+  // ===== TOAST PARA BOTONES (demo) =====
+  function showToast(msg) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--slate-900);
+      color: var(--white);
+      padding: 0.625rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 1000;
+      animation: fadeUp 0.3s ease;
+    `;
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+  }
+
+  // Demo: AI summary button
+  document.querySelector('.ai-btn').addEventListener('click', function() {
+    this.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Analizando...';
+    this.disabled = true;
+    setTimeout(() => {
+      document.querySelector('.ai-text').textContent = 'Hoy tienes 3 pedidos nuevos esperando respuesta y los ingresos del mes van en $18,450. Camarón y Pulpo son tus productos más vendidos esta semana. Te sugiero priorizar los pedidos nuevos para confirmarlos y avanzar al estado de preparación.';
+      this.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Actualizar';
+      this.disabled = false;
+      showToast('Resumen generado');
+    }, 1500);
+  });
+
+  // Demo: action buttons
+  document.querySelectorAll('.action-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.textContent.trim();
+      if (text.includes('Editar')) showToast('Editor de producto (demo)');
+      else if (text.includes('💾')) showToast('Cambios guardados (demo)');
+      else if (text.includes('🗑️')) showToast('Elemento eliminado (demo)');
+      else showToast('Acción demostrativa');
+    });
+  });
+
+  // Demo: switch toggles
+  document.querySelectorAll('.switch').forEach(s => {
+    s.addEventListener('click', () => {
+      s.classList.toggle('on');
+      showToast(s.classList.contains('on') ? 'Activado' : 'Desactivado');
+    });
+  });
+
+  // Demo: filter buttons
+  document.querySelectorAll('.filter-select').forEach(s => {
+    s.addEventListener('change', () => showToast(`Filtro: ${s.value}`));
+  });
+
+  // Demo: primary buttons
+  document.querySelectorAll('.btn-primary-sm').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.textContent.includes('Guardar')) showToast('Configuración guardada (demo)');
+      else if (btn.textContent.includes('Nuevo')) showToast('Abrir editor (demo)');
+    });
+  });
+
+  // Demo: search
+  document.querySelectorAll('.search-box input').forEach(input => {
+    input.addEventListener('input', () => {
+      if (input.value.length > 2) showToast(`Buscando: "${input.value}"`);
+    });
+  });
+
+</script>
+
+</body>
+</html>
