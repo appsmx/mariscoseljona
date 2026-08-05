@@ -30,12 +30,14 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files (contain secrets - never commit)
+.env
+.env.local
+.env.production
+.env.example.local
 
 # vercel
 .vercel
-
 
 # typescript
 *.tsbuildinfo
@@ -48,7 +50,29 @@ dev.log
 dev.out.log
 test
 prompt
-
 server.log
-# Skills directory
+
+# database (contains user credentials - never commit)
+/db/*.db
+/db/*.db-journal
+
+# skills directory (internal)
 /skills/
+
+# z-ai internal scripts
+/.zscripts/
+
+# upload directory (user uploads)
+/upload/
+
+# screenshots (development artifacts)
+/scripts/*.png
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
