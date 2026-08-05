@@ -162,31 +162,44 @@ export type ChatResponse = {
 /**
  * Procesa un mensaje del cliente y devuelve la respuesta del agente.
  * Mantiene el contexto de la conversación vía history (array de mensajes).
+ * Si el SDK de Z.ai no está disponible (ej. en Vercel sin API key),
+ * usa un fallback inteligente basado en el catálogo real.
  */
 export async function processCustomerMessage(
   message: string,
   history: Array<{ role: "user" | "assistant"; content: string }> = []
 ): Promise<ChatResponse> {
   try {
-    const zai = await getZAI();
-    const businessContext = await buildBusinessContext();
-    const systemPrompt = AGENT_SYSTEM_PROMPT.replace("{BUSINESS_CONTEXT}", businessContext);
+    // Intentar primero con el SDK de Z.ai (GLM)
+    let content = "";
+    try {
+      const zai = await getZAI();
+      const businessContext = await buildBusinessContext();
+      const systemPrompt = AGENT_SYSTEM_PROMPT.replace("{BUSINESS_CONTEXT}", businessContext);
 
-    // Construir messages para la API
-    const messages = [
-      { role: "assistant", content: systemPrompt },
-      ...history.slice(-10), // últimos 10 mensajes para no pasarse de tokens
-      { role: "user", content: message },
-    ];
+      const messages = [
+        { role: "assistant", content: systemPrompt },
+        ...history.slice(-10),
+        { role: "user", content: message },
+      ];
 
-    const completion = await zai.chat.completions.create({
-      messages,
-      thinking: { type: "disabled" },
-      temperature: 0.7,
-      max_tokens: 600,
-    });
+      const completion = await zai.chat.completions.create({
+        messages,
+        thinking: { type: "disabled" },
+        temperature: 0.7,
+        max_tokens: 600,
+      });
 
-    const content = completion.choices[0]?.message?.content?.trim() || "";
+      content = completion.choices[0]?.message?.content?.trim() || "";
+    } catch (zaiError) {
+      // Si Z.ai falla (ej. en Vercel sin credenciales), usar fallback inteligente
+      console.log("Z.ai SDK no disponible, usando fallback:", zaiError?.message || "unknown");
+      content = await generateFallbackResponse(message);
+    }
+
+    if (!content) {
+      content = await generateFallbackResponse(message);
+    }
 
     // Detectar si la respuesta sugiere escalar a humano
     const needsHuman =
@@ -223,6 +236,111 @@ export async function processCustomerMessage(
       ],
       needsHuman: true,
     };
+  }
+}
+
+/**
+ * Genera una respuesta inteligente basada en el catálogo real.
+ * Se usa cuando el SDK de Z.ai no está disponible (ej. Vercel sin API key).
+ */
+async function generateFallbackResponse(message: string): Promise<string> {
+  try {
+    const [config, products, coverage, hours] = await Promise.all([
+      db.siteConfig.findUnique({ where: { id: "singleton" } }),
+      db.product.findMany({
+        where: { active: true },
+        include: {
+          category: true,
+          presentations: { orderBy: { sortOrder: "asc" } },
+          prices: true,
+        },
+        orderBy: { sortOrder: "asc" },
+      }),
+      db.coverageZone.findMany({ where: { active: true }, orderBy: { sortOrder: "asc" } }),
+      db.businessHour.findMany({ orderBy: { sortOrder: "asc" } }),
+    ]);
+
+    const msg = message.toLowerCase();
+
+    // Detectar intención: precios
+    if (/precio|costo|cuanto|cuesta|vale|valor/.test(msg)) {
+      const productMatch = products.find(p =>
+        msg.includes(p.name.toLowerCase()) ||
+        (p.scientific && msg.includes(p.scientific.toLowerCase()))
+      );
+
+      if (productMatch) {
+        const mayoreo = productMatch.prices.find(pr => pr.channel === "MAYOREO");
+        const menudeo = productMatch.prices.find(pr => pr.channel === "MENUDEO");
+        let response = `¡Claro! Te cuento los precios de ${productMatch.name}:\n\n`;
+        if (mayoreo) {
+          response += `📦 **Mayoreo** (mínimo ${mayoreo.minQuantity} ${mayoreo.unit}): `;
+          response += mayoreo.pricePerKg ? `$${mayoreo.pricePerKg}/${mayoreo.unit}\n` : `$${mayoreo.priceUnit}/${mayoreo.unit}\n`;
+        }
+        if (menudeo) {
+          response += `🏠 **Menudeo** (mínimo ${menudeo.minQuantity} ${menudeo.unit}): `;
+          response += menudeo.pricePerKg ? `$${menudeo.pricePerKg}/${menudeo.unit}\n` : `$${menudeo.priceUnit}/${menudeo.unit}\n`;
+        }
+        response += `\nPresentaciones: ${productMatch.presentations.map(p => p.name).join(", ")}\n`;
+        response += `\n¿Te interesa alguna en particular? Podés agregarla al carrito o escribirnos por WhatsApp al (661) 612-3456 🦐`;
+        return response;
+      }
+      return "Te puedo dar el precio de cualquier producto de nuestro catálogo. Tenemos: " +
+        products.map(p => p.name).join(", ") + ". ¿De cuál querés saber el precio?";
+    }
+
+    // Detectar intención: productos disponibles
+    if (/producto|tienes|tienen|hay|catalogo|catálogo|que venden|que venden/.test(msg)) {
+      const productList = products.map(p => {
+        const mayoreo = p.prices.find(pr => pr.channel === "MAYOREO");
+        const menudeo = p.prices.find(pr => pr.channel === "MENUDEO");
+        const precioMenudeo = menudeo?.pricePerKg || menudeo?.priceUnit;
+        return `• ${p.name}${p.scientific ? ` (${p.scientific})` : ""}${precioMenudeo ? ` - desde $${precioMenudeo}/${menudeo.unit}` : ""}`;
+      }).join("\n");
+      return `¡Claro! Este es nuestro catálogo disponible hoy:\n\n${productList}\n\n¿Te interesa alguno en particular? Te puedo dar más detalles o precios específicos. 🐟`;
+    }
+
+    // Detectar intención: horarios
+    if (/horario|abierto|cerrado|atienden|hora|abren|cierran/.test(msg)) {
+      const horarios = hours.map(h => `${h.day}: ${h.timeOpen} – ${h.timeClose}`).join("\n");
+      return `Nuestros horarios de atención son:\n\n${horarios}\n\nEstamos en ${config?.streetAddress}, ${config?.city}, ${config?.state}. ¡Te esperamos! 🦐`;
+    }
+
+    // Detectar intención: ubicación/envíos
+    if (/envio|envío|delivery|domicilio|entrega|donde|ubicacion|ubicación|direccion|dirección|cobertura/.test(msg)) {
+      const primary = coverage.filter(z => z.type === "primary").map(z => z.name);
+      const extended = coverage.filter(z => z.type === "extended").map(z => z.name);
+      let response = `Hacemos entregas en:\n\n📍 **Zona primaria (mismo día):**\n${primary.join(", ")}\n\n`;
+      response += `🚚 **Zona extendida (24-48 horas):**\n${extended.join(", ")}\n\n`;
+      response += `Pedidos antes de las 11:00 AM se entregan el mismo día en zona metropolitana de Rosarito y Tijuana.`;
+      return response;
+    }
+
+    // Detectar intención: WhatsApp/contacto
+    if (/whatsapp|contacto|telefono|teléfono|llamar|hablar|contactar/.test(msg)) {
+      return `Podés contactarnos por:\n\n📱 WhatsApp: ${config?.phoneDisplay}\n📞 Teléfono: ${config?.phoneDisplay}\n📧 Email: ${config?.email}\n\n¡Estamos para ayudarte! 🦐`;
+    }
+
+    // Detectar intención: mayoreo vs menudeo
+    if (/mayoreo|menudeo|diferencia|cual conviene/.test(msg)) {
+      return "Trabajamos con dos canales:\n\n📦 **Mayoreo**: Para restaurantes, pescaderías y hoteles. Mínimo 5 kg por producto. Precios especiales y entrega programada.\n\n🏠 **Menudeo**: Para hogares. Sin mínimo de compra. Entrega el mismo día.\n\n¿Para qué necesitás el producto? Te recomiendo la mejor opción. 🦐";
+    }
+
+    // Detectar intención: saludo
+    if (/hola|buenos|buenas|que tal|saludos/.test(msg)) {
+      return `¡Hola! 🦐 Soy el asistente virtual de ${config?.brandName}. Estoy para ayudarte con consultas sobre productos, precios, disponibilidad y entregas. ¿Qué necesitas saber?`;
+    }
+
+    // Detectar intención: agradecimiento
+    if (/gracias|muchas gracias|perfecto|genial|excelente/.test(msg)) {
+      return "¡De nada! Si tenés alguna otra consulta, no dudes en preguntar. Estamos para ayudarte. 🦐";
+    }
+
+    // Respuesta por defecto
+    return `Soy el asistente virtual de ${config?.brandName}. Te puedo ayudar con:\n\n• Información de productos y precios\n• Horarios de atención\n• Zonas de entrega\n• Diferencia entre mayoreo y menudeo\n\n¿Qué te gustaría saber? También podés escribirnos por WhatsApp al (661) 612-3456 para atención personalizada. 🦐`;
+  } catch (error) {
+    console.error("Error en fallback:", error);
+    return "Disculpa, tuve un problema técnico. Por favor escríbenos por WhatsApp al (661) 612-3456 y te atendemos al instante. 🦐";
   }
 }
 
@@ -270,9 +388,47 @@ No uses emojis. No uses markdown. Texto plano, conversacional.`;
       max_tokens: 300,
     });
 
-    return completion.choices[0]?.message?.content?.trim() || "Resumen no disponible.";
+    return completion.choices[0]?.message?.content?.trim() || generateFallbackAdminSummary(context);
   } catch (e: any) {
     console.error("Error en resumen admin:", e);
-    return "No pude generar el resumen ahora. Revisa los números abajo.";
+    return generateFallbackAdminSummary(context);
   }
+}
+
+/**
+ * Genera un resumen del admin sin IA (fallback cuando Z.ai no está disponible).
+ */
+function generateFallbackAdminSummary(context: {
+  todayOrders: number;
+  weekOrders: number;
+  monthRevenue: number;
+  topProducts: Array<{ name: string; qty: number }>;
+  pendingOrders: number;
+}): string {
+  let summary = "";
+
+  if (context.pendingOrders > 0) {
+    summary += `Hoy tienes ${context.pendingOrders} pedido${context.pendingOrders === 1 ? "" : "s"} pendiente${context.pendingOrders === 1 ? "" : "s"} de gestionar. `;
+  }
+
+  if (context.todayOrders > 0) {
+    summary += `Recibiste ${context.todayOrders} pedido${context.todayOrders === 1 ? "" : "s"} hoy. `;
+  }
+
+  if (context.monthRevenue > 0) {
+    summary += `Los ingresos del mes van en $${context.monthRevenue.toLocaleString("es-MX")} MXN. `;
+  }
+
+  if (context.topProducts.length > 0) {
+    const top = context.topProducts[0];
+    summary += `Tu producto más vendido es ${top.name} con ${top.qty} pedido${top.qty === 1 ? "" : "s"}. `;
+  }
+
+  if (context.pendingOrders > 0) {
+    summary += "Te sugiero priorizar los pedidos pendientes para avanzarlos en el flujo.";
+  } else if (context.todayOrders === 0) {
+    summary += "No hay pedidos nuevos hoy. Es un buen momento para revisar el catálogo o actualizar contenido.";
+  }
+
+  return summary || "Todo en orden. Revisa los números abajo para más detalle.";
 }

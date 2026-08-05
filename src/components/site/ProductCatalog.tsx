@@ -68,10 +68,13 @@ function ProductCard({ product, config }: { product: Product; config: any }) {
 
   // Buscar precio para la presentación seleccionada según el canal
   // Normalizamos channel a minúsculas para comparar con la API
-  const channelLower = channel.toLowerCase();
+  const channelLower = (channel || "menudeo").toLowerCase();
   const selectedPrice = product.prices?.find(
-    (p) => (p.channel === channel || p.channel === channelLower) &&
-           (!p.presentation || p.presentation === selectedPres)
+    (p) => {
+      const priceChannel = (p.channel || "").toLowerCase();
+      return priceChannel === channelLower &&
+             (!p.presentation || p.presentation === selectedPres);
+    }
   );
   const unitPrice = selectedPrice?.pricePerKg ?? selectedPrice?.priceUnit ?? 0;
   const unit = selectedPrice?.unit || "kg";
@@ -142,7 +145,7 @@ function ProductCard({ product, config }: { product: Product; config: any }) {
           <div className="mt-4 rounded-lg bg-ocean-50 border border-ocean-100 p-3">
             <div className="flex items-baseline justify-between">
               <span className="text-[11px] font-semibold uppercase tracking-wide text-ocean-700">
-                Precio {channel === "mayoreo" ? "mayoreo" : "menudeo"}
+                Precio {channelLower === "mayoreo" ? "mayoreo" : "menudeo"}
               </span>
               <span className="font-display text-xl font-bold text-foreground">
                 {mxn(unitPrice)}
