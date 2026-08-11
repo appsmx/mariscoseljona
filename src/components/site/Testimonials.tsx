@@ -27,7 +27,7 @@ export function Testimonials() {
             Lo que dicen nuestros clientes
           </h2>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Restaurantes, pescaderías y familias que confían en Mariscos El Jona para su
+            Restaurantes, pescaderías y familias que confían en Mariscos Quiroa para su
             abastecimiento semanal.
           </p>
         </div>

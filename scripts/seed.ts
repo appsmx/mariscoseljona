@@ -1,5 +1,5 @@
 /**
- * Seed de Mariscos El Jona
+ * Seed de Mariscos Quiroa
  * Puebla la BD con la información actual del sitio.
  * Ejecutar con: bun run db:seed
  */
@@ -12,10 +12,10 @@ async function main() {
   // 1. Usuario admin por defecto
   const adminPassword = await bcrypt.hash("admin123", 10);
   const admin = await db.user.upsert({
-    where: { email: "admin@mariscoseljona.mx" },
+    where: { email: "admin@mariscosquiroa.mx" },
     update: {},
     create: {
-      email: "admin@mariscoseljona.mx",
+      email: "admin@mariscosquiroa.mx",
       name: "Administrador",
       passwordHash: adminPassword,
       role: "ADMIN",
@@ -29,27 +29,27 @@ async function main() {
     update: {},
     create: {
       id: "singleton",
-      brandName: "Mariscos El Jona",
-      tagline: "Del Pacífico a tu mesa",
+      brandName: "Mariscos Quiroa",
+      tagline: "El sabor del Pacífico en cada pedido",
       slogan:
         "Pescados y mariscos frescos seleccionados cada mañana, listos para mayoreo y menudeo en todo el estado.",
       description:
         "Distribuidora de pescados y mariscos frescos con más de una década y media de trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. Trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.",
-      foundedYear: 2008,
+      foundedYear: 2009,
       phone: "+52 669 123 4567",
       phoneDisplay: "(669) 123-4567",
       whatsapp: "526691234567",
       whatsappMessage:
-        "Hola Mariscos El Jona, me gustaría cotizar productos de mariscos.",
-      email: "ventas@mariscoseljona.mx",
+        "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
+      email: "ventas@mariscosquiroa.mx",
       streetAddress: "Av. del Mar 1452, Col. Centro",
       city: "Mazatlán",
       state: "Sinaloa",
       zipCode: "82000",
       country: "México",
-      facebookUrl: "https://facebook.com/mariscoseljona",
-      instagramUrl: "https://instagram.com/mariscoseljona",
-      tiktokUrl: "https://tiktok.com/@mariscoseljona",
+      facebookUrl: "https://facebook.com/mariscosquiroa",
+      instagramUrl: "https://instagram.com/mariscosquiroa",
+      tiktokUrl: "https://tiktok.com/@mariscosquiroa",
       heroImage: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/198b130d5c30.jpg",
       storyImage: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/dbc81f24f53e.jpg",
     },
@@ -308,7 +308,7 @@ async function main() {
   console.log(`  ✓ ${zones.length} zonas de cobertura`);
 
   console.log("\n✅ Seed completado con éxito.");
-  console.log("   Login admin: admin@mariscoseljona.mx / admin123");
+  console.log("   Login admin: admin@mariscosquiroa.mx / admin123");
 }
 
 main()

@@ -1,5 +1,5 @@
 /**
- * Reseed de Mariscos El Jona — limpia la BD y vuelve a sembrar
+ * Reseed de Mariscos Quiroa — limpia la BD y vuelve a sembrar
  * con los datos actualizados a Rosarito, Baja California.
  * Ejecutar con: bun run scripts/reseed.ts
  */
@@ -35,39 +35,39 @@ async function main() {
   const adminPassword = await bcrypt.hash("admin123", 10);
   await db.user.create({
     data: {
-      email: "admin@mariscoseljona.mx",
+      email: "admin@mariscosquiroa.mx",
       name: "Administrador",
       passwordHash: adminPassword,
       role: "ADMIN",
     },
   });
-  console.log("  ✓ Usuario admin: admin@mariscoseljona.mx / admin123");
+  console.log("  ✓ Usuario admin: admin@mariscosquiroa.mx / admin123");
 
   // 2. Configuración del sitio — Rosarito, Baja California
   await db.siteConfig.create({
     data: {
       id: "singleton",
-      brandName: "Mariscos El Jona",
-      tagline: "Del Pacífico a tu mesa",
+      brandName: "Mariscos Quiroa",
+      tagline: "El sabor del Pacífico en cada pedido",
       slogan:
         "Pescados y mariscos frescos seleccionados cada mañana, listos para mayoreo y menudeo en toda la región.",
       description:
         "Distribuidora de pescados y mariscos frescos con más de una década y media de trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. Trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.",
-      foundedYear: 2008,
+      foundedYear: 2009,
       phone: "+52 661 612 3456",
       phoneDisplay: "(661) 612-3456",
       whatsapp: "526616123456",
       whatsappMessage:
-        "Hola Mariscos El Jona, me gustaría cotizar productos de mariscos.",
-      email: "ventas@mariscoseljona.mx",
-      streetAddress: "Blvd. Benito Juárez 1452, Col. Centro",
-      city: "Rosarito",
+        "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
+      email: "ventas@mariscosquiroa.mx",
+      streetAddress: "Carretera Tijuana-Ensenada (Libre), Terrazas del Pacífico, Popotla",
+      city: "Playas de Rosarito",
       state: "Baja California",
-      zipCode: "22710",
+      zipCode: "22716",
       country: "México",
-      facebookUrl: "https://facebook.com/mariscoseljona",
-      instagramUrl: "https://instagram.com/mariscoseljona",
-      tiktokUrl: "https://tiktok.com/@mariscoseljona",
+      facebookUrl: "https://facebook.com/mariscosquiroa",
+      instagramUrl: "https://instagram.com/mariscosquiroa",
+      tiktokUrl: "https://tiktok.com/@mariscosquiroa",
       heroImage: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/198b130d5c30.jpg",
       storyImage: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/dbc81f24f53e.jpg",
     },
@@ -76,9 +76,9 @@ async function main() {
 
   // 3. Horarios
   const hours = [
-    { day: "Lunes a Viernes", timeOpen: "7:00 AM", timeClose: "7:00 PM", sortOrder: 1 },
-    { day: "Sábado", timeOpen: "7:00 AM", timeClose: "5:00 PM", sortOrder: 2 },
-    { day: "Domingo", timeOpen: "8:00 AM", timeClose: "1:00 PM", sortOrder: 3 },
+    { day: "Lunes a Viernes", timeOpen: "9:00 AM", timeClose: "6:00 PM", sortOrder: 1 },
+    { day: "Jueves", timeOpen: "Cerrado", timeClose: "Cerrado", sortOrder: 2 },
+    { day: "Sábado y Domingo", timeOpen: "8:00 AM", timeClose: "6:00 PM", sortOrder: 3 },
   ];
   for (const h of hours) {
     await db.businessHour.create({ data: h });
@@ -253,7 +253,7 @@ async function main() {
   // 6. Testimonios
   const testimonials = [
     { name: "Chef Ricardo Belmonte", role: "Restaurante Marea Alta", location: "Rosarito", rating: 5, quote: "Llevo seis años comprándoles el pulpo y el callo de hacha. La consistencia en frescura es lo que mantiene nuestro menú en el nivel que exigimos. Nunca me han fallado en un servicio.", sortOrder: 1 },
-    { name: "Laura Quintero", role: "Pescadería La Sirena", location: "Tijuana", rating: 5, quote: "Como pescadería dependemos totalmente de un proveedor confiable. El Jona nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.", sortOrder: 2 },
+    { name: "Laura Quintero", role: "Pescadería La Sirena", location: "Tijuana", rating: 5, quote: "Como pescadería dependemos totalmente de un proveedor confiable. Quiroa nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.", sortOrder: 2 },
     { name: "Familia Ríos", role: "Cliente menudeo", location: "Rosarito", rating: 5, quote: "Cada quinceañero y cumpleaños pido la mariscada para la familia. Llega impecable, fresca y bien empacada. Las recomendaciones de preparación del equipo son oro. Ya no compro en otro lado.", sortOrder: 3 },
   ];
   for (const t of testimonials) {
@@ -300,8 +300,8 @@ async function main() {
 
   // 10. Ecosistema de marcas — Rosarito, BC
   const brands = [
-    { name: "Restaurante El Jona 1", subtitle: "Mariscos & Pescados", address: "Blvd. Benito Juárez 1452, Rosarito, Baja California", description: "Nuestra casa matriz. Cocina bajacaliforniana tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.", hours: "Lun a Dom · 12:00 PM – 11:00 PM", phone: "+52 661 100 2001", accent: "teal", logoPath: "/jona-1-logo.svg", sortOrder: 1 },
-    { name: "Restaurante El Jona 2", subtitle: "Marisquería & Bar", address: "Av. del Mar 880, Rosarito, Baja California", description: "Nuestra segunda ubicación, con ambiente más contemporáneo y carta de mariscos al carbón, ostras frescas y coctelería. Terraza frente al malecón con vista al Pacífico.", hours: "Mar a Dom · 1:00 PM – 12:00 AM", phone: "+52 661 100 2002", accent: "amber", logoPath: "/jona-2-logo.svg", sortOrder: 2 },
+    { name: "Restaurante Quiroa 1", subtitle: "Mariscos & Pescados", address: "Blvd. Benito Juárez 1452, Rosarito, Baja California", description: "Nuestra casa matriz. Cocina bajacaliforniana tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.", hours: "Lun a Dom · 12:00 PM – 11:00 PM", phone: "+52 661 100 2001", accent: "teal", logoPath: "/jona-1-logo.svg", sortOrder: 1 },
+    { name: "Restaurante Quiroa 2", subtitle: "Marisquería & Bar", address: "Av. del Mar 880, Rosarito, Baja California", description: "Nuestra segunda ubicación, con ambiente más contemporáneo y carta de mariscos al carbón, ostras frescas y coctelería. Terraza frente al malecón con vista al Pacífico.", hours: "Mar a Dom · 1:00 PM – 12:00 AM", phone: "+52 661 100 2002", accent: "amber", logoPath: "/jona-2-logo.svg", sortOrder: 2 },
   ];
   for (const b of brands) {
     await db.brandEcosystemEntry.create({ data: b });
@@ -327,7 +327,7 @@ async function main() {
 
   console.log("\n✅ Reseed completado con éxito.");
   console.log("   Ubicación: Rosarito, Baja California");
-  console.log("   Login admin: admin@mariscoseljona.mx / admin123");
+  console.log("   Login admin: admin@mariscosquiroa.mx / admin123");
 }
 
 main()

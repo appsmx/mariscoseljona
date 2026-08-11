@@ -44,7 +44,7 @@ export default function NotFound() {
         </div>
 
         <p className="mt-12 text-xs text-white/40">
-          © {new Date().getFullYear()} Mariscos El Jona · Rosarito, Baja California
+          © {new Date().getFullYear()} Mariscos Quiroa · Rosarito, Baja California
         </p>
       </div>
     </div>

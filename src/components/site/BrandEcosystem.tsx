@@ -48,13 +48,13 @@ export function BrandEcosystem() {
         {/* Encabezado */}
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-brand-200">
-            Ecosistema El Jona
+            Ecosistema Quiroa
           </span>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
             Una familia de marcas, una sola promesa
           </h2>
           <p className="mt-4 text-base sm:text-lg text-white/75 leading-relaxed">
-            Mariscos El Jona es la distribuidora que abastece a nuestros propios restaurantes.
+            Mariscos Quiroa es la distribuidora que abastece a nuestros propios restaurantes.
             Cada uno tiene su personalidad, pero comparten el mismo compromiso: producto
             fresco, tratado con respeto, servido con orgullo.
           </p>

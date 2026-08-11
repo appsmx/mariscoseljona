@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
         actions: [
           {
             type: "open_whatsapp",
-            message: "Hola Mariscos El Jona, vengo desde el chat de la web.",
+            message: "Hola Mariscos Quiroa, vengo desde el chat de la web.",
           },
         ],
         needsHuman: true,

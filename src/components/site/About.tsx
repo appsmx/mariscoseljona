@@ -15,7 +15,7 @@ const timeline = [
     year: "2013",
     title: "Primer restaurante",
     description:
-      "La demanda creció hasta abrir Restaurante El Jona 1, donde los clientes podían probar los mariscos cocinados al momento. La distribuidora se quedó como corazón del negocio.",
+      "La demanda creció hasta abrir Marisco Preparado Quiroa, donde los clientes podían probar los mariscos cocinados al momento. La distribuidora se quedó como corazón del negocio.",
   },
   {
     year: "2019",
@@ -25,9 +25,9 @@ const timeline = [
   },
   {
     year: "2024",
-    title: "El Jona 2 y digitalización",
+    title: "Marisquería Quiroa y digitalización",
     description:
-      "Abrimos Restaurante El Jona 2 frente al malecón y lanzamos nuestra plataforma digital para que cualquier cliente pueda cotizar y pedir por WhatsApp en minutos.",
+      "Abrimos Marisquería Quiroa frente al malecón y lanzamos nuestra plataforma digital para que cualquier cliente pueda cotizar y pedir por WhatsApp en minutos.",
   },
 ];
 

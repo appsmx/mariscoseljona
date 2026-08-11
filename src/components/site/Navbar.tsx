@@ -63,7 +63,7 @@ export function Navbar() {
                   scrolled ? "text-ocean-800" : "text-white drop-shadow-md"
                 )}
               >
-                Mariscos El Jona
+                Mariscos Quiroa
               </span>
               <span
                 className={cn(
@@ -71,7 +71,7 @@ export function Navbar() {
                   scrolled ? "text-amber-brand-700" : "text-amber-brand-200"
                 )}
               >
-                Del Pacífico a tu mesa
+                El sabor del Pacífico en cada pedido
               </span>
             </div>
           </Link>

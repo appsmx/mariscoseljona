@@ -17,9 +17,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Mariscos El Jona | Pescados y Mariscos Frescos en Baja California",
+  title: "Mariscos Quiroa | Pescados y Mariscos Frescos en Baja California",
   description:
-    "Distribuidora de pescados y mariscos frescos en Rosarito, Baja California. Mayoreo y menudeo con entrega a domicilio. Pulpo, camarón, calamar, callo de hacha, almejas, ostiones y más.",
+    "Distribuidora de pescados y mariscos frescos en Playas de Rosarito, Baja California. Mayoreo y menudeo con entrega a domicilio. Pulpo, camarón, calamar, callo de hacha, almejas, ostiones y más.",
   keywords: [
     "mariscos",
     "pescados frescos",
@@ -29,38 +29,39 @@ export const metadata: Metadata = {
     "Baja California",
     "Tijuana",
     "Ensenada",
+    "Popotla",
     "pulpo",
     "camarón",
     "callo de hacha",
     "ostiones",
-    "Mariscos El Jona",
+    "Mariscos Quiroa",
   ],
-  authors: [{ name: "Mariscos El Jona" }],
+  authors: [{ name: "Mariscos Quiroa" }],
   icons: {
     icon: "/jona-logo.svg",
   },
   openGraph: {
-    title: "Mariscos El Jona | Pescados y Mariscos Frescos en Baja California",
+    title: "Mariscos Quiroa | Pescados y Mariscos Frescos en Baja California",
     description:
-      "Del Pacífico a tu mesa. Distribuidora de mariscos frescos en Rosarito, BC. Mayoreo y menudeo con entrega a domicilio.",
-    siteName: "Mariscos El Jona",
+      "El sabor del Pacífico en cada pedido. Distribuidora de mariscos frescos en Rosarito, BC. Mayoreo y menudeo con entrega a domicilio.",
+    siteName: "Mariscos Quiroa",
     locale: "es_MX",
     type: "website",
-    url: "https://mariscoseljona.mx",
+    url: "https://mariscosquiroa.mx",
     images: [
       {
         url: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/198b130d5c30.jpg",
         width: 1200,
         height: 630,
-        alt: "Mariscos El Jona — Distribuidora de mariscos frescos",
+        alt: "Mariscos Quiroa — Distribuidora de mariscos frescos",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mariscos El Jona | Pescados y Mariscos Frescos",
+    title: "Mariscos Quiroa | Pescados y Mariscos Frescos",
     description:
-      "Del Pacífico a tu mesa. Mayoreo y menudeo de mariscos frescos en Rosarito, Baja California.",
+      "El sabor del Pacífico en cada pedido. Mayoreo y menudeo de mariscos frescos en Rosarito, Baja California.",
     images: ["https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/198b130d5c30.jpg"],
   },
   manifest: "/manifest.json",

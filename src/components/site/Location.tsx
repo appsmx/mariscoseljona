@@ -27,7 +27,7 @@ export function Location() {
               Visítanos o escríbenos
             </span>
             <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-              Estamos en Rosarito, Baja California
+              Estamos en Playas de Rosarito, Baja California
             </h2>
             <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
               Pasa a comprar directo al mostrador, llámanos por teléfono o escríbenos por
@@ -128,8 +128,8 @@ export function Location() {
           {/* Mapa */}
           <div className="relative min-h-[400px] lg:min-h-full rounded-3xl overflow-hidden shadow-xl border border-border">
             <iframe
-              title="Ubicación de Mariscos El Jona"
-              src={`https://www.openstreetmap.org/export/embed.html?bbox=-117.15%2C32.18%2C-116.95%2C32.30&layer=mapnik&marker=32.237%2C-117.053`}
+              title="Ubicación de Mariscos Quiroa"
+              src={`https://www.openstreetmap.org/export/embed.html?bbox=-117.10%2C32.25%2C-116.95%2C32.32&layer=mapnik&marker=32.284%2C-117.032`}
               className="absolute inset-0 h-full w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -140,7 +140,7 @@ export function Location() {
               </span>
               <div className="min-w-0">
                 <p className="font-semibold text-foreground text-sm leading-tight">
-                  Mariscos El Jona — Mostrador & Distribuidora
+                  Mariscos Quiroa — Mostrador & Distribuidora
                 </p>
                 <p className="text-xs text-muted-foreground mt-0.5 truncate">
                   {contact.address.street}, {contact.address.city}

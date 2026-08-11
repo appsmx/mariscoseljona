@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin", "/api/admin"],
       },
     ],
-    sitemap: "https://mariscoseljona.mx/sitemap.xml",
+    sitemap: "https://mariscosquiroa.mx/sitemap.xml",
   };
 }

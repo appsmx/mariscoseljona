@@ -35,7 +35,7 @@ export function WhatsAppFloat() {
                 <MessageCircle className="h-4 w-4" />
               </span>
               <div>
-                <p className="text-sm font-semibold text-foreground">Mariscos El Jona</p>
+                <p className="text-sm font-semibold text-foreground">Mariscos Quiroa</p>
                 <p className="text-[10px] text-emerald-600 flex items-center gap-1">
                   <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   En línea ahora

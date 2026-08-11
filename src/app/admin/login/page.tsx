@@ -39,7 +39,7 @@ export default async function LoginPage() {
                 </svg>
               </span>
               <h1 className="font-display text-2xl font-bold text-foreground">
-                Mariscos El Jona
+                Mariscos Quiroa
               </h1>
               <p className="text-xs text-muted-foreground uppercase tracking-[0.18em] mt-1">
                 Panel Administrativo
@@ -54,7 +54,7 @@ export default async function LoginPage() {
           </div>
 
           <p className="mt-6 text-center text-xs text-white/40">
-            © {new Date().getFullYear()} Mariscos El Jona · Sistema Logan
+            © {new Date().getFullYear()} Mariscos Quiroa · Sistema Logan
           </p>
         </div>
       </div>

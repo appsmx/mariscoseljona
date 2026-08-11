@@ -23,7 +23,7 @@ const navColumns = [
       { label: "Nosotros", href: "#nosotros" },
       { label: "Mayoreo & Menudeo", href: "#mayoreo-menudeo" },
       { label: "Cobertura", href: "#cobertura" },
-      { label: "Ecosistema El Jona", href: "#ecosistema" },
+      { label: "Ecosistema Quiroa", href: "#ecosistema" },
       { label: "Ubicación", href: "#ubicacion" },
     ],
   },
@@ -90,10 +90,10 @@ export function Footer() {
               </span>
               <div>
                 <p className="font-display text-xl font-extrabold text-white">
-                  Mariscos El Jona
+                  Mariscos Quiroa
                 </p>
                 <p className="text-xs text-amber-brand-200 uppercase tracking-[0.18em]">
-                  Del Pacífico a tu mesa
+                  El sabor del Pacífico en cada pedido
                 </p>
               </div>
             </div>
@@ -193,7 +193,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
           <p>
-            © {new Date().getFullYear()} Mariscos El Jona. Todos los derechos reservados.
+            © {new Date().getFullYear()} Mariscos Quiroa. Todos los derechos reservados.
           </p>
 
           {/* Sello Logan */}

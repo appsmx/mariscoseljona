@@ -2,7 +2,7 @@ import ZAI from "z-ai-web-dev-sdk";
 import { db } from "@/lib/db";
 
 /**
- * Servicio central del agente de IA de Mariscos El Jona.
+ * Servicio central del agente de IA de Mariscos Quiroa.
  *
  * Este agente opera como asistente virtual del cliente en el sitio público:
  *  - Responde consultas sobre productos, precios, disponibilidad, horarios, cobertura
@@ -100,10 +100,10 @@ REDES SOCIALES:
 }
 
 /**
- * System prompt del agente vendedor de Mariscos El Jona.
+ * System prompt del agente vendedor de Mariscos Quiroa.
  * Especializado en mariscos, tono mexicano cercano y profesional.
  */
-const AGENT_SYSTEM_PROMPT = `Eres el asistente virtual de Mariscos El Jona, una distribuidora de pescados y mariscos frescos con más de 17 años de trayectoria en Rosarito, Baja California.
+const AGENT_SYSTEM_PROMPT = `Eres el asistente virtual de Mariscos Quiroa, una distribuidora de pescados y mariscos frescos con más de 17 años de trayectoria en Playas de Rosarito, Baja California.
 
 TU ROL:
 Eres el primer punto de contacto para clientes potenciales que llegan a la web. Tu objetivo es ayudarlos a encontrar el producto que necesitan, darles precios claros, generar confianza y derivarlos a concretar la cotización por WhatsApp o desde el carrito del sitio.
@@ -139,7 +139,7 @@ REGLAS CRÍTICAS:
 - NUNCA inventes disponibilidad. Si un producto es "de temporada" o "bajo pedido", aclaralo.
 - NUNCA prometas tiempos de entrega que no estén en tu información.
 - Si el cliente pregunta por un producto que no está en el catálogo, di que trabajas con más de 40 especies y deriva a WhatsApp para consulta específica.
-- No des información sobre los restaurantes (El Jona 1, El Jona 2) más allá de mencionar que existen — son negocios hermanos.
+- No des información sobre los restaurantes (Quiroa 1, Quiroa 2) más allá de mencionar que existen — son negocios hermanos.
 
 CONTEXTO ACTUAL DEL NEGOCIO:
 ============================
@@ -214,7 +214,7 @@ export async function processCustomerMessage(
     if (/whatsapp|wa\.me|52661/i.test(content)) {
       actions.push({
         type: "open_whatsapp",
-        message: "Hola Mariscos El Jona, vengo desde el chat de la web.",
+        message: "Hola Mariscos Quiroa, vengo desde el chat de la web.",
       });
     }
 
@@ -231,7 +231,7 @@ export async function processCustomerMessage(
       actions: [
         {
           type: "open_whatsapp",
-          message: "Hola Mariscos El Jona, vengo desde el chat de la web.",
+          message: "Hola Mariscos Quiroa, vengo desde el chat de la web.",
         },
       ],
       needsHuman: true,
@@ -359,7 +359,7 @@ export async function generateAdminSummary(context: {
   try {
     const zai = await getZAI();
 
-    const prompt = `Eres el asistente de gestión de Mariscos El Jona. El dueño del negocio abrió el panel y quiere un resumen rápido del estado actual.
+    const prompt = `Eres el asistente de gestión de Mariscos Quiroa. El dueño del negocio abrió el panel y quiere un resumen rápido del estado actual.
 
 DATOS DE HOY:
 - Pedidos hoy: ${context.todayOrders}

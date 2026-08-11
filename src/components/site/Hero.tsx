@@ -39,12 +39,12 @@ export function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-medium text-white mb-6 animate-fade-up">
             <span className="inline-flex h-2 w-2 rounded-full bg-amber-brand-400 animate-pulse" />
-            Frescura diaria del Pacífico mexicano · Rosarito, Baja California
+            Frescura diaria del Pacífico mexicano · Playas de Rosarito, Baja California
           </div>
 
           {/* Título */}
           <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.05] animate-fade-up [animation-delay:0.1s]">
-            Mariscos El Jona
+            Mariscos Quiroa
           </h1>
           <p className="mt-4 font-display text-xl sm:text-2xl lg:text-3xl font-medium text-amber-brand-200 italic animate-fade-up [animation-delay:0.2s]">
             {siteConfig.brand.tagline}

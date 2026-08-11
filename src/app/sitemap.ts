@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://mariscoseljona.mx";
+  const baseUrl = "https://mariscosquiroa.mx";
   const lastModified = new Date();
 
   return [

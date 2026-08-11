@@ -42,7 +42,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Brand palette - Mariscos El Jona */
+  /* Brand palette - Mariscos Quiroa */
   --color-ocean-50: oklch(0.97 0.02 200);
   --color-ocean-100: oklch(0.93 0.05 200);
   --color-ocean-200: oklch(0.87 0.08 200);

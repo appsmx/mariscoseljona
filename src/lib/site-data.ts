@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  MARISCOS EL JONA — Datos centrales del sitio
+ *  MARISCOS QUIROA — Datos centrales del sitio
  * ============================================================
  *  Este archivo concentra TODA la información editable de la
  *  empresa (nombre, contacto, productos, ubicación, etc.).
@@ -11,43 +11,43 @@
 export const siteConfig = {
   // ---- Identidad de la empresa ----
   brand: {
-    name: "Mariscos El Jona",
-    tagline: "Del Pacífico a tu mesa",
+    name: "Mariscos Quiroa",
+    tagline: "El sabor del Pacífico en cada pedido",
     slogan:
       "Pescados y mariscos frescos seleccionados cada mañana, listos para mayoreo y menudeo en toda la región.",
-    foundedYear: 2008,
+    foundedYear: 2009,
     trajectoryYears: 17,
     description:
-      "Distribuidora de pescados y mariscos frescos con más de una década y media de trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. Trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.",
+      "Distribuidora de pescados y mariscos frescos con trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. Trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.",
   },
 
-  // ---- Contacto ----
+  // ---- Contacto (pendiente de confirmar teléfono y WhatsApp) ----
   contact: {
-    phone: "+52 661 612 3456",
-    phoneDisplay: "(661) 612-3456",
-    whatsapp: "526616123456", // sin signos, formato internacional
+    phone: "+52 661 612 3456", // TODO: confirmar teléfono real
+    phoneDisplay: "(661) 612-3456", // TODO: confirmar
+    whatsapp: "526616123456", // TODO: confirmar WhatsApp real
     whatsappMessage:
-      "Hola Mariscos El Jona, me gustaría cotizar productos de mariscos.",
-    email: "ventas@mariscoseljona.mx",
+      "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
+    email: "ventas@mariscosquiroa.mx", // TODO: crear cuando tenga dominio
     address: {
-      street: "Blvd. Benito Juárez 1452, Col. Centro",
-      city: "Rosarito",
+      street: "Carretera Tijuana-Ensenada (Libre), Terrazas del Pacífico, Popotla", // TODO: confirmar
+      city: "Playas de Rosarito",
       state: "Baja California",
-      zip: "22710",
+      zip: "22716",
       country: "México",
     },
     hours: [
-      { day: "Lunes a Viernes", time: "7:00 AM – 7:00 PM" },
-      { day: "Sábado", time: "7:00 AM – 5:00 PM" },
-      { day: "Domingo", time: "8:00 AM – 1:00 PM" },
+      { day: "Lunes a Viernes", time: "9:00 AM – 6:00 PM" },
+      { day: "Jueves", time: "Cerrado" },
+      { day: "Sábado y Domingo", time: "8:00 AM – 6:00 PM" },
     ],
   },
 
   // ---- Redes sociales ----
   social: {
-    facebook: "https://facebook.com/mariscoseljona",
-    instagram: "https://instagram.com/mariscoseljona",
-    tiktok: "https://tiktok.com/@mariscoseljona",
+    facebook: "https://facebook.com/mariscosquiroa", // TODO: crear
+    instagram: "https://instagram.com/mariscosquiroa", // TODO: crear
+    tiktok: "https://tiktok.com/@mariscosquiroa", // TODO: crear
   },
 
   // ---- Imágenes (URLs CDN, sustituibles) ----
@@ -142,7 +142,7 @@ export const products: Product[] = [
     image:
       "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8ad617fdb5f6.jpg",
     description:
-      "El auténtico callo de hacha bajacaliforniano, desvalvado a mano y empacado en su propio jugo. Joya de las costas del Pacífico para ceviches y cócteles premium.",
+      "El auténtico callo de hacha de Baja California, desvalvado a mano y empacado en su propio jugo. Joya de las costas del Pacífico para ceviches y cócteles premium.",
     presentation: ["Medio litro", "Litro", "Bandeja 500 g"],
     availability: "Temporada",
     tags: ["mayoreo", "menudeo", "fresco", "premium"],
@@ -285,7 +285,7 @@ export const testimonials = [
     location: "Tijuana",
     rating: 5,
     quote:
-      "Como pescadería dependemos totalmente de un proveedor confiable. El Jona nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.",
+      "Como pescadería dependemos totalmente de un proveedor confiable. Mariscos Quiroa nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.",
   },
   {
     name: "Familia Ríos",
@@ -303,9 +303,9 @@ export const testimonials = [
 
 export const brandEcosystem = [
   {
-    name: "Restaurante El Jona 1",
+    name: "Marisco Preparado Quiroa",
     subtitle: "Mariscos & Pescados",
-    address: "Blvd. Benito Juárez 1452, Rosarito, Baja California",
+    address: "Carretera Tijuana-Ensenada (Libre), Terrazas del Pacífico, Popotla, Rosarito, BC",
     description:
       "Nuestra casa matriz. Cocina bajacaliforniana tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.",
     hours: "Lun a Dom · 12:00 PM – 11:00 PM",
@@ -313,7 +313,7 @@ export const brandEcosystem = [
     phone: "+52 661 100 2001",
   },
   {
-    name: "Restaurante El Jona 2",
+    name: "Marisquería Quiroa",
     subtitle: "Marisquería & Bar",
     address: "Av. del Mar 880, Rosarito, Baja California",
     description:

@@ -70,7 +70,7 @@ export function AdminSidebar() {
             </svg>
           </span>
           <div>
-            <p className="font-display text-lg font-bold leading-none">El Jona</p>
+            <p className="font-display text-lg font-bold leading-none">Quiroa</p>
             <p className="text-[10px] uppercase tracking-[0.18em] text-amber-brand-200 mt-1">
               Panel Admin
             </p>

@@ -142,7 +142,7 @@ export function ChatWidget() {
       setIsOpen(false);
     } else if (action.type === "open_whatsapp") {
       const waLink = `https://wa.me/${config.contact.whatsapp}?text=${encodeURIComponent(
-        action.message || "Hola Mariscos El Jona, vengo desde el chat de la web."
+        action.message || "Hola Mariscos Quiroa, vengo desde el chat de la web."
       )}`;
       window.open(waLink, "_blank");
     }
@@ -195,7 +195,7 @@ export function ChatWidget() {
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-sm leading-tight">Asistente El Jona</p>
+              <p className="font-semibold text-sm leading-tight">Asistente Quiroa</p>
               <p className="text-[10px] text-white/80 flex items-center gap-1 mt-0.5">
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 En línea · responde en segundos
@@ -339,7 +339,7 @@ export function ChatWidget() {
           {/* Footer */}
           <div className="px-3 py-2 bg-muted/50 border-t border-border">
             <p className="text-[10px] text-center text-muted-foreground">
-              Asistente IA de Mariscos El Jona · Para consultas complejas,{" "}
+              Asistente IA de Mariscos Quiroa · Para consultas complejas,{" "}
               <a
                 href={`https://wa.me/${config.contact.whatsapp}`}
                 target="_blank"
