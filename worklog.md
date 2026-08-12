@@ -371,7 +371,7 @@ Beneficios de negocio:
 - Dominio comprado: mariscosquiroa.com (en Cloudflare)
 - Hosting: Vercel (gratis, deploy automático desde GitHub)
 - Base de datos: Neon PostgreSQL
-- Repositorio GitHub: github.com/appsmx/mariscoseljona (nombre histórico, contenido actualizado a Quiroa)
+- Repositorio GitHub: github.com/appsmx/mariscosquiroa (nombre histórico, contenido actualizado a Quiroa)
 - Login admin: admin@mariscosquiroa.com / admin123
 - Pendiente: teléfono/WhatsApp real, menú de productos real, fotos reales del negocio
 
