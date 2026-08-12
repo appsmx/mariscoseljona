@@ -1,5 +1,5 @@
 // =====================================================
-//  Mariscos El Jona — Esquema Prisma
+//  Mariscos Quiroa — Esquema Prisma
 //  Piloto Logan: distribuidora de pescados y mariscos
 // =====================================================
 
@@ -53,7 +53,7 @@ model ActivityLog {
 
 model SiteConfig {
   id              String   @id @default("singleton")
-  brandName       String   @default("Mariscos El Jona")
+  brandName       String   @default("Mariscos Quiroa")
   tagline         String   @default("Del Pacífico a tu mesa")
   slogan          String
   description     String
@@ -259,7 +259,7 @@ model Faq {
 
 model BrandEcosystemEntry {
   id          String  @id @default(cuid())
-  name        String  // "Restaurante El Jona 1"
+  name        String  // "Marisco Preparado Quiroa"
   subtitle    String  // "Mariscos & Pescados"
   address     String
   description String

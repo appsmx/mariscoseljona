@@ -1,6 +1,6 @@
 # Worklog — Mariscos Quiroa (proyecto Logan piloto)
 
-Proyecto: Plataforma digital integral para Mariscos Quiroa (distribuidora de pescados y mariscos, Playas de Rosarito, Baja California). Primer piloto vertical de Logan. Originalmente creado como "Mariscos El Jona", rebranding completado a Mariscos Quiroa.
+Proyecto: Plataforma digital integral para Mariscos Quiroa (distribuidora de pescados y mariscos, Playas de Rosarito, Baja California). Primer piloto vertical de Logan. Rebranding aplicado: nombre anterior del proyecto actualizado a Mariscos Quiroa.
 
 ---
 
@@ -33,7 +33,7 @@ Proyecto: Plataforma digital integral para Mariscos Quiroa (distribuidora de pes
 
 ### Costos de API en producción (los paga el cliente, no el operador)
 - API LLM básico: $100-$300 MXN/mes (~300 consultas)
-- API LLM medio: $400-$900 MXN/mes (~1,000-1,500 consultas) ← escenario Mariscos El Jona
+- API LLM medio: $400-$900 MXN/mes (~1,000-1,500 consultas) ← escenario Mariscos Quiroa
 - API LLM alto: $1,200-$2,500 MXN/mes (~3,000+ consultas)
 - WhatsApp Business básico: $150-$400/mes
 - WhatsApp Business medio: $500-$1,200/mes
@@ -52,7 +52,7 @@ Sistema operativo para negocios que orquesta agentes especializados por rol:
 
 Cada agente se despierta por trigger, opera en su scope, pide aprobación al dueño cuando corresponde.
 
-**Mariscos El Jona = piloto de Logan**. Lo que se construye aquí se documenta como plantilla vertical replicable a pescaderías, carnicerías, fruterías, rosticerías, etc.
+**Mariscos Quiroa = piloto de Logan**. Lo que se construye aquí se documenta como plantilla vertical replicable a pescaderías, carnicerías, fruterías, rosticerías, etc.
 
 ### Puntos de venta para la presentación al cliente
 Técnicos:
@@ -356,13 +356,13 @@ Beneficios de negocio:
 
 ---
 
-## Task ID: REBRAND (Mariscos El Jona → Mariscos Quiroa)
+## Task ID: REBRAND (renombre de proyecto a Mariscos Quiroa)
 
 **Agente**: Super Z (main)
 **Task**: Rebranding completo del proyecto. El cliente real se llama Mariscos Quiroa, ubicado en Playas de Rosarito, Baja California. Dominio: mariscosquiroa.com
 
 ### Work Log:
-- Cambio de nombre en TODO el código: Mariscos El Jona → Mariscos Quiroa
+- Cambio de nombre en TODO el código: nombre anterior → Mariscos Quiroa
 - Eslogan: "El sabor del Pacífico en cada pedido"
 - Año de fundación: 2009
 - Dirección: Carretera Tijuana-Ensenada (Libre), Terrazas del Pacífico, Popotla, Playas de Rosarito, BC, C.P. 22716
