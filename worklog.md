@@ -1,6 +1,6 @@
-# Worklog — Mariscos El Jona (proyecto Logan piloto)
+# Worklog — Mariscos Quiroa (proyecto Logan piloto)
 
-Proyecto: Plataforma digital integral para Mariscos El Jona (distribuidora de pescados y mariscos, Mazatlán, Sinaloa). Primer piloto vertical de Logan.
+Proyecto: Plataforma digital integral para Mariscos Quiroa (distribuidora de pescados y mariscos, Playas de Rosarito, Baja California). Primer piloto vertical de Logan. Originalmente creado como "Mariscos El Jona", rebranding completado a Mariscos Quiroa.
 
 ---
 
@@ -138,7 +138,7 @@ Beneficios de negocio:
 - Verificado con Agent Browser:
   - Sitio público renderiza con datos de la BD (8 productos cargados dinámicamente)
   - /admin redirige a /admin/login correctamente
-  - Login funciona con admin@mariscoseljona.mx / admin123
+  - Login funciona con admin@mariscosquiroa.com / admin123
   - Dashboard muestra KPIs y pedidos por estado
   - /admin/productos muestra los 8 productos con opciones de editar/eliminar/activar
   - /admin/pedidos muestra bandeja vacía con mensaje correcto
@@ -151,7 +151,7 @@ Beneficios de negocio:
 - 17 modelos de datos en producción
 - Panel admin funcional con 5 secciones (dashboard, productos, pedidos, contenido, configuración)
 - Frontend público ahora lee 100% de la base de datos, con fallback estático para resiliencia
-- Login: admin@mariscoseljona.mx / admin123
+- Login: admin@mariscosquiroa.com / admin123
 - Acceso: /admin (redirige a login si no autenticado)
 - Lista para que el dueño del negocio gestione su catálogo, precios y contenido sin dependencia técnica
 
@@ -353,3 +353,31 @@ Beneficios de negocio:
 - Panel de pedidos con buscador, paginación y export CSV
 - Proyecto listo para las 4 fases completas
 - Pendiente: deployment a producción con dominio real del cliente
+
+---
+
+## Task ID: REBRAND (Mariscos El Jona → Mariscos Quiroa)
+
+**Agente**: Super Z (main)
+**Task**: Rebranding completo del proyecto. El cliente real se llama Mariscos Quiroa, ubicado en Playas de Rosarito, Baja California. Dominio: mariscosquiroa.com
+
+### Work Log:
+- Cambio de nombre en TODO el código: Mariscos El Jona → Mariscos Quiroa
+- Eslogan: "El sabor del Pacífico en cada pedido"
+- Año de fundación: 2009
+- Dirección: Carretera Tijuana-Ensenada (Libre), Terrazas del Pacífico, Popotla, Playas de Rosarito, BC, C.P. 22716
+- Horarios: Lun-Vie 9-6, Jueves cerrado, Sáb-Dom 8-6 (atención IA 24/7)
+- Coordenadas: 32.284, -117.032
+- Dominio comprado: mariscosquiroa.com (en Cloudflare)
+- Hosting: Vercel (gratis, deploy automático desde GitHub)
+- Base de datos: Neon PostgreSQL
+- Repositorio GitHub: github.com/appsmx/mariscoseljona (nombre histórico, contenido actualizado a Quiroa)
+- Login admin: admin@mariscosquiroa.com / admin123
+- Pendiente: teléfono/WhatsApp real, menú de productos real, fotos reales del negocio
+
+### Stage Summary:
+- Rebranding completado en 25+ archivos del repositorio
+- Sitio en producción: https://mariscosquiroa.com
+- Panel admin: https://mariscosquiroa.com/admin
+- SSL configurado y funcionando
+- Deploy automático Vercel ↔ GitHub operativo

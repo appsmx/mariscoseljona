@@ -1,7 +1,7 @@
 # DOCUMENTO MAESTRO DE CONTEXTO
-# Logan + Mariscos El Jona
+# Logan + Mariscos Quiroa
 
-> **Cómo usar este documento**: Al iniciar una nueva conversación con cualquier IA (ChatGPT, Claude, GLM, etc.), copia y pega TODO el contenido de este archivo como primer mensaje, o adjúntalo como archivo. La IA entrará instantáneamente en contexto completo sobre Logan, el proyecto Mariscos El Jona, los servicios que ofreces y los precios sugeridos.
+> **Cómo usar este documento**: Al iniciar una nueva conversación con cualquier IA (ChatGPT, Claude, GLM, etc.), copia y pega TODO el contenido de este archivo como primer mensaje, o adjúntalo como archivo. La IA entrará instantáneamente en contexto completo sobre Logan, el proyecto Mariscos Quiroa, los servicios que ofreces y los precios sugeridos.
 
 ---
 
@@ -20,21 +20,21 @@ Logan (github.com/appsmx/logan) es un **sistema operativo para negocios** que el
 
 Cada agente se "despierta" por un trigger (mensaje entrante, fecha, evento de inventario), opera en su scope, y pide aprobación al dueño cuando corresponde.
 
-### Mariscos El Jona = PRIMER PILOTO DE LOGAN
-Lo que se construyó para Mariscos El Jona es la primera implementación vertical de Logan. Se documentó como plantilla replicable a otros giros (pescaderías, carnicerías, fruterías, rosticerías, etc.).
+### Mariscos Quiroa = PRIMER PILOTO DE LOGAN
+Lo que se construyó para Mariscos Quiroa es la primera implementación vertical de Logan. Se documentó como plantilla replicable a otros giros (pescaderías, carnicerías, fruterías, rosticerías, etc.).
 
 ---
 
-## PARTE 2: PROYECTO MARISCOS EL JONA — QUÉ SE CONSTRUYÓ
+## PARTE 2: PROYECTO MARISCOS QUIROA — QUÉ SE CONSTRUYÓ
 
 ### El cliente
-- **Negocio**: Mariscos El Jona — distribuidora de pescados y mariscos frescos
+- **Negocio**: Mariscos Quiroa — distribuidora de pescados y mariscos frescos
 - **Ubicación**: Rosarito, Baja California, México
 - **Antigüedad**: 17 años de trayectoria (fundado 2008)
 - **Modelo**: Mayoreo (restaurantes, pescaderías, hoteles) y menudeo (hogares)
 - **Productos**: Pulpo, camarón, calamar, callo de hacha, almejas, ostiones, pescados frescos, especialidades (ceviches, mariscadas)
 - **Cobertura**: Rosarito, Tijuana, Ensenada, Mexicali, San Quintín (Baja California)
-- **Ecosistema**: 2 restaurantes hermanos (El Jona 1 y El Jona 2)
+- **Ecosistema**: 2 restaurantes hermanos (Quiroa 1 y Quiroa 2)
 
 ### Stack técnico utilizado
 - **Framework**: Next.js 16 con App Router + TypeScript
@@ -64,7 +64,7 @@ Lo que se construyó para Mariscos El Jona es la primera implementación vertica
   - Pedidos: bandeja con filtros, buscador, paginación, export CSV, modal de detalle con cambio de estado y links directos a WhatsApp/teléfono del cliente
   - Contenido: CRUD inline de testimonios, FAQs, stats, zonas de cobertura
   - Configuración: editor completo de SiteConfig (identidad, contacto, dirección, redes, imágenes)
-- **Login**: admin@mariscoseljona.mx / admin123
+- **Login**: admin@mariscosquiroa.mx / admin123
 
 #### FASE 2 — Sistema de cotizaciones (completada)
 - **API pública POST /api/public/orders** que crea pedidos desde la web
@@ -267,7 +267,7 @@ Desglose:
 9. PWA instalable como app (icono en el celular del cliente)
 10. Sistema de pedidos con códigos de seguimiento (profesional como Mercado Libre)
 11. Export de pedidos a CSV/Excel (para contabilidad)
-12. Ecosistema de marcas (El Jona 1 + El Jona 2 como familia)
+12. Ecosistema de marcas (Quiroa 1 + Quiroa 2 como familia)
 13. Mapa embebido (te encuentran fácil)
 14. Testimonios (prueba social)
 15. FAQ estructurado (reduce consultas repetitivas)
@@ -314,16 +314,16 @@ Copia y pega este archivo completo como primer mensaje. La IA tendrá todo el co
 ### Prompts sugeridos después de pasar el contexto
 
 **Para crear publicaciones de redes sociales**:
-> "Basándote en el contexto de Mariscos El Jona que te pasé, generame 3 publicaciones para Facebook: una anunciando llegada de pulpo fresco, una con tip de preparación de ceviche, y una promocionando mayoreo para restaurantes. Incluí caption + sugerencia de imagen + hashtags."
+> "Basándote en el contexto de Mariscos Quiroa que te pasé, generame 3 publicaciones para Facebook: una anunciando llegada de pulpo fresco, una con tip de preparación de ceviche, y una promocionando mayoreo para restaurantes. Incluí caption + sugerencia de imagen + hashtags."
 
 **Para ajustar precios**:
 > "Tengo un cliente potencial en [giro] en [ciudad]. Basándote en los precios de arranque de Logan, ¿cuánto le cobrarías por [servicio]? El cliente tiene [características]."
 
 **Para crear presentación de venta**:
-> "Basándote en el contexto de Logan y Mariscos El Jona, creame una presentación de venta interactiva en HTML que pueda mostrarle al cliente. Debe incluir los 20 puntos técnicos, los beneficios de negocio, la tabla de precios y el ROI estimado."
+> "Basándote en el contexto de Logan y Mariscos Quiroa, creame una presentación de venta interactiva en HTML que pueda mostrarle al cliente. Debe incluir los 20 puntos técnicos, los beneficios de negocio, la tabla de precios y el ROI estimado."
 
 **Para generar contenido del video publicitario**:
-> "Generame el guion completo de un video publicitario de 45 segundos para Mariscos El Jona. Tono: cercano, mexicano, mostrando frescura y trayectoria. Estructura: hook → problema → solución → CTA."
+> "Generame el guion completo de un video publicitario de 45 segundos para Mariscos Quiroa. Tono: cercano, mexicano, mostrando frescura y trayectoria. Estructura: hook → problema → solución → CTA."
 
 ### Archivos clave del proyecto (referencia)
 - **Worklog completo**: `/home/z/my-project/worklog.md` — registro detallado de las 4 fases
@@ -333,8 +333,8 @@ Copia y pega este archivo completo como primer mensaje. La IA tendrá todo el co
 - **Seed script**: `scripts/seed.ts` y `scripts/reseed.ts` — datos iniciales
 
 ### Datos de acceso al panel admin (cuando esté en producción)
-- **URL**: mariscoseljona.mx/admin (cuando tengas dominio real)
-- **Email**: admin@mariscoseljona.mx
+- **URL**: mariscosquiroa.mx/admin (cuando tengas dominio real)
+- **Email**: admin@mariscosquiroa.mx
 - **Contraseña**: admin123 (el cliente debe cambiarla)
 
 ---
@@ -342,7 +342,7 @@ Copia y pega este archivo completo como primer mensaje. La IA tendrá todo el co
 ## PARTE 8: ROADMAP FUTURO DE LOGAN
 
 ### Lo que viene para Logan como producto
-1. **Plantillas verticales**: replicar Mariscos El Jona para pescaderías, carnicerías, fruterías, rosticerías, tortillerías, etc.
+1. **Plantillas verticales**: replicar Mariscos Quiroa para pescaderías, carnicerías, fruterías, rosticerías, tortillerías, etc.
 2. **Agentes especializados**: implementar los 6 roles (vendedor, CM, logístico, analista, contador, post-venta)
 3. **Panel multi-negocio**: un dashboard donde el operador gestiona todos sus clientes desde un solo lugar
 4. **Marketplace de plantillas**: vender plantillas a otros desarrolladores
@@ -368,7 +368,7 @@ Copia y pega este archivo completo como primer mensaje. La IA tendrá todo el co
 
 **Qué vendes**: Plataforma digital integral para negocios de alimentos = web + panel admin + IA + redes + marketing + mantenimiento.
 
-**Primer cliente piloto**: Mariscos El Jona (Rosarito, BC) — distribuidora de mariscos, 17 años de trayectoria, 2 restaurantes hermanos.
+**Primer cliente piloto**: Mariscos Quiroa (Playas de Rosarito, BC) — distribuidora de mariscos, 17 años de trayectoria, 2 restaurantes hermanos.
 
 **Precio arranque**: $30,000-$35,000 MXN por todo (web + redes + marketing con video), pago 50/50 contra hitos.
 

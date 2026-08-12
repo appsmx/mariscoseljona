@@ -1,15 +1,15 @@
-# Biblia_MariscosElJona.md
+# Biblia_MariscosQuiroa.md
 
 **Versión:** 0.1
 **Estado:** En construcción
-**Propósito:** Capturar el conocimiento específico del producto Mariscos El Jona — distribuidora de pescados y mariscos en Rosarito, Baja California. Autoridad del producto (Nivel Proyecto bajo [LOGAN]).
+**Propósito:** Capturar el conocimiento específico del producto Mariscos Quiroa — distribuidora de pescados y mariscos en Rosarito, Baja California. Autoridad del producto (Nivel Proyecto bajo [LOGAN]).
 **Fecha:** 2026-08-08
 
 ---
 
 ## 1. Visión del producto
 
-**Mariscos El Jona** es una distribuidora de pescados y mariscos frescos en Rosarito, Baja California. Su plataforma digital integral incluye sitio web, panel administrativo, agente de IA conversacional y sistema de cotizaciones.
+**Mariscos Quiroa** es una distribuidora de pescados y mariscos frescos en Rosarito, Baja California. Su plataforma digital integral incluye sitio web, panel administrativo, agente de IA conversacional y sistema de cotizaciones.
 
 **Primer piloto de LOGAN** — declarado en el README del repositorio.
 
@@ -49,7 +49,7 @@
 - Sección "Nosotros" con timeline (2008 → 2024)
 - Mapa de cobertura de Baja California
 - Testimonios
-- Ecosistema de marcas (El Jona 1 + El Jona 2)
+- Ecosistema de marcas (Quiroa 1 + Quiroa 2)
 - FAQ acordeón
 - Ubicación con mapa OpenStreetMap embebido
 - SEO técnico: schema.org LocalBusiness + FAQPage, sitemap.xml, robots.txt
@@ -100,5 +100,5 @@ Este proyecto sigue **LOGAN** (Learning, Organization, Governance, Architecture 
 
 ---
 
-*Biblia_MariscosElJona.md v0.1 — creada por LOGAN OS el 2026-08-08*
+*Biblia_MariscosQuiroa.md v0.1 — creada por LOGAN OS el 2026-08-08*
 *Generada automáticamente por LOGAN Core como primer paso de conexión con el producto.*

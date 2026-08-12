@@ -1,4 +1,4 @@
-# 🦐 Mariscos El Jona — Plataforma Digital Integral
+# 🦐 Mariscos Quiroa — Plataforma Digital Integral
 
 Distribuidora de pescados y mariscos frescos en Rosarito, Baja California. Plataforma digital completa con sitio web, panel administrativo, agente de IA y sistema de cotizaciones.
 
@@ -44,7 +44,7 @@ Distribuidora de pescados y mariscos frescos en Rosarito, Baja California. Plata
 - Sección "Nosotros" con timeline (2008 → 2024)
 - Mapa de cobertura de Baja California
 - Testimonios
-- Ecosistema de marcas (El Jona 1 + El Jona 2)
+- Ecosistema de marcas (Quiroa 1 + Quiroa 2)
 - FAQ acordeón
 - Ubicación con mapa OpenStreetMap embebido
 - SEO técnico: schema.org LocalBusiness + FAQPage, sitemap.xml, robots.txt
@@ -84,7 +84,7 @@ Distribuidora de pescados y mariscos frescos en Rosarito, Baja California. Plata
 ## 📁 Estructura del proyecto
 
 ```
-mariscoseljona/
+mariscosquiroa/
 ├── src/
 │   ├── app/                          # Next.js App Router
 │   │   ├── layout.tsx                # Layout raíz con metadata + schemas
@@ -155,8 +155,8 @@ mariscoseljona/
 
 ```bash
 # 1. Clonar el repo
-git clone https://github.com/appsmx/mariscoseljona.git
-cd mariscoseljona
+git clone https://github.com/appsmx/mariscosquiroa.git
+cd mariscosquiroa
 
 # 2. Instalar dependencias
 bun install
@@ -196,7 +196,7 @@ El panel admin en `http://localhost:3000/admin`
 
 Después de ejecutar el seed, el usuario admin es:
 
-- **Email**: `admin@mariscoseljona.mx`
+- **Email**: `admin@mariscosquiroa.mx`
 - **Contraseña**: `admin123`
 
 ⚠️ **En producción**: cambiar la contraseña desde el panel o con un script de bcrypt.
@@ -210,7 +210,7 @@ Después de ejecutar el seed, el usuario admin es:
 ```env
 DATABASE_URL="file:/ruta/a/db/produccion.db"
 NEXTAUTH_SECRET="genera-uno-nuevo-con-openssl-rand-hex-32"
-NEXTAUTH_URL="https://mariscoseljona.mx"
+NEXTAUTH_URL="https://mariscosquiroa.mx"
 ```
 
 ### Deploy en Vercel (recomendado)
@@ -221,7 +221,7 @@ NEXTAUTH_URL="https://mariscoseljona.mx"
 
 ### Dominio
 
-Apuntá `mariscoseljona.mx` a Vercel (DNS A record o CNAME).
+Apuntá `mariscosquiroa.mx` a Vercel (DNS A record o CNAME).
 
 ---
 
@@ -254,7 +254,7 @@ Más info: [github.com/appsmx/logan](https://github.com/appsmx/logan)
 
 ## 📄 Licencia
 
-Propietario. Todos los derechos reservados © Mariscos El Jona.
+Propietario. Todos los derechos reservados © Mariscos Quiroa.
 
 ---
 

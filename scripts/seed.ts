@@ -43,8 +43,8 @@ async function main() {
         "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
       email: "ventas@mariscosquiroa.mx",
       streetAddress: "Av. del Mar 1452, Col. Centro",
-      city: "Mazatlán",
-      state: "Sinaloa",
+      city: "Rosarito",
+      state: "Baja California",
       zipCode: "82000",
       country: "México",
       facebookUrl: "https://facebook.com/mariscosquiroa",
@@ -141,7 +141,7 @@ async function main() {
       categoryId: categoryMap["marisco"],
       image: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8ad617fdb5f6.jpg",
       description:
-        "El auténtico callo de hacha sinaloense, desvalvado a mano y empacado en su propio jugo. Joya de las costas del Pacífico para ceviches y cócteles premium.",
+        "El auténtico callo de hacha bajacaliforniano, desvalvado a mano y empacado en su propio jugo. Joya de las costas del Pacífico para ceviches y cócteles premium.",
       availability: "TEMPORADA",
       featured: true,
       sortOrder: 4,
@@ -174,7 +174,7 @@ async function main() {
       categoryId: categoryMap["marisco"],
       image: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/670e74545aac.jpg",
       description:
-        "Ostiones cultivados en aguas certificadas de Sonora y Sinaloa, entregados vivos en concha o desvalvados al momento. Sabor salino intenso y textura cremosa.",
+        "Ostiones cultivados en aguas certificadas de Sonora y Baja California, entregados vivos en concha o desvalvados al momento. Sabor salino intenso y textura cremosa.",
       availability: "DIARIA",
       featured: true,
       sortOrder: 6,
@@ -234,9 +234,9 @@ async function main() {
 
   // 6. Testimonios
   const testimonials = [
-    { name: "Chef Ricardo Belmonte", role: "Restaurante Marea Alta", location: "Mazatlán", rating: 5, quote: "Llevo seis años comprándoles el pulpo y el callo de hacha. La consistencia en frescura es lo que mantiene nuestro menú en el nivel que exigimos. Nunca me han fallado en un servicio.", sortOrder: 1 },
-    { name: "Laura Quintero", role: "Pescadería La Sirena", location: "Culiacán", rating: 5, quote: "Como pescadería dependemos totalmente de un proveedor confiable. El Jona nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.", sortOrder: 2 },
-    { name: "Familia Ríos", role: "Cliente menudeo", location: "Mazatlán", rating: 5, quote: "Cada quinceenario y cumpleaños pido la mariscada para la familia. Llega impecable, fresca y bien empacada. Las recomendaciones de preparación del equipo son oro. Ya no compro en otro lado.", sortOrder: 3 },
+    { name: "Chef Ricardo Belmonte", role: "Restaurante Marea Alta", location: "Rosarito", rating: 5, quote: "Llevo seis años comprándoles el pulpo y el callo de hacha. La consistencia en frescura es lo que mantiene nuestro menú en el nivel que exigimos. Nunca me han fallado en un servicio.", sortOrder: 1 },
+    { name: "Laura Quintero", role: "Pescadería La Sirena", location: "Tijuana", rating: 5, quote: "Como pescadería dependemos totalmente de un proveedor confiable. Quiroa nos entrega tres veces por semana puntual, con producto bien clasificado y precios justos. El trato directo del dueño hace la diferencia.", sortOrder: 2 },
+    { name: "Familia Ríos", role: "Cliente menudeo", location: "Rosarito", rating: 5, quote: "Cada quinceenario y cumpleaños pido la mariscada para la familia. Llega impecable, fresca y bien empacada. Las recomendaciones de preparación del equipo son oro. Ya no compro en otro lado.", sortOrder: 3 },
   ];
   for (const t of testimonials) {
     await db.testimonial.create({ data: t });
@@ -246,7 +246,7 @@ async function main() {
   // 7. FAQs
   const faqs = [
     { question: "¿Con qué frecuencia reciben producto fresco?", answer: "Recibimos producto del puerto todos los días antes de las 6:00 AM. El inventario de mariscos frescos se renueva diariamente; lo que ves disponible hoy salió del mar esa misma madrugada.", sortOrder: 1 },
-    { question: "¿Hacen entregas a domicilio?", answer: "Sí. En zona metropolitana de Mazatlán y Culiacán entregamos el mismo día si el pedido se realiza antes de las 11:00 AM. Para otras ciudades enviamos por paquetería refrigerada con llegada de 24 a 48 horas.", sortOrder: 2 },
+    { question: "¿Hacen entregas a domicilio?", answer: "Sí. En zona metropolitana de Rosarito y Tijuana entregamos el mismo día si el pedido se realiza antes de las 11:00 AM. Para otras ciudades enviamos por paquetería refrigerada con llegada de 24 a 48 horas.", sortOrder: 2 },
     { question: "¿Cuál es el mínimo de compra para mayoreo?", answer: "El mínimo para precios de mayoreo es de 5 kilogramos por producto o un ticket equivalente. Ofrecemos precios escalonados: mayor volumen, mejor precio unitario.", sortOrder: 3 },
     { question: "¿Aceptan tarjeta o solo efectivo?", answer: "Aceptamos efectivo, transferencia bancaria, tarjetas de débito y crédito, y Wallet móviles. Para clientes de mayoreo recurrente abrimos línea de crédito a 30 días.", sortOrder: 4 },
     { question: "¿Cómo garantizan la cadena de frío?", answer: "Trabajamos con cuartos fríos a -2°C para frescos y -18°C para congelados. Las entregas se hacen en vehículos con hieleras industriales y monitoreo de temperatura en todo el trayecto.", sortOrder: 5 },
@@ -282,8 +282,8 @@ async function main() {
 
   // 10. Ecosistema de marcas
   const brands = [
-    { name: "Restaurante El Jona 1", subtitle: "Mariscos & Pescados", address: "Av. del Mar 1452, Mazatlán, Sinaloa", description: "Nuestra casa matriz. Cocina sinaloense tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.", hours: "Lun a Dom · 12:00 PM – 11:00 PM", phone: "+52 669 100 2001", accent: "teal", logoPath: "/jona-1-logo.svg", sortOrder: 1 },
-    { name: "Restaurante El Jona 2", subtitle: "Marisquería & Bar", address: "Blvd. Marina 880, Mazatlán, Sinaloa", description: "Nuestra segunda ubicación, con ambiente más contemporáneo y carta de mariscos al carbón, ostras frescas y coctelería. Terraza frente al malecón con vista al puerto.", hours: "Mar a Dom · 1:00 PM – 12:00 AM", phone: "+52 669 100 2002", accent: "amber", logoPath: "/jona-2-logo.svg", sortOrder: 2 },
+    { name: "Restaurante Quiroa 1", subtitle: "Mariscos & Pescados", address: "Av. del Mar 1452, Rosarito, Baja California", description: "Nuestra casa matriz. Cocina bajacaliforniano tradicional con productos traídos directamente de la distribuidora. Especialidad en pescado zarandeado, aguachiles y ceviches de callo de hacha.", hours: "Lun a Dom · 12:00 PM – 11:00 PM", phone: "+52 669 100 2001", accent: "teal", logoPath: "/jona-1-logo.svg", sortOrder: 1 },
+    { name: "Restaurante Quiroa 2", subtitle: "Marisquería & Bar", address: "Blvd. Marina 880, Rosarito, Baja California", description: "Nuestra segunda ubicación, con ambiente más contemporáneo y carta de mariscos al carbón, ostras frescas y coctelería. Terraza frente al malecón con vista al puerto.", hours: "Mar a Dom · 1:00 PM – 12:00 AM", phone: "+52 669 100 2002", accent: "amber", logoPath: "/jona-2-logo.svg", sortOrder: 2 },
   ];
   for (const b of brands) {
     await db.brandEcosystemEntry.create({ data: b });
@@ -292,14 +292,14 @@ async function main() {
 
   // 11. Cobertura
   const zones = [
-    { name: "Mazatlán", type: "primary", sortOrder: 1 },
-    { name: "Culiacán", type: "primary", sortOrder: 2 },
+    { name: "Rosarito", type: "primary", sortOrder: 1 },
+    { name: "Tijuana", type: "primary", sortOrder: 2 },
     { name: "Los Mochis", type: "primary", sortOrder: 3 },
     { name: "Guasave", type: "primary", sortOrder: 4 },
     { name: "Navolato", type: "primary", sortOrder: 5 },
-    { name: "Culiacán a Guamúchil", type: "extended", sortOrder: 6 },
-    { name: "Mazatlán y alrededores", type: "extended", sortOrder: 7 },
-    { name: "Costa de Sinaloa", type: "extended", sortOrder: 8 },
+    { name: "Tijuana a Guamúchil", type: "extended", sortOrder: 6 },
+    { name: "Rosarito y alrededores", type: "extended", sortOrder: 7 },
+    { name: "Costa de Baja California", type: "extended", sortOrder: 8 },
     { name: "Envíos foráneos por paquetería refrigerada", type: "extended", sortOrder: 9 },
   ];
   for (const z of zones) {
