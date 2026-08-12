@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "Mariscos Quiroa",
     locale: "es_MX",
     type: "website",
-    url: "https://mariscosquiroa.mx",
+    url: "https://mariscosquiroa.com",
     images: [
       {
         url: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/198b130d5c30.jpg",

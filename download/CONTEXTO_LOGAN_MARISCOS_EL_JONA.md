@@ -64,7 +64,7 @@ Lo que se construyó para Mariscos Quiroa es la primera implementación vertical
   - Pedidos: bandeja con filtros, buscador, paginación, export CSV, modal de detalle con cambio de estado y links directos a WhatsApp/teléfono del cliente
   - Contenido: CRUD inline de testimonios, FAQs, stats, zonas de cobertura
   - Configuración: editor completo de SiteConfig (identidad, contacto, dirección, redes, imágenes)
-- **Login**: admin@mariscosquiroa.mx / admin123
+- **Login**: admin@mariscosquiroa.com / admin123
 
 #### FASE 2 — Sistema de cotizaciones (completada)
 - **API pública POST /api/public/orders** que crea pedidos desde la web
@@ -333,8 +333,8 @@ Copia y pega este archivo completo como primer mensaje. La IA tendrá todo el co
 - **Seed script**: `scripts/seed.ts` y `scripts/reseed.ts` — datos iniciales
 
 ### Datos de acceso al panel admin (cuando esté en producción)
-- **URL**: mariscosquiroa.mx/admin (cuando tengas dominio real)
-- **Email**: admin@mariscosquiroa.mx
+- **URL**: mariscosquiroa.com/admin (cuando tengas dominio real)
+- **Email**: admin@mariscosquiroa.com
 - **Contraseña**: admin123 (el cliente debe cambiarla)
 
 ---

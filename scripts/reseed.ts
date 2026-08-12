@@ -35,13 +35,13 @@ async function main() {
   const adminPassword = await bcrypt.hash("admin123", 10);
   await db.user.create({
     data: {
-      email: "admin@mariscosquiroa.mx",
+      email: "admin@mariscosquiroa.com",
       name: "Administrador",
       passwordHash: adminPassword,
       role: "ADMIN",
     },
   });
-  console.log("  ✓ Usuario admin: admin@mariscosquiroa.mx / admin123");
+  console.log("  ✓ Usuario admin: admin@mariscosquiroa.com / admin123");
 
   // 2. Configuración del sitio — Rosarito, Baja California
   await db.siteConfig.create({
@@ -59,7 +59,7 @@ async function main() {
       whatsapp: "526616123456",
       whatsappMessage:
         "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
-      email: "ventas@mariscosquiroa.mx",
+      email: "ventas@mariscosquiroa.com",
       streetAddress: "Carretera Tijuana-Ensenada (Libre), Terrazas del Pacífico, Popotla",
       city: "Playas de Rosarito",
       state: "Baja California",
@@ -327,7 +327,7 @@ async function main() {
 
   console.log("\n✅ Reseed completado con éxito.");
   console.log("   Ubicación: Rosarito, Baja California");
-  console.log("   Login admin: admin@mariscosquiroa.mx / admin123");
+  console.log("   Login admin: admin@mariscosquiroa.com / admin123");
 }
 
 main()

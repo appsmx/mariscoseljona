@@ -196,7 +196,7 @@ El panel admin en `http://localhost:3000/admin`
 
 Después de ejecutar el seed, el usuario admin es:
 
-- **Email**: `admin@mariscosquiroa.mx`
+- **Email**: `admin@mariscosquiroa.com`
 - **Contraseña**: `admin123`
 
 ⚠️ **En producción**: cambiar la contraseña desde el panel o con un script de bcrypt.
@@ -210,7 +210,7 @@ Después de ejecutar el seed, el usuario admin es:
 ```env
 DATABASE_URL="file:/ruta/a/db/produccion.db"
 NEXTAUTH_SECRET="genera-uno-nuevo-con-openssl-rand-hex-32"
-NEXTAUTH_URL="https://mariscosquiroa.mx"
+NEXTAUTH_URL="https://mariscosquiroa.com"
 ```
 
 ### Deploy en Vercel (recomendado)
@@ -221,7 +221,7 @@ NEXTAUTH_URL="https://mariscosquiroa.mx"
 
 ### Dominio
 
-Apuntá `mariscosquiroa.mx` a Vercel (DNS A record o CNAME).
+Apuntá `mariscosquiroa.com` a Vercel (DNS A record o CNAME).
 
 ---
 

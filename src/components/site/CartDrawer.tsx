@@ -84,7 +84,7 @@ export function CartDrawer() {
       form.deliveryCity ? `Ciudad: ${form.deliveryCity}` : null,
       form.notes ? `Notas: ${form.notes}` : null,
       ``,
-      `Enviado desde mariscosquiroa.mx`,
+      `Enviado desde mariscosquiroa.com`,
     ].filter(Boolean);
     return encodeURIComponent(lines.join("\n"));
   };

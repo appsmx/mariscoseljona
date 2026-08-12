@@ -28,7 +28,7 @@ export const siteConfig = {
     whatsapp: "526616123456", // TODO: confirmar WhatsApp real
     whatsappMessage:
       "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
-    email: "ventas@mariscosquiroa.mx", // TODO: crear cuando tenga dominio
+    email: "ventas@mariscosquiroa.com", // TODO: crear cuando tenga dominio
     address: {
       street: "Carretera Tijuana-Ensenada (Libre), Terrazas del Pacífico, Popotla", // TODO: confirmar
       city: "Playas de Rosarito",

@@ -12,10 +12,10 @@ async function main() {
   // 1. Usuario admin por defecto
   const adminPassword = await bcrypt.hash("admin123", 10);
   const admin = await db.user.upsert({
-    where: { email: "admin@mariscosquiroa.mx" },
+    where: { email: "admin@mariscosquiroa.com" },
     update: {},
     create: {
-      email: "admin@mariscosquiroa.mx",
+      email: "admin@mariscosquiroa.com",
       name: "Administrador",
       passwordHash: adminPassword,
       role: "ADMIN",
@@ -41,7 +41,7 @@ async function main() {
       whatsapp: "526691234567",
       whatsappMessage:
         "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
-      email: "ventas@mariscosquiroa.mx",
+      email: "ventas@mariscosquiroa.com",
       streetAddress: "Av. del Mar 1452, Col. Centro",
       city: "Rosarito",
       state: "Baja California",
@@ -308,7 +308,7 @@ async function main() {
   console.log(`  ✓ ${zones.length} zonas de cobertura`);
 
   console.log("\n✅ Seed completado con éxito.");
-  console.log("   Login admin: admin@mariscosquiroa.mx / admin123");
+  console.log("   Login admin: admin@mariscosquiroa.com / admin123");
 }
 
 main()
