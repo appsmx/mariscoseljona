@@ -118,7 +118,7 @@ export function ChatWidget() {
         {
           role: "assistant",
           content:
-            "Disculpá, tuve un problema de conexión. Intentá de nuevo o escribinos por WhatsApp.",
+            "Disculpa, tuve un problema de conexión. Intenta de nuevo o escríbenos por WhatsApp.",
           timestamp: Date.now(),
         },
       ]);
@@ -346,7 +346,7 @@ export function ChatWidget() {
                 rel="noopener noreferrer"
                 className="font-semibold text-emerald-600 hover:underline inline-flex items-center gap-0.5"
               >
-                escribinos por WhatsApp
+                escríbenos por WhatsApp
                 <ExternalLink className="h-2.5 w-2.5" />
               </a>
             </p>

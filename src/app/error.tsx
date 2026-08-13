@@ -27,8 +27,8 @@ export default function Error({
           Algo salió mal
         </h1>
         <p className="mt-4 text-white/70 leading-relaxed max-w-md mx-auto">
-          Hubo un problema al cargar esta página. Intentá de nuevo,
-          o volvé al inicio. Si el problema persiste, escribinos por WhatsApp.
+          Hubo un problema al cargar esta página. Intenta de nuevo,
+          o vuelve al inicio. Si el problema persiste, escríbenos por WhatsApp.
         </p>
 
         {error.digest && (

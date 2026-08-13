@@ -48,7 +48,7 @@ export function Footer() {
                 ¿Listo para llevar el mar a tu cocina?
               </h3>
               <p className="mt-2 text-white/70">
-                Cotizá en segundos. Respuesta directa del equipo, sin esperas.
+                Cotiza en segundos. Respuesta directa del equipo, sin esperas.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">

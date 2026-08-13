@@ -282,11 +282,11 @@ async function generateFallbackResponse(message: string): Promise<string> {
           response += menudeo.pricePerKg ? `$${menudeo.pricePerKg}/${menudeo.unit}\n` : `$${menudeo.priceUnit}/${menudeo.unit}\n`;
         }
         response += `\nPresentaciones: ${productMatch.presentations.map(p => p.name).join(", ")}\n`;
-        response += `\n¿Te interesa alguna en particular? Podés agregarla al carrito o escribirnos por WhatsApp al (661) 612-3456 🦐`;
+        response += `\n¿Te interesa alguna en particular? Puedes agregarla al carrito o escríbenos por WhatsApp al (661) 612-3456 🦐`;
         return response;
       }
       return "Te puedo dar el precio de cualquier producto de nuestro catálogo. Tenemos: " +
-        products.map(p => p.name).join(", ") + ". ¿De cuál querés saber el precio?";
+        products.map(p => p.name).join(", ") + ". ¿De cuál quieres saber el precio?";
     }
 
     // Detectar intención: productos disponibles
@@ -318,12 +318,12 @@ async function generateFallbackResponse(message: string): Promise<string> {
 
     // Detectar intención: WhatsApp/contacto
     if (/whatsapp|contacto|telefono|teléfono|llamar|hablar|contactar/.test(msg)) {
-      return `Podés contactarnos por:\n\n📱 WhatsApp: ${config?.phoneDisplay}\n📞 Teléfono: ${config?.phoneDisplay}\n📧 Email: ${config?.email}\n\n¡Estamos para ayudarte! 🦐`;
+      return `Puedes contactarnos por:\n\n📱 WhatsApp: ${config?.phoneDisplay}\n📞 Teléfono: ${config?.phoneDisplay}\n📧 Email: ${config?.email}\n\n¡Estamos para ayudarte! 🦐`;
     }
 
     // Detectar intención: mayoreo vs menudeo
     if (/mayoreo|menudeo|diferencia|cual conviene/.test(msg)) {
-      return "Trabajamos con dos canales:\n\n📦 **Mayoreo**: Para restaurantes, pescaderías y hoteles. Mínimo 5 kg por producto. Precios especiales y entrega programada.\n\n🏠 **Menudeo**: Para hogares. Sin mínimo de compra. Entrega el mismo día.\n\n¿Para qué necesitás el producto? Te recomiendo la mejor opción. 🦐";
+      return "Trabajamos con dos canales:\n\n📦 **Mayoreo**: Para restaurantes, pescaderías y hoteles. Mínimo 5 kg por producto. Precios especiales y entrega programada.\n\n🏠 **Menudeo**: Para hogares. Sin mínimo de compra. Entrega el mismo día.\n\n¿Para qué necesitas el producto? Te recomiendo la mejor opción. 🦐";
     }
 
     // Detectar intención: saludo
@@ -333,11 +333,11 @@ async function generateFallbackResponse(message: string): Promise<string> {
 
     // Detectar intención: agradecimiento
     if (/gracias|muchas gracias|perfecto|genial|excelente/.test(msg)) {
-      return "¡De nada! Si tenés alguna otra consulta, no dudes en preguntar. Estamos para ayudarte. 🦐";
+      return "¡De nada! Si tienes alguna otra consulta, no dudes en preguntar. Estamos para ayudarte. 🦐";
     }
 
     // Respuesta por defecto
-    return `Soy el asistente virtual de ${config?.brandName}. Te puedo ayudar con:\n\n• Información de productos y precios\n• Horarios de atención\n• Zonas de entrega\n• Diferencia entre mayoreo y menudeo\n\n¿Qué te gustaría saber? También podés escribirnos por WhatsApp al (661) 612-3456 para atención personalizada. 🦐`;
+    return `Soy el asistente virtual de ${config?.brandName}. Te puedo ayudar con:\n\n• Información de productos y precios\n• Horarios de atención\n• Zonas de entrega\n• Diferencia entre mayoreo y menudeo\n\n¿Qué te gustaría saber? También puedes escribirnos por WhatsApp al (661) 612-3456 para atención personalizada. 🦐`;
   } catch (error) {
     console.error("Error en fallback:", error);
     return "Disculpa, tuve un problema técnico. Por favor escríbenos por WhatsApp al (661) 612-3456 y te atendemos al instante. 🦐";

@@ -51,7 +51,7 @@ export function WhatsAppFloat() {
             </button>
           </div>
           <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-            ¡Hola! Estamos para ayudarte con tu pedido de mariscos frescos. Tocá abajo para
+            ¡Hola! Estamos para ayudarte con tu pedido de mariscos frescos. Toca abajo para
             escribirnos directamente.
           </p>
           <a

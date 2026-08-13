@@ -133,7 +133,7 @@ export function CartDrawer() {
       });
       clear();
     } catch (e: any) {
-      toast.error("Error al enviar la cotización. Intentá por WhatsApp directo.");
+      toast.error("Error al enviar la cotización. Intenta por WhatsApp directo.");
     } finally {
       setSubmitting(false);
     }

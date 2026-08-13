@@ -48,7 +48,7 @@ export function LoganSeal({
   return (
     <a
       id="logan-seal"
-      href="https://github.com/appsmx/logan"
+      href="https://logancorp.vercel.app"
       target="_blank"
       rel="noopener noreferrer"
       title="Sitio creado con la metodología Logan"

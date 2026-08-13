@@ -149,7 +149,7 @@ export function BrandEcosystem() {
 
         {/* Nota */}
         <p className="mt-10 text-center text-sm text-white/65 max-w-2xl mx-auto">
-          ¿Querés abastecer tu propio restaurante con nuestra calidad?{" "}
+          ¿Quieres abastecer tu propio restaurante con nuestra calidad?{" "}
           <a
             href={`https://wa.me/${brandEcosystem[0] ? "526691234567" : ""}`}
             target="_blank"
