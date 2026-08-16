@@ -155,7 +155,7 @@ export default function AdminConfig() {
             </div>
             <div className="space-y-2">
               <Label>WhatsApp (solo números, con código país)</Label>
-              <Input value={config.whatsapp} onChange={(e) => update("whatsapp", e.target.value)} placeholder="526691234567" />
+              <Input value={config.whatsapp} onChange={(e) => update("whatsapp", e.target.value)} placeholder="526636999689" />
             </div>
             <div className="space-y-2">
               <Label>Mensaje default de WhatsApp</Label>

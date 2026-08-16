@@ -151,7 +151,7 @@ export function BrandEcosystem() {
         <p className="mt-10 text-center text-sm text-white/65 max-w-2xl mx-auto">
           ¿Quieres abastecer tu propio restaurante con nuestra calidad?{" "}
           <a
-            href={`https://wa.me/${brandEcosystem[0] ? "526691234567" : ""}`}
+            href={`https://wa.me/${brandEcosystem[0] ? "526636999689" : ""}`}
             target="_blank"
             rel="noopener noreferrer"
             className="font-semibold text-amber-brand-200 hover:text-amber-brand-100 underline underline-offset-2"

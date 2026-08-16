@@ -23,9 +23,9 @@ export const siteConfig = {
 
   // ---- Contacto (pendiente de confirmar teléfono y WhatsApp) ----
   contact: {
-    phone: "+52 661 612 3456", // TODO: confirmar teléfono real
-    phoneDisplay: "(661) 612-3456", // TODO: confirmar
-    whatsapp: "526616123456", // TODO: confirmar WhatsApp real
+    phone: "+52 663 699 9689", // TODO: confirmar teléfono real
+    phoneDisplay: "(663) 699-9689", // TODO: confirmar
+    whatsapp: "526636999689", // TODO: confirmar WhatsApp real
     whatsappMessage:
       "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
     email: "ventas@mariscosquiroa.com", // TODO: crear cuando tenga dominio

@@ -300,7 +300,7 @@ export function CartDrawer() {
                       <Input
                         value={form.customerPhone}
                         onChange={(e) => update("customerPhone", e.target.value)}
-                        placeholder="(669) 123-4567"
+                        placeholder="(663) 699-9689"
                         className="h-9"
                       />
                     </div>

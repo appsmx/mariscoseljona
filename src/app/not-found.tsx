@@ -36,7 +36,7 @@ export default function NotFound() {
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="bg-white/10 backdrop-blur-md border-white/30 text-white hover:bg-white/20 hover:text-white">
-            <a href="https://wa.me/526616123456" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/526636999689" target="_blank" rel="noopener noreferrer">
               <MessageCircle className="h-4 w-4" />
               WhatsApp
             </a>

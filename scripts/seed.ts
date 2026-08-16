@@ -36,9 +36,9 @@ async function main() {
       description:
         "Distribuidora de pescados y mariscos frescos con más de una década y media de trayectoria abasteciendo a restaurantes, pescaderías y hogares de la región. Trabajamos directamente con cooperativas de puerto para garantizar frescura, trazabilidad y precio justo en cada entrega.",
       foundedYear: 2009,
-      phone: "+52 669 123 4567",
-      phoneDisplay: "(669) 123-4567",
-      whatsapp: "526691234567",
+      phone: "+52 663 699 9689",
+      phoneDisplay: "(663) 699-9689",
+      whatsapp: "526636999689",
       whatsappMessage:
         "Hola Mariscos Quiroa, me gustaría cotizar productos de mariscos.",
       email: "ventas@mariscosquiroa.com",

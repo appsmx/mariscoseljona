@@ -8,7 +8,7 @@ export default function OrganizationSchema() {
     description:
       "Distribuidora de pescados y mariscos frescos en Rosarito, Baja California. Mayoreo y menudeo con entrega a domicilio.",
     url: "https://mariscosquiroa.com",
-    telephone: "+526616123456",
+    telephone: "+526636999689",
     email: "ventas@mariscosquiroa.com",
     image: "https://mariscosquiroa.com/jona-logo.svg",
     logo: "https://mariscosquiroa.com/jona-logo.svg",

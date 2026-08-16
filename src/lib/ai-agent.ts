@@ -126,7 +126,7 @@ QUÉ PUEDES HACER:
 ACCIONES QUE PUEDES SUGERIR (pero no ejecutar tú):
 - "Agrega el producto al carrito desde la tarjeta del catálogo"
 - "Envía tu cotización por WhatsApp con el botón flotante"
-- "Llámanos al (661) 612-3456"
+- "Llámanos al (663) 699-9689"
 
 CUÁNDO ESCALAR A HUMANO:
 - Si el cliente pide un descuento especial o negociación de precios → deriva a WhatsApp.
@@ -227,7 +227,7 @@ export async function processCustomerMessage(
     console.error("Error en agente IA:", error);
     return {
       content:
-        "Disculpa, tuve un problema técnico para responder. Por favor escríbenos por WhatsApp al (661) 612-3456 y te atendemos al instante. 🦐",
+        "Disculpa, tuve un problema técnico para responder. Por favor escríbenos por WhatsApp al (663) 699-9689 y te atendemos al instante. 🦐",
       actions: [
         {
           type: "open_whatsapp",
@@ -282,7 +282,7 @@ async function generateFallbackResponse(message: string): Promise<string> {
           response += menudeo.pricePerKg ? `$${menudeo.pricePerKg}/${menudeo.unit}\n` : `$${menudeo.priceUnit}/${menudeo.unit}\n`;
         }
         response += `\nPresentaciones: ${productMatch.presentations.map(p => p.name).join(", ")}\n`;
-        response += `\n¿Te interesa alguna en particular? Puedes agregarla al carrito o escríbenos por WhatsApp al (661) 612-3456 🦐`;
+        response += `\n¿Te interesa alguna en particular? Puedes agregarla al carrito o escríbenos por WhatsApp al (663) 699-9689 🦐`;
         return response;
       }
       return "Te puedo dar el precio de cualquier producto de nuestro catálogo. Tenemos: " +
@@ -337,10 +337,10 @@ async function generateFallbackResponse(message: string): Promise<string> {
     }
 
     // Respuesta por defecto
-    return `Soy el asistente virtual de ${config?.brandName}. Te puedo ayudar con:\n\n• Información de productos y precios\n• Horarios de atención\n• Zonas de entrega\n• Diferencia entre mayoreo y menudeo\n\n¿Qué te gustaría saber? También puedes escribirnos por WhatsApp al (661) 612-3456 para atención personalizada. 🦐`;
+    return `Soy el asistente virtual de ${config?.brandName}. Te puedo ayudar con:\n\n• Información de productos y precios\n• Horarios de atención\n• Zonas de entrega\n• Diferencia entre mayoreo y menudeo\n\n¿Qué te gustaría saber? También puedes escribirnos por WhatsApp al (663) 699-9689 para atención personalizada. 🦐`;
   } catch (error) {
     console.error("Error en fallback:", error);
-    return "Disculpa, tuve un problema técnico. Por favor escríbenos por WhatsApp al (661) 612-3456 y te atendemos al instante. 🦐";
+    return "Disculpa, tuve un problema técnico. Por favor escríbenos por WhatsApp al (663) 699-9689 y te atendemos al instante. 🦐";
   }
 }
 

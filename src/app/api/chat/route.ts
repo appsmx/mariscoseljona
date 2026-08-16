@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         content:
-          "Disculpa, tuve un problema técnico. Escríbenos por WhatsApp al (669) 123-4567 y te atendemos al instante.",
+          "Disculpa, tuve un problema técnico. Escríbenos por WhatsApp al (663) 699-9689 y te atendemos al instante.",
         actions: [
           {
             type: "open_whatsapp",
