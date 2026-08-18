@@ -47,15 +47,11 @@ export function Navbar() {
         <div className="flex h-16 sm:h-20 items-center justify-between gap-4">
           {/* Logo */}
           <Link href="#inicio" className="flex items-center gap-3 group">
-            <span className="relative inline-flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-ocean-500 to-ocean-700 items-center justify-center shadow-md ring-1 ring-white/20">
-              <svg viewBox="0 0 64 64" className="h-7 w-7 sm:h-8 sm:w-8" fill="none">
-                <path
-                  d="M14 36c0-7 6-13 13-13 4 0 8 2 10 5 1-4 5-7 9-7 1 0 2 0 3 1-3 1-5 4-5 7 0 0 4-2 7-1-2 4-6 6-10 6-2 0-3 0-4-1-1 4-5 7-9 7-7 0-14-1-14-4z"
-                  fill="#fef3c7"
-                />
-                <circle cx="22" cy="32" r="1.6" fill="#0d9488" />
-              </svg>
-            </span>
+            <img
+              src="/logo.png"
+              alt="Mariscos Quiroa"
+              className="h-10 w-10 sm:h-12 sm:w-12 shrink-0 rounded-xl object-cover shadow-md"
+            />
             <div className="flex flex-col leading-none">
               <span
                 className={cn(

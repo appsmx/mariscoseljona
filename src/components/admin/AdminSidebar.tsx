@@ -60,15 +60,11 @@ export function AdminSidebar() {
         )}
       >
         <div className="flex items-center gap-3 px-6 py-6 border-b border-white/10">
-          <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-brand-400 to-amber-brand-600 shadow-lg">
-            <svg viewBox="0 0 64 64" className="h-7 w-7" fill="none">
-              <path
-                d="M14 36c0-7 6-13 13-13 4 0 8 2 10 5 1-4 5-7 9-7 1 0 2 0 3 1-3 1-5 4-5 7 0 0 4-2 7-1-2 4-6 6-10 6-2 0-3 0-4-1-1 4-5 7-9 7-7 0-14-1-14-4z"
-                fill="#0c4a6e"
-              />
-              <circle cx="22" cy="32" r="1.6" fill="#fef3c7" />
-            </svg>
-          </span>
+          <img
+            src="/logo.png"
+            alt="Mariscos Quiroa"
+            className="h-11 w-11 rounded-xl shadow-lg object-cover"
+          />
           <div>
             <p className="font-display text-lg font-bold leading-none">Quiroa</p>
             <p className="text-[10px] uppercase tracking-[0.18em] text-amber-brand-200 mt-1">

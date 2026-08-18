@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mariscos Quiroa" }],
   icons: {
-    icon: "/jona-logo.svg",
+    icon: "/logo.png",
   },
   openGraph: {
     title: "Mariscos Quiroa | Pescados y Mariscos Frescos en Baja California",

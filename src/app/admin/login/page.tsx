@@ -29,15 +29,11 @@ export default async function LoginPage() {
           <div className="rounded-3xl bg-card border border-border shadow-2xl p-8">
             {/* Logo */}
             <div className="flex flex-col items-center text-center mb-8">
-              <span className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-500 to-ocean-700 shadow-lg ring-1 ring-white/20 mb-4">
-                <svg viewBox="0 0 64 64" className="h-10 w-10" fill="none">
-                  <path
-                    d="M14 36c0-7 6-13 13-13 4 0 8 2 10 5 1-4 5-7 9-7 1 0 2 0 3 1-3 1-5 4-5 7 0 0 4-2 7-1-2 4-6 6-10 6-2 0-3 0-4-1-1 4-5 7-9 7-7 0-14-1-14-4z"
-                    fill="#fef3c7"
-                  />
-                  <circle cx="22" cy="32" r="1.6" fill="#0d9488" />
-                </svg>
-              </span>
+              <img
+                src="/logo.png"
+                alt="Mariscos Quiroa"
+                className="h-16 w-16 rounded-2xl shadow-lg ring-1 ring-white/20 mb-4 object-cover"
+              />
               <h1 className="font-display text-2xl font-bold text-foreground">
                 Mariscos Quiroa
               </h1>

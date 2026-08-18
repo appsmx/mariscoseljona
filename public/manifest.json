@@ -11,9 +11,9 @@
   "categories": ["food", "shopping", "business"],
   "icons": [
     {
-      "src": "/jona-logo.svg",
+      "src": "/logo.png",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],
